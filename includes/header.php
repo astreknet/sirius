@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="Author" content="hugo@astrek.net" />
-    <link rel="shortcut icon" href="./favicon.png" />
+    <link rel="shortcut icon" href="./img/favicon.ico" />
     <link rel="stylesheet" href="./sirius.css">
     <title id="title">sirius</title>
 </head>

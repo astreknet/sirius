@@ -10,7 +10,7 @@
 <style type="text/css">
 body {  
         font: 100% Monospace; 
-        background-image: url("./kiitos.webp");
+        background-image: url("./img/kiitos.webp");
         background-size:100% 100%;
         background-repeat: no-repeat;
 }
