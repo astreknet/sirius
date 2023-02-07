@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('inc.function.php');
+include('includes/function.php');
 date_default_timezone_set('Europe/Helsinki');
 $conn = new mysqli('127.0.0.1', 'lsn', 'L1pl1nd', 'lsn');
 $conn-> set_charset('utf8');
@@ -20,7 +20,7 @@ if (isset($_GET['exit']))
 $sql = $conn->query('SELECT t.id, s.name as s_name, erp_link, date, route FROM trip t Left JOIN safari s on s.id = t.safari_id where user_id = '.$_SESSION['user_id'].' and done = false');
 $undone = $sql->fetch_array(MYSQLI_ASSOC);
 
-include('inc.header.php');
+include('includes/header.php');
 
 if (isset($undone)) {
     if (isset($_POST['u_route']) && !empty($_POST['u_route'])){
@@ -276,5 +276,5 @@ else {
         }
     }
     }
-include('./inc.footer.php');
+include('./includes/footer.php');
 ?>

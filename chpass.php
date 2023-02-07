@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('inc.function.php');
+include('includes/function.php');
 if (isset($_GET['exit']))
     wayout();
 if ( isset($_POST['newpass']) && isset($_POST['newpass1']) && !empty($_POST['newpass']) && ($_POST['newpass'] == $_POST['newpass1']) ){
@@ -15,7 +15,7 @@ if ( isset($_POST['newpass']) && isset($_POST['newpass1']) && !empty($_POST['new
     $conn-> close();
     wayout();
 }
-include('inc.header.php');
-include('inc.chpass.php');
-include('inc.footer.php');
+include('includes/header.php');
+include('includes/chpass.php');
+include('includes/footer.php');
 ?>
