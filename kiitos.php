@@ -10,7 +10,7 @@
 <style type="text/css">
 body {  
         font: 100% Monospace; 
-        background-image: url("./art/kiitos.jpg");
+        background-image: url("./kiitos.webp");
         background-size:100% 100%;
         background-repeat: no-repeat;
 }
@@ -52,20 +52,10 @@ li {list-style: none;}
         vertical-align: middle;
         }
 .form_wide{ width:75%;}
-#anonymous textarea{
-        height: 15%;
-        vertical-align: top;
-        }
 .form, .form_wide {
         border: 0.045em solid red;
         border-radius: 0.3em;
 }
-#login, #signin {
-        margin-left:0;
-        }
-#anonymous {
-        margin-right:0;
-        }
 </style>
 <!-- CSS3 ends -->
 </head>

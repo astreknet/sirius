@@ -1,0 +1,70 @@
+body {
+    font: 100% Monospace;
+    background-image: url("./sirius.webp");
+    background-repeat: no-repeat;
+    margin: 0;
+    height: 100vh;
+}
+h1, h2 {
+    margin: 0;
+    margin-left: 0.3%;
+}
+h3 { text-align: center; }
+li { list-style: none; }
+header{
+        width: 100%;
+        background-color: red;
+        color: #fff;
+        margin-top: 0.3%;
+        top: 0;
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        opacity: 0.9;
+        filter: alpha(opacity=90);
+        z-index: 9;
+}
+#guide_id {
+    float: right;
+    margin-right: 0.3%;
+}
+.center, section, table { margin:1.5% auto; }
+.left_align { text-align: left; }
+section {
+        color: red;
+        width: 81%;
+        padding: 1.2%;
+        border: 0.09em dashed red;
+        border-radius: 0.6em;
+        background-color: #fff;
+        opacity: 0.75;
+        filter: alpha(opacity=75);
+        text-align: right;
+}
+table { width: 96%; }
+fieldset {
+    border-radius: 0.6em;
+    border: 0.09em dashed red;
+    margin-bottom: 9px;
+}
+#accident div {
+    float: right;
+    width: 51%;
+}
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+input, select, textarea { margin-top: 0.3%; }
+input, textarea {
+    width: 300px;
+    border: 0.045em solid red;
+    border-radius: 0.3em;
+}
+
+textarea{
+    width: 299px;
+    height: 90px;
+    vertical-align: top;
+}
+.button { width: auto; }
