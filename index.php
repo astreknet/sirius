@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('includes/header.php');
+include_once 'includes/header.html';
 
 if (!empty($_POST['mail']) && !empty($_POST['password'])){
         $conn = new mysqli('127.0.0.1', 'lsn', 'L1pl1nd', 'lsn');
@@ -30,5 +30,5 @@ if (!empty($_POST['mail']) && !empty($_POST['password'])){
 }
     
 include('includes/login.php');
-include('includes/footer.php');
+include_once 'includes/footer.html';
 ?>
