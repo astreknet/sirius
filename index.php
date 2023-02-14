@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'includes/header.html';
+require_once 'includes/header.html';
 
 if (!empty($_POST['mail']) && !empty($_POST['password'])){
         $conn = new mysqli('127.0.0.1', 'lsn', 'L1pl1nd', 'lsn');
