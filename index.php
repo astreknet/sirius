@@ -29,6 +29,6 @@ if (!empty($_POST['mail']) && !empty($_POST['password'])){
         }
 }
     
-include('includes/login.php');
-include_once 'includes/footer.html';
+include 'includes/login.html';
+require_once 'includes/footer.html';
 ?>
