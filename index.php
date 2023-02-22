@@ -1,7 +1,21 @@
 <?php
 session_start();
-require_once 'includes/header.html';
+require_once 'templates/html.header.php';
+require_once 'includes/myconn.php';
+include_once 'class/User.php';
 
+$userLogged = NULL;
+
+((empty($_POST['mail']) || empty($_POST['password'])) ?: $user = new User($_POST['mail'], $_POST['password']) );
+$userLogged = (isset($user) ? $userLogged = $user->login($pdo) : NULL); 
+include( !is_null($userLogged)  ? 'templates/html.login.php' : 'templates/html.login.php');
+
+echo var_dump($userLogged);
+echo $userLogged->trips[0]['erp_link'];
+
+//$fuser = (getUserByMail("hugo.sastre@laplandsafaris.fi", $pdo));
+//echo var_dump($user);
+/*
 if (!empty($_POST['mail']) && !empty($_POST['password'])){
         $conn = new mysqli('127.0.0.1', 'lsn', 'L1pl1nd', 'lsn');
         $conn-> set_charset('utf8');
@@ -19,16 +33,18 @@ if (!empty($_POST['mail']) && !empty($_POST['password'])){
             if ((!is_null($can['password'])) && ($log_pass === $can['password'])) {
                 $_SESSION = $can;
                 unset($can);
-                header('location:'.'trip.php');
+            //    header('location:'.'trip.php');
             }
             if ((is_null($can['password'])) && (hash('sha256', $log_mail) === $log_pass)) {
                 $_SESSION['mail'] = $log_mail;
                 unset($can);
-                header('location:'.'chpass.php');
+            //    header('location:'.'chpass.php');
             }
         }
 }
-    
-include 'includes/login.html';
-require_once 'includes/footer.html';
+ */
+
+
+require_once 'templates/html.footer.php';
+session_destroy();
 ?>

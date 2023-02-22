@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset = "UTF-8" >
+    <meta name="description" content="astrek aurora forecast, a fast, light, and responsive northern lights forecast" >
+    <meta name="Keywords" content="aurora, aurora forecast, lapland, northern lights, revontulet, inlapland, guide, finland" >
     <meta name="Author" content="hugo@astrek.net" />
     <link rel="shortcut icon" href="./img/favicon.ico" />
     <link rel="stylesheet" href="./sirius.css">

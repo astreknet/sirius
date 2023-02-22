@@ -1,9 +1,6 @@
 <?php
-session_start();
 include_once 'includes/function.php';
 date_default_timezone_set('Europe/Helsinki');
-$conn = new mysqli('127.0.0.1', 'lsn', 'L1pl1nd', 'lsn');
-$conn-> set_charset('utf8');
 
 
 function formatdate($date) {
@@ -17,10 +14,9 @@ function formatdate($date) {
 if (isset($_GET['exit']))
     wayout();
 
-$sql = $conn->query('SELECT t.id, s.name as s_name, erp_link, date, route FROM trip t Left JOIN safari s on s.id = t.safari_id where user_id = '.$_SESSION['user_id'].' and done = false');
-$undone = $sql->fetch_array(MYSQLI_ASSOC);
+//$sql = $conn->query('SELECT t.id, s.name as s_name, erp_link, date, route FROM trip t Left JOIN safari s on s.id = t.safari_id where user_id = '.$_SESSION['user_id'].' and done = false');
+//$undone = $sql->fetch_array(MYSQLI_ASSOC);
 
-include_once 'includes/header.html';
 
 if (isset($undone)) {
     if (isset($_POST['u_route']) && !empty($_POST['u_route'])){

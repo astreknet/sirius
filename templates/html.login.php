@@ -1,6 +1,6 @@
-<section id="guide_login">
+<section id="login">
     <h3>log in</h3>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+    <form action="" method="POST">
         <ul>
             <li><label id="user">user:</label><input maxlength="45" name="mail"></li>
             <li><label id="password">password:</label><input maxlength="45" type="password" name="password"></li>

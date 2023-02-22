@@ -1,4 +1,3 @@
-</div>
 <!-- JAVASCRIPT STARTS -->
 <script>
     var lang = navigator.language.slice(0, 2) || navigator.userLanguage.slice(0, 2)
@@ -27,6 +26,5 @@
         language.send()
     }
 </script>
-
 </body>
 </html>
