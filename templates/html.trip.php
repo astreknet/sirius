@@ -1,7 +1,23 @@
+<section id="my_trips">
+    <h3>my trips</h3>
+        <table>
+<?php
+    
+    foreach($user->trip as $row){
+    $safari = getSafariByID($row['safari_id'], $pdo);
+        echo '  <tr>
+                    <td td class="left_align">'.formatdate($row['date']).'</td>
+                    <td><a href="https://www.explores.fi/ERP_Offer/DepartureDetail.aspx?DepartureId='.$row['erp_link'].'" target="_blank" >'.$safari[0]["name"].'</a></td>
+                    <td>[<a href="?near='.$row['id'].'">near miss</a>][<a href="?acc='.$row['id'].'">accident</a>]</td></tr>';
+    }
+?>
+        </table>
+</section>
+
+
 <?php
 include_once 'includes/function.php';
-date_default_timezone_set('Europe/Helsinki');
-
+echo var_dump($_SESSION);
 
 function formatdate($date) {
     $myunixdate = strtotime($date);

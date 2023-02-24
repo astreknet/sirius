@@ -1,17 +1,19 @@
 <?php
 session_start();
+date_default_timezone_set('Europe/Helsinki');
 require_once 'templates/html.header.php';
 require_once 'includes/myconn.php';
 include_once 'class/User.php';
 
-$userLogged = NULL;
 
-((empty($_POST['mail']) || empty($_POST['password'])) ?: $user = new User($_POST['mail'], $_POST['password']) );
-$userLogged = (isset($user) ? $userLogged = $user->login($pdo) : NULL); 
-include( !is_null($userLogged)  ? 'templates/html.login.php' : 'templates/html.login.php');
+((empty($_POST['mail']) || empty($_POST['password'])) ?: validateUser($_POST['mail'], $_POST['password'], $pdo));
+(isset($_SESSION['umail']) ? $user = new User($_SESSION['umail'], $pdo) : NULL);
+((!isset($user->active) || ( $user->active == FALSE))  ?: include 'templates/html.navbar.php');
+include ((!isset($user->active) || ( $user->active == FALSE))  ? 'templates/html.login.php' : 'templates/html.trip.php');
 
-echo var_dump($userLogged);
-echo $userLogged->trips[0]['erp_link'];
+echo var_dump($_SESSION).'<br>';
+echo var_dump($user).'<br>';
+//echo $userLogged->trips[0]['erp_link'];
 
 //$fuser = (getUserByMail("hugo.sastre@laplandsafaris.fi", $pdo));
 //echo var_dump($user);
