@@ -3,9 +3,9 @@ class User{
     public $mail;
     public $id, $name, $surname, $admin, $active, $trip, $accident, $nearmiss;
 
-    public function __construct($pMail, $pdo){
+    public function __construct($pMail, $pPass, $pdo){
         $this->mail = $pMail;
-        if ($r = getUserByMail($this->mail, $pdo)) {
+        if (($r = getUserByMail($this->mail, $pdo)) && ($pPass === $r['password'])) {
             $this->id = $r['id'];
             $this->name = $r['name'];
             $this->surname = $r['surname'];

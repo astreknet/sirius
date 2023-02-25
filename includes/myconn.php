@@ -115,17 +115,15 @@ function getUserByMail($mail, $pdo){
 }
 
 function validateUser($mail, $password, $pdo){
-    try {
-        $mail = htmlspecialchars(stripslashes(trim($mail)));
-        $password = hash('sha256', htmlspecialchars(stripslashes(trim($password))));
-        if( ($r = getUserByMail($mail, $pdo)) && ($r['password'] === $password) ){
-            $_SESSION['umail'] = $mail;    
-        }
+    $mail = htmlspecialchars(stripslashes(trim($mail)));
+    $password = hash('sha256', htmlspecialchars(stripslashes(trim($password))));
+    if( ($r = getUserByMail($mail, $pdo)) && ($r['password'] === $password) ){
+        $_SESSION['umail'] = $mail;    
+        $_SESSION['upass'] = $password;    
     }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    if( ($r = getUserByMail($mail, $pdo)) && (is_null($r['password'])) && (hash('sha256', $mail) === $password) && ($r['active'])){
+        $_SESSION['chpass'] = TRUE;
     }
-    include  __DIR__ . '/../templates/html.output.php';
 }
 
 function getTripsByUser($userId, $pdo){

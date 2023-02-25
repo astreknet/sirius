@@ -1,5 +1,5 @@
 <section id="my_trips">
-    <h3>my trips</h3>
+    <h3>users</h3>
         <ul>
 <?php
     

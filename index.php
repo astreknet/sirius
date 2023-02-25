@@ -4,48 +4,22 @@ date_default_timezone_set('Europe/Helsinki');
 require_once 'templates/html.header.php';
 require_once 'includes/myconn.php';
 include_once 'class/User.php';
+include_once 'includes/function.php';
 
-
+(!isset($_GET['out']) ?: wayout());
 ((empty($_POST['mail']) || empty($_POST['password'])) ?: validateUser($_POST['mail'], $_POST['password'], $pdo));
-(isset($_SESSION['umail']) ? $user = new User($_SESSION['umail'], $pdo) : NULL);
-((!isset($user->active) || ( $user->active == FALSE))  ?: include 'templates/html.navbar.php');
-include ((!isset($user->active) || ( $user->active == FALSE))  ? 'templates/html.login.php' : 'templates/html.trip.php');
-
-echo var_dump($_SESSION).'<br>';
-echo var_dump($user).'<br>';
-//echo $userLogged->trips[0]['erp_link'];
-
-//$fuser = (getUserByMail("hugo.sastre@laplandsafaris.fi", $pdo));
-//echo var_dump($user);
-/*
-if (!empty($_POST['mail']) && !empty($_POST['password'])){
-        $conn = new mysqli('127.0.0.1', 'lsn', 'L1pl1nd', 'lsn');
-        $conn-> set_charset('utf8');
-        $log_mail = htmlspecialchars(stripslashes(trim($_POST['mail'])));
-        $log_pass = hash('sha256', htmlspecialchars(stripslashes(trim($_POST['password']))));
-        $stmt = $conn->prepare('SELECT id, name, surname, password, admin, active FROM user WHERE mail = ?');
-        $stmt-> bind_param('s', $log_mail);
-        $stmt-> execute();
-        $stmt-> store_result();
-        $stmt-> bind_result($can['user_id'], $can['name'], $can['surname'], $can['password'], $can['admin'], $can['active']);
-        $stmt-> fetch();
-        $stmt-> close();
-       
-        if ($can['active'] == 1) {
-            if ((!is_null($can['password'])) && ($log_pass === $can['password'])) {
-                $_SESSION = $can;
-                unset($can);
-            //    header('location:'.'trip.php');
-            }
-            if ((is_null($can['password'])) && (hash('sha256', $log_mail) === $log_pass)) {
-                $_SESSION['mail'] = $log_mail;
-                unset($can);
-            //    header('location:'.'chpass.php');
-            }
-        }
+(!isset($_SESSION['umail']) && !isset($_SESSION['upass']) ?: $user = new User($_SESSION['umail'], $_SESSION['upass'], $pdo));
+((!isset($user->active) || ( !$user->active ))  ?: ( $user->admin ? include 'templates/html.adnavbar.php' : include 'templates/html.navbar.php'));
+//include ((!isset($user->active) || ( !$user->active ))  ? 'templates/html.login.php' : 'templates/html.trip.php');
+//echo var_dump($_SESSION);
+if (isset($user->active) && ( $user->active )){
+    include 'templates/html.trip.php';    
+    include 'templates/html.chpass.php';    
+    include 'templates/html.user.php';    
 }
- */
-
+else {
+    include (isset($_SESSION['chpass']) ? 'templates/html.chpass.php' : 'templates/html.login.php');
+}
 
 require_once 'templates/html.footer.php';
 session_destroy();

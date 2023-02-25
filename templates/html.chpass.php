@@ -1,11 +1,17 @@
+<section id="change_pass">
+    <h3>change password</h3>
+    <form action="" method="POST">
+        <ul>
+            <li>new password:<input type="password" maxlength="30" name="newpass"></li>
+            <li>repeat:<input type="password" maxlength="30" name="newpass1"></li>
+            <li><input type="submit"></li>
+        </ul>
+    </form>
+</section>
 <?php
-session_start();
-include('includes/function.php');
 if (isset($_GET['exit']))
     wayout();
 if ( isset($_POST['newpass']) && isset($_POST['newpass1']) && !empty($_POST['newpass']) && ($_POST['newpass'] == $_POST['newpass1']) ){
-    $conn = new mysqli('127.0.0.1', 'lsn', 'L1pl1nd', 'lsn');
-    $conn-> set_charset('utf8');
 
     $newpass = hash('sha256', htmlspecialchars(stripslashes(trim($_POST['newpass']))));
     $stmt = $conn->prepare('update user set password = ?  where mail = ?;');
@@ -15,7 +21,4 @@ if ( isset($_POST['newpass']) && isset($_POST['newpass1']) && !empty($_POST['new
     $conn-> close();
     wayout();
 }
-include('includes/header.php');
-include('includes/chpass.php');
-include('includes/footer.php');
 ?>
