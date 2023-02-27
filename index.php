@@ -13,9 +13,15 @@ include_once 'includes/function.php';
 //include ((!isset($user->active) || ( !$user->active ))  ? 'templates/html.login.php' : 'templates/html.trip.php');
 //echo var_dump($_SESSION);
 if (isset($user->active) && ( $user->active )){
-    include 'templates/html.trip.php';    
-    include 'templates/html.chpass.php';    
-    include 'templates/html.user.php';    
+    if(isset($_GET['users'])){
+        include 'templates/html.user.php';    
+    }
+    elseif(isset($_GET['chpass'])){
+        include 'templates/html.chpass.php';    
+    }
+    else{
+        include 'templates/html.trip.php';    
+    }
 }
 else {
     include (isset($_SESSION['chpass']) ? 'templates/html.chpass.php' : 'templates/html.login.php');
