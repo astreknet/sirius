@@ -122,6 +122,7 @@ function validateUser($mail, $password, $pdo){
         $_SESSION['upass'] = $password;    
     }
     if( ($r = getUserByMail($mail, $pdo)) && (is_null($r['password'])) && (hash('sha256', $mail) === $password) && ($r['active'])){
+        $_SESSION['umail'] = $mail;    
         $_SESSION['chpass'] = TRUE;
     }
 }
@@ -196,5 +197,23 @@ function getSafariByID($safariId, $pdo){
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
     include  __DIR__ . '/../templates/html.output.php';
+}
+
+function getSafaris($pdo){
+    try {
+        $sql = 'SELECT id, name FROM safari';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $result[] = $row;
+        }
+        $stmt->closeCursor();
+        return $result;
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../templates/html.output.php';
+
 }
 ?>

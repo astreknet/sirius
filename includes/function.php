@@ -1,10 +1,10 @@
 <?php
-function wayout() {
-    session_unset();
-    session_destroy();
-    header('location:'.'kiitos.php');
-    die();
+function formatdate($date) {
+    $myunixdate = strtotime($date);
+    if (date("Y-m-d") == date("Y-m-d", $myunixdate))
+        return "today ".date("G:i", $myunixdate);
+    else
+        return date("D M j G:i", $myunixdate);
 }
-
 
 ?>

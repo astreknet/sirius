@@ -1,6 +1,61 @@
+<?php
+$mytime = new DateTime('NOW');
+    //$i =  $mytime->format('i');  //OLD STUFF
+    //while ($i < 60){
+    //    $i = $i + 15;
+    //}
+    //$i = 60 - $i;
+    $diffMin = new DateInterval('PT'.(60 - $mytime->format('i')).'M');
+    $diff15Min = new DateInterval('PT15M');
+    $diff30Min = new DateInterval('PT30M');
+    $mytime->add($diffMin);
+
+?>
 <section id="my_trips">
-    <h3>my trips</h3>
-        <ul>
+    <h3>My Safaris</h3>
+    <form action="" method="POST">
+        <fieldset>
+            <legend>add a trip</legend>
+                <ul>
+                    <li>
+                        <label for="erp_link">erp link:</label> 
+                        <input type="text" name="erp_link" value='<?php if(isset($_POST["erp_link"])){ echo $_POST["erp_link"]; } ?>'>
+                    </li>
+                    <li>
+                        <label for="time">time:</label> 
+                        <select name="time">
+<?php                   for ($i = 0; $i < 9; $i++){
+                            $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
+                            echo '<option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
+                            $mytime->add($diff30Min);
+                        } 
+?>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="safari">safari:</label> 
+                        <select name="safari">
+                            <option value="" selected disabled hidden>Choose a safari:</option>
+<?php
+                            $row = getSafaris($pdo);
+                            foreach($row as $r){
+                            $sel = ((isset($_POST['safari']) && ($_POST['safari'] == $r['id'])) ? 'selected' : '');
+                            echo '<option value="'.$r['id'].'" '.$sel.'>'.$r['name'].'</option>';
+                            }
+?>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="route">route:</label> <input type="text" name="route" maxlength="150" value='<?php if(isset($_POST["route"])){ echo $_POST["route"]; } ?>'>
+                    </li>
+                    <li>
+                        <input type="submit" class="button" value="send">
+                    </li>
+                </ul>
+        </fieldset>
+    </form>
+        
+    <ul>
 <?php
     
     foreach($user->trip as $row){
@@ -8,24 +63,17 @@
         echo '  <li>'.formatdate($row['date']).' <a href="https://www.explores.fi/ERP_Offer/DepartureDetail.aspx?DepartureId='.$row['erp_link'].'" target="_blank" >'.$safari[0]["name"].'</a></li>';
     }
 ?>
-        </ul>
+    </ul>
 </section>
 
 
+
+
+
 <?php
-echo var_dump($_SESSION);
-
-function formatdate($date) {
-    $myunixdate = strtotime($date);
-    if (date("Y-m-d") == date("Y-m-d", $myunixdate))
-        return "today ".date("G:i", $myunixdate);
-    else
-        return date("D M j G:i", $myunixdate);
-}
-
-if (isset($_GET['exit']))
-    wayout();
-
+                            
+                            
+/*                            
 //$sql = $conn->query('SELECT t.id, s.name as s_name, erp_link, date, route FROM trip t Left JOIN safari s on s.id = t.safari_id where user_id = '.$_SESSION['user_id'].' and done = false');
 //$undone = $sql->fetch_array(MYSQLI_ASSOC);
 
@@ -284,5 +332,5 @@ else {
         }
     }
     }
-include_once './includes/footer.html';
+ */
 ?>
