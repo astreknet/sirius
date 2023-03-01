@@ -23,19 +23,14 @@ if (isset($user->active) && ( $user->active )){
     }
 }
 else {
-    include (isset($_SESSION['chpass']) ? 'templates/html.chpass.php' : 'templates/html.login.php');
+    include (isset($_SESSION['chpass']) ? 'templates/html.register.php' : 'templates/html.login.php');
 }
-//echo var_dump($_SESSION).'<br>';
+echo var_dump($_SESSION).'<br>';
 //echo var_dump($_SERVER).'<br>';
-//echo var_dump($user->accident).'<br>';
-echo count($user->trip).'<br>';
+echo var_dump($user).'<br>';
+//echo count($user->trip).'<br>';
 //echo var_dump(getAccidentsByTripID(11, $pdo)).'<br>';
-echo var_dump($user->trip).'<br>';
-//echo var_dump($user->trip[1]['accident']).'<br>';
-//for($i=0; $i<count($user->trip); $i++){
-//    $user->trip[$i]['accident'] = $i;
-//    echo var_dump($user->trip[$i]).'<br>';
-//}
+//echo var_dump($user->trip).'<br>';
 
 
 require_once 'templates/html.footer.php';

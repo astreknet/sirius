@@ -2,8 +2,9 @@
     <h3>change password</h3>
     <form action="" method="POST">
         <ul>
-            <li>new password:<input type="password" maxlength="30" name="newpass"></li>
-            <li>repeat:<input type="password" maxlength="30" name="newpass1"></li>
+            <li>current:<input type="password" maxlength="30" name="oldpass"></li>
+            <li>new:<input type="password" maxlength="30" name="newpass"></li>
+            <li>repeat new:<input type="password" maxlength="30" name="newpass1"></li>
             <li><input type="submit"></li>
         </ul>
     </form>
