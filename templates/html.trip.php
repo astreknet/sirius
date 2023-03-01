@@ -57,10 +57,15 @@ $mytime = new DateTime('NOW');
         
     <ul>
 <?php
-    
-    foreach($user->trip as $row){
-    $safari = getSafariByID($row['safari_id'], $pdo);
-        echo '  <li>'.formatdate($row['date']).' <a href="https://www.explores.fi/ERP_Offer/DepartureDetail.aspx?DepartureId='.$row['erp_link'].'" target="_blank" >'.$safari[0]["name"].'</a></li>';
+    for($i=0; $i<count($user->trip); $i++){
+        //echo var_dump(getAccidentsByTripID($row['id'], $pdo));
+        $safari = getSafariByID($user->trip[$i]['safari_id'], $pdo);
+        $accidents = (is_array($user->trip[$i]['accident']) ? count($user->trip[$i]['accident']) : 0);
+        $near_misses = (is_array($user->trip[$i]['near_miss']) ? count($user->trip[$i]['near_miss']) : 0);
+        echo '  <li>'.formatdate($user->trip[$i]['date']).' <a href="https://www.explores.fi/ERP_Offer/DepartureDetail.aspx?DepartureId='.$user->trip[$i]['erp_link'].'" target="_blank" >'.$safari[0]["name"].'</a><br>
+                Accidents: '.$accidents.'
+                Near Misses: '.$near_misses.'
+                </li>';
     }
 ?>
     </ul>

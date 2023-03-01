@@ -145,6 +145,42 @@ function getTripsByUser($userId, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
+function getAccidentsByTripID($tripId, $pdo){
+    try {
+        $sql = 'SELECT * FROM accident WHERE trip_id = :tripId';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':tripId', $tripId);
+        $stmt->execute();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $result[] = $row;
+        }
+        $stmt->closeCursor();
+        return (!isset($result) ?: $result);
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../templates/html.output.php';
+}
+
+function getNear_missesByTripID($tripId, $pdo){
+    try {
+        $sql = 'SELECT * FROM nearmiss WHERE trip_id = :tripId';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':tripId', $tripId);
+        $stmt->execute();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $result[] = $row;
+        }
+        $stmt->closeCursor();
+        return (!isset($result) ?: $result);
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../templates/html.output.php';
+}
+
 function getAccidentsByUser($userId, $pdo){
     try {
         $sql = 'SELECT * FROM accident WHERE user_id = :userId';

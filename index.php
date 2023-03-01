@@ -11,7 +11,6 @@ include_once 'includes/function.php';
 (!isset($_SESSION['umail']) || !isset($_SESSION['upass']) ?: $user = new User($_SESSION['umail'], $_SESSION['upass'], $pdo));
 ((!isset($user->active) || ( !$user->active ))  ?: include 'templates/html.navbar.php');
 //include ((!isset($user->active) || ( !$user->active ))  ? 'templates/html.login.php' : 'templates/html.trip.php');
-//echo var_dump($_SESSION);
 if (isset($user->active) && ( $user->active )){
     if(isset($_GET['users'])){
         include 'templates/html.user.php';    
@@ -26,6 +25,18 @@ if (isset($user->active) && ( $user->active )){
 else {
     include (isset($_SESSION['chpass']) ? 'templates/html.chpass.php' : 'templates/html.login.php');
 }
+//echo var_dump($_SESSION).'<br>';
+//echo var_dump($_SERVER).'<br>';
+//echo var_dump($user->accident).'<br>';
+echo count($user->trip).'<br>';
+//echo var_dump(getAccidentsByTripID(11, $pdo)).'<br>';
+echo var_dump($user->trip).'<br>';
+//echo var_dump($user->trip[1]['accident']).'<br>';
+//for($i=0; $i<count($user->trip); $i++){
+//    $user->trip[$i]['accident'] = $i;
+//    echo var_dump($user->trip[$i]).'<br>';
+//}
+
 
 require_once 'templates/html.footer.php';
 ?>
