@@ -43,7 +43,7 @@
 
             CREATE TABLE IF NOT EXISTS user (
                 id int unsigned NOT NULL AUTO_INCREMENT,
-                mail varchar(45) NOT NULL unique,
+                email varchar(45) NOT NULL unique,
                 password char(64),
                 name varchar(18),
                 surname varchar(18),
@@ -53,7 +53,7 @@
                 PRIMARY KEY (id)
             );
 
-            INSERT IGNORE INTO user (id, mail, admin, active) VALUES (1, "hugo@dabug.go", TRUE, TRUE);
+            INSERT IGNORE INTO user (id, email, admin, active) VALUES (1, "hugo@dabug.go", TRUE, TRUE);
 
             CREATE TABLE IF NOT EXISTS trip (
                 id int unsigned NOT NULL AUTO_INCREMENT,
@@ -116,7 +116,7 @@
 
             CREATE TABLE IF NOT EXISTS customer (
                 id int unsigned NOT NULL AUTO_INCREMENT,
-                mail varchar(45) unique,
+                email varchar(45) unique,
                 name varchar(18) NOT NULL,
                 surname varchar(18) NOT NULL,
                 PRIMARY KEY (id)
@@ -127,11 +127,11 @@
     $stmt->execute();
     $stmt->closeCursor();
 
-function getUserByMail($mail, $pdo){
+function getUserByMail($email, $pdo){
     try {
-        $sql = 'SELECT * FROM user WHERE mail = :mail';
+        $sql = 'SELECT * FROM user WHERE email = :email';
         $stmt = $pdo->prepare($sql); 
-        $stmt->bindValue(':mail', $mail);
+        $stmt->bindValue(':email', $email);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -143,16 +143,18 @@ function getUserByMail($mail, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
-function validateUser($mail, $password, $pdo){
-    $mail = htmlspecialchars(stripslashes(trim($mail)));
-    $password = hash('sha256', htmlspecialchars(stripslashes(trim($password))));
-    if( ($r = getUserByMail($mail, $pdo)) && ($r['password'] === $password) ){
-        $_SESSION['umail'] = $mail;    
-        $_SESSION['upass'] = $password;    
+function validateUser($email, $password, $pdo){
+    $password = hash('sha256', sanitize($password));
+    if( ($r = getUserByMail($email, $pdo)) && ($r['password'] === hash('sha256', sanitize($password))) ){
+        $_SESSION['email'] = $email;    
+        $_SESSION['password'] = $password;    
     }
-    if( ($r = getUserByMail($mail, $pdo)) && (is_null($r['password'])) && (hash('sha256', $mail) === $password) && ($r['active'])){
-        $_SESSION['umail'] = $mail;    
-        $_SESSION['chpass'] = TRUE;
+    if( ($r = getUserByMail($email, $pdo)) && (is_null($r['password'])) && (hash('sha256', $email) === $password) && ($r['active'])){
+        $_SESSION['email'] = $email;    
+        $_SESSION['register'] = TRUE;
+        $_SESSION['name'] = $r['name'];
+        $_SESSION['surname'] = $r['surname'];
+        $_SESSION['phone'] = $r['phone'];
     }
 }
 
