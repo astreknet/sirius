@@ -1,8 +1,4 @@
 <?php
-function sanitize($data) {
-    return htmlspecialchars(stripslashes(trim($data)));
-} 
-
 function value($post){
     if(isset($_POST[$post])){
         echo 'value="'.$_POST[$post].'"';

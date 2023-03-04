@@ -25,8 +25,10 @@ if (isset($user->active) && ( $user->active )){
 else {
     include (isset($_SESSION['register']) ? 'templates/html.register.php' : 'templates/html.login.php');
 }
+#echo hash('sha256', "L1pl1ndS1f1r35");
+#echo filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 echo var_dump($_SESSION).'<br>';
-//echo var_dump($_SERVER).'<br>';
+#echo var_dump($_SERVER).'<br>';
 echo var_dump($user).'<br>';
 //echo count($user->trip).'<br>';
 //echo var_dump(getAccidentsByTripID(11, $pdo)).'<br>';

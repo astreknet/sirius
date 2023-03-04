@@ -143,15 +143,29 @@ function getUserByMail($email, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
+function updateUser($id, $email, $password, $name, $surname, $phone, $pdo){
+    $sql = 'UPDATE user SET email = :email, password = :password, name = :name, surname = :surname, phone = :phone WHERE id = :id';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':email', $email);
+    $stmt->bindValue(':password', $password);
+    $stmt->bindValue(':name', $name);
+    $stmt->bindValue(':surname', $surname);
+    $stmt->bindValue(':phone', $phone);
+    $stmt->bindValue(':id', $id);
+    $stmt->execute();
+    $stmt->closeCursor();
+}
+
 function validateUser($email, $password, $pdo){
-    $password = hash('sha256', sanitize($password));
-    if( ($r = getUserByMail($email, $pdo)) && ($r['password'] === hash('sha256', sanitize($password))) ){
+    $password = hash('sha256', htmlspecialchars(trim($password)));
+    if( ($r = getUserByMail($email, $pdo)) && ($r['password'] === $password) ){
         $_SESSION['email'] = $email;    
         $_SESSION['password'] = $password;    
     }
     if( ($r = getUserByMail($email, $pdo)) && (is_null($r['password'])) && (hash('sha256', $email) === $password) && ($r['active'])){
         $_SESSION['email'] = $email;    
         $_SESSION['register'] = TRUE;
+        $_SESSION['id'] = $r['id'];
         $_SESSION['name'] = $r['name'];
         $_SESSION['surname'] = $r['surname'];
         $_SESSION['phone'] = $r['phone'];
