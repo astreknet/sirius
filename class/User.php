@@ -1,24 +1,44 @@
 <?php
 class User{
-    public $mail;
-    public $id, $name, $surname, $admin, $active, $trip, $accident, $nearmiss;
+    public $email, $password, $id, $name, $surname, $phone, $admin, $active; 
+    #public $trip, $accident, $nearmiss;
 
-    public function __construct($pMail, $pPass, $pdo){
-        $this->mail = $pMail;
-        if (($r = getUserByMail($this->mail, $pdo)) && ($pPass === $r['password'])) {
+    public function __construct($pMail, $pdo){
+        if ($r = getUserByMail(filter_var($pMail, FILTER_VALIDATE_EMAIL), $pdo)) {
+            $this->email = $r['email'];
             $this->id = $r['id'];
+            $this->password = $r['password'];
             $this->name = $r['name'];
             $this->surname = $r['surname'];
+            $this->phone = $r['phone'];
             $this->admin = $r['admin'];
             $this->active = $r['active'];
-            $this->trip = getTripsByUser($this->id, $pdo);
-            for($i=0; $i<count($this->trip); $i++){
-                $this->trip[$i]['accident'] = getAccidentsByTripID($this->trip[$i]['id'], $pdo);
-                $this->trip[$i]['near_miss'] = getNear_missesByTripID($this->trip[$i]['id'], $pdo);
-            }
-            $this->accident = getAccidentsByUser($this->id, $pdo);
-            $this->nearmiss = getNearmissByUser($this->id, $pdo);
+            #$this->trip = getTripsByUser($this->id, $pdo);
+            #for($i=0; $i<count($this->trip); $i++){
+            #    $this->trip[$i]['accident'] = getAccidentsByTripID($this->trip[$i]['id'], $pdo);
+            #    $this->trip[$i]['near_miss'] = getNear_missesByTripID($this->trip[$i]['id'], $pdo);
+            #}
+            #$this->accident = getAccidentsByUser($this->id, $pdo);
+            #$this->nearmiss = getNearmissByUser($this->id, $pdo);
         }
+    }
+
+    public function validate($pPassword){
+        return ($pPassword === $this->password ? true : false);
+    }
+}
+
+class Safari{
+    public $id, $name, $length, $weekday, $description, $time, $active;
+
+    public function __construct($id, $name, $length, $weekday, $description, $time, $active){
+        $this->id = $id;        
+        $this->name = $name;        
+        $this->length = $length;        
+        $this->weekday = $weekday;        
+        $this->description = $description;        
+        $this->time = $time;        
+        $this->active = $active;        
     }
 }
 

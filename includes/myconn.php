@@ -157,7 +157,6 @@ function updateUser($id, $email, $password, $name, $surname, $phone, $pdo){
 }
 
 function validateUser($email, $password, $pdo){
-    $password = hash('sha256', htmlspecialchars(trim($password)));
     if( ($r = getUserByMail($email, $pdo)) && ($r['password'] === $password) ){
         $_SESSION['email'] = $email;    
         $_SESSION['password'] = $password;    
@@ -262,6 +261,24 @@ function getNearMissByUser($userId, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
+function getSafaris($pdo){
+    try {
+        $sql = 'SELECT * FROM safari';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $result[] = $row;
+        }
+        $stmt->closeCursor();
+        return $result;
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../templates/html.output.php';
+
+}
+
 function getSafariByID($safariId, $pdo){
     try {
         $sql = 'SELECT * FROM safari WHERE id = :safariId';
@@ -280,7 +297,7 @@ function getSafariByID($safariId, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
-function getSafaris($pdo){
+function getSafarisName($pdo){
     try {
         $sql = 'SELECT id, name FROM safari';
         $stmt = $pdo->prepare($sql);
