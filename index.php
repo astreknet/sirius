@@ -18,6 +18,8 @@ if (isset($_SESSION['validated'])){
     (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
     echo var_dump($me);
     include 'templates/html.navbar.php';
+    
+    
     if($_GET['menu'] == "users"){
         include 'templates/html.user.php';    
     }
