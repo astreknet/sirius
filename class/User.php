@@ -1,6 +1,6 @@
 <?php
 class User{
-    public $email, $password, $id, $name, $surname, $phone, $admin, $active; 
+    public $id, $email, $password, $name, $surname, $phone, $admin, $active; 
     #public $trip, $accident, $nearmiss;
 
     public function __construct($pMail, $pdo){

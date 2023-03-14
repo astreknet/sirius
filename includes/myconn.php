@@ -1,7 +1,6 @@
 <?php
     //$pdo = new PDO('mysql:host=localhost;dbname=lsn;charset=utf8mb4', 'lsn', 'L1pl1nd');
 
-// FUTURE DATABASE: CUSTOMERS MAYBE ALSO USERS
     $pdo = new PDO('mysql:host=localhost;dbname=sirius;charset=utf8mb4', 'sirius', 'S3r355');
     $sql = '
             CREATE TABLE IF NOT EXISTS safari (
@@ -127,6 +126,23 @@
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $stmt->closeCursor();
+
+function getUsers($pdo){
+    try {
+        $sql = 'SELECT * FROM user';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $result[] = $row;
+        }
+        $stmt->closeCursor();
+        return $result;
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../templates/html.output.php';
+}
 
 function getUserByMail($email, $pdo){
     try {

@@ -12,7 +12,7 @@ include_once 'class/User.php';
 (empty($_SESSION['usermail']) || empty($_POST['lpassword']) || !($me->validate(hash('sha256', $_POST['lpassword']))) ?: $_SESSION['validated'] = TRUE);
 (empty($_SESSION['usermail']) || empty($_POST['lpassword']) || !is_null($me->password) || (hash('sha256', $_POST['lpassword']) !== hash('sha256', $me->email)) ?: $_SESSION['registered'] = FALSE);
 
-echo var_dump($_SESSION).'<br>';
+#echo var_dump($_SESSION).'<br>';
 
 if (isset($_SESSION['validated'])){
     (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
