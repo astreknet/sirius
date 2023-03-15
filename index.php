@@ -8,11 +8,10 @@ include_once 'class/User.php';
 
 (!isset($_GET['out']) ?: include 'templates/html.getout.php');
 
-(!isset($_POST['username']) || !isset($_POST['lpassword']) || !($me = new User($_POST['username'], $pdo)) || !($me->active) ?: $_SESSION['usermail'] = $me->email);
-(empty($_SESSION['usermail']) || empty($_POST['lpassword']) || !($me->validate(hash('sha256', $_POST['lpassword']))) ?: $_SESSION['validated'] = TRUE);
-(empty($_SESSION['usermail']) || empty($_POST['lpassword']) || !is_null($me->password) || (hash('sha256', $_POST['lpassword']) !== hash('sha256', $me->email)) ?: $_SESSION['registered'] = FALSE);
+(!isset($_POST['username'], $_POST['lpassword']) || !($me = new User($_POST['username'], $pdo)) || !($me->active && $me->validate(hash('sha256', $_POST['lpassword']))) ?: $_SESSION = array('id' => $me->id, 'usermail' => $me->email, 'validated' => TRUE));
+(!isset($_POST['username'], $_POST['lpassword']) || !is_null($me->password) || (hash('sha256', $_POST['lpassword']) !== hash('sha256', $me->email)) ?: $_SESSION = array('registered' => FALSE, 'usermail' => $me->email));
 
-#echo var_dump($_SESSION).'<br>';
+echo var_dump($_SESSION).'<br>';
 
 if (isset($_SESSION['validated'])){
     (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));

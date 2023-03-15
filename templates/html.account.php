@@ -8,10 +8,9 @@ $_SESSION['id'] = $me->id;
 
 if (
 //    isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) &&
-    isset($_POST['name']) && !empty(trim($_POST['name'])) &&
-    isset($_POST['surname']) && !empty(trim($_POST['surname'])) &&
-    isset($_POST['phone']) && !empty(trim($_POST['phone'])) &&
-    isset($_POST['new']) && !empty($_POST['new']) &&
+    isset($_POST['name'], $_POST['surname'], $_POST['phone'], $_POST['new'], $_POST['password']) && 
+    !empty(trim($_POST['name'])) && !empty(trim($_POST['surname'])) &&
+    !empty(trim($_POST['phone'])) && !empty($_POST['new']) &&
     ($_POST['new'] === $_POST['password'])
     ){
 //        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL); 
