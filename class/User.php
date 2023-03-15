@@ -1,6 +1,6 @@
 <?php
 class User{
-    public $id, $email, $password, $name, $surname, $phone, $admin, $active; 
+    public $id, $email, $password, $fname, $lname, $tel, $userlevel; 
     #public $trip, $accident, $nearmiss;
 
     public function __construct($pMail, $pdo){
@@ -8,11 +8,10 @@ class User{
             $this->email = $r['email'];
             $this->id = $r['id'];
             $this->password = $r['password'];
-            $this->name = $r['name'];
-            $this->surname = $r['surname'];
-            $this->phone = $r['phone'];
-            $this->admin = $r['admin'];
-            $this->active = $r['active'];
+            $this->fname = $r['fname'];
+            $this->lname = $r['lname'];
+            $this->tel = $r['tel'];
+            $this->userlevel = $r['userlevel'];
             #$this->trip = getTripsByUser($this->id, $pdo);
             #for($i=0; $i<count($this->trip); $i++){
             #    $this->trip[$i]['accident'] = getAccidentsByTripID($this->trip[$i]['id'], $pdo);

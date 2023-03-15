@@ -2,7 +2,7 @@
     <ul>
         <li><a href="./">trips</a></li>
         <li><a href="./?menu=account">account</a></li>
-<?php   if($me->admin){ echo '
+<?php   if($me->userlevel > 1){ echo '
         <li><a href="./?menu=users">users</a></li>
         <li><a href="./?menu=safaris">safaris</a></li>';
 } ?>

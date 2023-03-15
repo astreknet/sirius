@@ -8,7 +8,7 @@ include_once 'class/User.php';
 
 (!isset($_GET['out']) ?: include 'templates/html.getout.php');
 
-(!isset($_POST['username'], $_POST['lpassword']) || !($me = new User($_POST['username'], $pdo)) || !($me->active && $me->validate(hash('sha256', $_POST['lpassword']))) ?: $_SESSION = array('id' => $me->id, 'usermail' => $me->email, 'validated' => TRUE));
+(!isset($_POST['username'], $_POST['lpassword']) || !($me = new User($_POST['username'], $pdo)) || !($me->userlevel && $me->validate(hash('sha256', $_POST['lpassword']))) ?: $_SESSION = array('id' => $me->id, 'usermail' => $me->email, 'validated' => TRUE));
 (!isset($_POST['username'], $_POST['lpassword']) || !is_null($me->password) || (hash('sha256', $_POST['lpassword']) !== hash('sha256', $me->email)) ?: $_SESSION = array('registered' => FALSE, 'usermail' => $me->email));
 
 echo var_dump($_SESSION).'<br>';
@@ -34,10 +34,8 @@ if (isset($_SESSION['validated'])){
 }
 else {
     #echo var_dump($me).'<br>';
-    #echo var_dump($_SESSION).'<br>';
-    include (isset($_SESSION['registered']) ? 'templates/html.account.php' : 'templates/html.login.php');
+    include (isset($_SESSION['registered']) && !($_SESSION['registered']) ? 'templates/html.account.php' : 'templates/html.login.php');
 }
-#echo var_dump($_SERVER).'<br>';
 //echo count($user->trip).'<br>';
 //echo var_dump(getAccidentsByTripID(11, $pdo)).'<br>';
 //echo var_dump($user->trip).'<br>';

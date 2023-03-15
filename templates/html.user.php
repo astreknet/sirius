@@ -5,11 +5,11 @@ foreach (getUsers($pdo) as $u){
 ?>
 <section id="my_trips">
     <h3>Users</h3>
-    <ul>
+    <table>
 <?php
 foreach ($user as $s){
-    echo '<li>'.$s->name.' '.$s->surname.'</li>';
+    echo '<tr><td>'.$s->fname.'</td><td>'.$s->lname.'<td>'.$s->tel.'</td></tr>';
 } 
 ?>
-    </ul>
+    </table>
 </section>

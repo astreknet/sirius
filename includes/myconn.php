@@ -45,15 +45,14 @@
                 id int unsigned NOT NULL AUTO_INCREMENT,
                 email varchar(45) NOT NULL unique,
                 password char(64),
-                name varchar(18),
-                surname varchar(18),
-                phone varchar(18),
-                admin bool DEFAULT FALSE,
-                active bool DEFAULT TRUE,
+                fname varchar(18),
+                lname varchar(18),
+                tel varchar(18),
+                userlevel tinyint DEFAULT 1,
                 PRIMARY KEY (id)
             );
 
-            INSERT IGNORE INTO user (id, email, admin, active) VALUES (1, "hugo@dabug.go", TRUE, TRUE);
+            INSERT IGNORE INTO user (id, email, userlevel) VALUES (1, "hugo@dabug.go", 3);
 
             CREATE TABLE IF NOT EXISTS trip (
                 id int unsigned NOT NULL AUTO_INCREMENT,
@@ -160,32 +159,17 @@ function getUserByMail($email, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
-function updateUser($id, $email, $password, $name, $surname, $phone, $pdo){
-    $sql = 'UPDATE user SET email = :email, password = :password, name = :name, surname = :surname, phone = :phone WHERE id = :id';
+function updateUser($id, $email, $password, $fname, $lname, $tel, $pdo){
+    $sql = 'UPDATE user SET email = :email, password = :password, fname = :fname, lname = :lname, tel = :tel WHERE id = :id';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':email', $email);
     $stmt->bindValue(':password', $password);
-    $stmt->bindValue(':name', $name);
-    $stmt->bindValue(':surname', $surname);
-    $stmt->bindValue(':phone', $phone);
+    $stmt->bindValue(':fname', $fname);
+    $stmt->bindValue(':lname', $lname);
+    $stmt->bindValue(':tel', $tel);
     $stmt->bindValue(':id', $id);
     $stmt->execute();
     $stmt->closeCursor();
-}
-
-function validateUser($email, $password, $pdo){
-    if( ($r = getUserByMail($email, $pdo)) && ($r['password'] === $password) ){
-        $_SESSION['email'] = $email;    
-        $_SESSION['password'] = $password;    
-    }
-    if( ($r = getUserByMail($email, $pdo)) && (is_null($r['password'])) && (hash('sha256', $email) === $password) && ($r['active'])){
-        $_SESSION['email'] = $email;    
-        $_SESSION['register'] = TRUE;
-        $_SESSION['id'] = $r['id'];
-        $_SESSION['name'] = $r['name'];
-        $_SESSION['surname'] = $r['surname'];
-        $_SESSION['phone'] = $r['phone'];
-    }
 }
 
 function getTripsByUser($userId, $pdo){
