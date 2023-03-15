@@ -48,7 +48,7 @@
                 fname varchar(18),
                 lname varchar(18),
                 tel varchar(18),
-                userlevel tinyint DEFAULT 1,
+                userlevel tinyint NOT NULL DEFAULT 1,
                 PRIMARY KEY (id)
             );
 
@@ -147,6 +147,22 @@ function getUserByMail($email, $pdo){
     try {
         $sql = 'SELECT * FROM user WHERE email = :email';
         $stmt = $pdo->prepare($sql); 
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result;
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../templates/html.output.php';
+}
+
+function addUser($email, $pdo){
+    try {
+        $sql = 'INSERT INTO user (email) values (:email)';
+        $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':email', $email);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
