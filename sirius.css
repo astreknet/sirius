@@ -1,10 +1,51 @@
-body {
-    font: 100% Monospace;
-    background-image: url("img/sirius.webp");
-    background-repeat: no-repeat;
-    margin: 0;
-    height: 100vh;
+@media screen and (prefers-color-scheme: light) {
+    :root {
+        --background-color: #006199;
+        --bg-color-transparent: rgba(0, 97, 153, 0.81);
+        --color: #ccc;
+    }
 }
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #002D62;
+        --bg-color-transparent: rgba(0, 45, 98, 0.87);
+        --color: #ccc;
+    }
+}
+:root { color-scheme: light dark;}
+@media (max-width: 999px) {
+    :root {
+        --width: 100%;
+        --next-img-width: 99%;
+        --font-size: 270%
+    }
+}
+@media only screen and (min-width: 999px) and (max-width: 1400px) {
+    :root {
+        --width: 69%;
+        --next-img-width: 99%;
+        --font-size: 180%
+    }
+}
+@media  (min-width: 1400px) {
+    :root {
+        --width: 42%;
+        --next-img-width: 99%;
+        --font-size: 150%;
+    }
+}
+
+body {
+    margin: 0 auto; 
+    width: var(--width);
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--color);
+    font-size: var(--font-size);
+    font-family: verdana;
+}
+
+
 h1, h2 {
     margin: 0;
     margin-left: 0.3%;
@@ -13,8 +54,8 @@ h3 { text-align: center; }
 li { list-style: none; }
 header{
         width: 100%;
-        background-color: red;
-        color: #fff;
+        background-color: var(--background-color);
+        color: var(--color);
         margin-top: 0.3%;
         top: 0;
         position: -webkit-sticky; /* Safari */
@@ -30,20 +71,17 @@ header{
 .center, section, table { margin:1.5% auto; }
 .left_align { text-align: left; }
 section {
-        color: red;
-        width: 81%;
+        width: 99%;
         padding: 1.2%;
-        border: 0.09em dashed red;
+        border: 0.06em dashed var(--color);  
         border-radius: 0.6em;
-        background-color: #fff;
         opacity: 0.75;
         filter: alpha(opacity=75);
         text-align: right;
 }
-table { width: 96%; }
 fieldset {
     border-radius: 0.6em;
-    border: 0.09em dashed red;
+    border: 0.06em dashed var(--color);  
     margin-bottom: 9px;
 }
 #getout {
@@ -65,7 +103,7 @@ fieldset {
 input, select, textarea { margin-top: 0.3%; }
 input, textarea {
     width: 300px;
-    border: 0.045em solid red;
+    border: 0.045em solid var(--color);
     border-radius: 0.3em;
 }
 

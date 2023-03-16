@@ -11,11 +11,11 @@ include_once 'class/User.php';
 (!isset($_POST['username'], $_POST['lpassword']) || !($me = new User($_POST['username'], $pdo)) || !($me->userlevel && $me->validate(hash('sha256', $_POST['lpassword']))) ?: $_SESSION = array('id' => $me->id, 'usermail' => $me->email, 'validated' => TRUE));
 (!isset($_POST['username'], $_POST['lpassword']) || !is_null($me->password) || (hash('sha256', $_POST['lpassword']) !== hash('sha256', $me->email)) ?: $_SESSION = array('registered' => FALSE, 'usermail' => $me->email));
 
-echo var_dump($_SESSION).'<br>';
+#echo var_dump($_SESSION).'<br>';
 
 if (isset($_SESSION['validated'])){
     (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
-    echo var_dump($me);
+    #echo var_dump($me);
     include 'templates/html.navbar.php';
     
     
