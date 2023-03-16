@@ -49,6 +49,7 @@
                 lname varchar(18),
                 tel varchar(18),
                 userlevel tinyint NOT NULL DEFAULT 1,
+                created timestamp NOT NULL DEFAULT current_timestamp(),
                 PRIMARY KEY (id)
             );
 
@@ -184,6 +185,13 @@ function updateUser($id, $email, $password, $fname, $lname, $tel, $pdo){
     $stmt->bindValue(':lname', $lname);
     $stmt->bindValue(':tel', $tel);
     $stmt->bindValue(':id', $id);
+    $stmt->execute();
+    $stmt->closeCursor();
+}
+
+function deleteOneDayOldNonRegisteredUsers($pdo){
+    $sql = 'DELETE FROM user where DATEDIFF(current_timestamp(), created) > 1 AND password is NULL AND fname is NULL AND lname is NULL AND tel is NULL AND userlevel = 1';
+    $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $stmt->closeCursor();
 }

@@ -1,4 +1,5 @@
 <?php
+deleteOneDayOldNonRegisteredUsers($pdo);
 (!isset($_POST['email']) || !(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) ?: addUser(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo));
 foreach (getUsers($pdo) as $u){
     $user[] = new User($u['email'], $pdo);
