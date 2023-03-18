@@ -10,11 +10,8 @@ foreach (getUsers($pdo) as $u){
 <section id="users">
     <h3>Users</h3>
     <form action="" method="POST">
-        <fieldset>
-            <legend>add a user</legend>
-                <input type="text" id="email" name="email" required maxlength="45" placeholder="email" autocomplete="email"><br>
-                <input type="submit">
-        </fieldset>
+        <input type="text" id="email" name="email" required maxlength="45" placeholder="email" autocomplete="email">
+        <input type="submit" class="button" value="add user" >
     </form>
                     
 <?php

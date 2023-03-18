@@ -11,12 +11,30 @@
 </head>
 <body>
 <header>
+    <h1>sirius<h1/>
+    <h2>lapland safaris north</h2>
+
 <?php
-    if (isset($_SESSION['active']) && ($_SESSION['active'] == 1)) {
-    echo'   <div id="guide_id">
-                <p>Hola '.$_SESSION['name'].' '.$_SESSION['surname'].' | <a href="'.$_SERVER['PHP_SELF'].'?exit=1">exit</a></p>
-            </div>';
+    if (isset($_SESSION['validated']) && ($_SESSION['validated'])) {
+        (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
+        echo '<ul>
+                <li><a href="./">[trips]</a></li>';
+        if (isset($me) && $me->userlevel > 1) { 
+            echo '
+                <li><a href="./?menu=users">[users]</a></li>
+                <li><a href="./?menu=safaris">[safaris]</a></li>';
+        }
+        echo '  <li><a href="./?menu=account">['.strtolower($me->fname).']</a></li>
+                <li><a href="./?out=1">[exit]</a></li>
+            </ul>';
+    }
+    else {
+        echo '
+            <form id="login" action method="POST">
+                <input type="email" id="username" name="username" required maxlength="45" placeholder="username"'.value('username').' autocomplete="username">
+                <input type="password" id="lpassword" name="lpassword" required maxlength="45" placeholder="password" autocomplete="current-password">
+                <input class="button" type="submit" value="log in">
+            </form>';
     }
 ?>
-        <h1>sirius<h1/><h2>lapland safaris north</h2>
 </header>

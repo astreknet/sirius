@@ -26,7 +26,7 @@ if (
 <section id="register">
     <h3>Account</h3>
     <form action method="POST">
-        <input type="text" id="fname" name="fname" required maxlength="18" placeholder="first name" <?php value('fname'); ?> autocomplete="first-name"><br>
+        <input type="text" id="fname" name="fname" required maxlength="18" placeholder="first name" <?php value('fname'); ?> autocomplete="first-name">
         <input type="text" id="lname" name="lname" required maxlength="18" placeholder="last name" <?php value('lname'); ?> autocomplete="last-name"><br>
         <input type="tel" id="tel" name="tel" required maxlength="18" placeholder="tel" <?php value('tel'); ?> pattern="[+][0-9].{5,}" title="phone with country code ex: +1234567890" oninvalid="setCustomValidity('phone with country code ex: +1234567890')" onchange="try{setCustomValidity('')}catch(e){}" autocomplete="tel"><br>
         
@@ -36,6 +36,6 @@ if (
 <!--
         <input type="password" id="new-password" name="new" required maxlength="45" minlength="8" placeholder="new password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="new-password"><br>
         <input type="password" id="new-password" name="password" required maxlength="45" minlength="8" placeholder="repeat new password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="new-password"><br> -->
-        <input type="submit">
+        <input type="submit" class="button" value="send">
     </form>
 </section>

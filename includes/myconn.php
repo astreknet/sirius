@@ -6,7 +6,7 @@
                 name varchar(60) NOT NULL,
                 length INT2 unsigned NOT NULL,
                 weekday INT3 NOT NULL DEFAULT 1111111,
-                description LONG NOT NULL,
+                description LONG,
                 time time NOT NULL DEFAULT "09:00:00",
                 price decimal(8,2) NOT NULL DEFAULT 0.00,
                 active bool NOT NULL DEFAULT TRUE,

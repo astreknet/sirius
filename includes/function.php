@@ -10,6 +10,13 @@ function value($post){
     }
 }
 
+function getout(){
+    header( "refresh:0;url=index.php" ); 
+    session_unset();
+    session_destroy();
+    die();
+}
+
 function formatdate($date) {
     $myunixdate = strtotime($date);
     if (date("Y-m-d") == date("Y-m-d", $myunixdate))
