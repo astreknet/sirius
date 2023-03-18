@@ -11,35 +11,35 @@ include_once 'class/User.php';
 (!isset($_POST['username'], $_POST['lpassword']) || !is_null($me->password) || (hash('sha256', $_POST['lpassword']) !== hash('sha256', $me->email)) ?: $_SESSION = array('registered' => FALSE, 'usermail' => $me->email));
 
 #echo var_dump($_SESSION).'<br>';
-require_once 'templates/html.header.php';
+require_once 'views/header.php';
+
 
 if (isset($_SESSION['validated'])){
     (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
     #echo var_dump($me);
-#    include 'templates/html.navbar.php';
+#    include 'views/navbar.php';
     
-    
-    if($_GET['menu'] == "users" && $me->userlevel > 1){
-        include 'templates/html.user.php';    
+    if(isset($_GET['users']) && $me->userlevel > 1){
+        include 'views/user.php';    
     }
-    elseif($_GET['menu'] == "account"){
-        include 'templates/html.account.php';    
+    elseif(isset($_GET['account'])){
+        include 'views/account.php';    
     }
-    elseif($_GET['menu'] == "safaris" && $me->userlevel > 1){
-        include 'templates/html.safaris.php';
+    elseif(isset($_GET['safaris']) && $me->userlevel > 1){
+        include 'views/safaris.php';
     }
     else{
-        include 'templates/html.trip.php';    
+        include 'views/trip.php';    
     }
 }
 else {
     #echo var_dump($me).'<br>';
-    include (isset($_SESSION['registered']) && !($_SESSION['registered']) ? 'templates/html.account.php' : 'templates/html.login.php');
+    include (isset($_SESSION['registered']) && !($_SESSION['registered']) ? 'views/account.php' : 'views/login.php');
 }
 //echo count($user->trip).'<br>';
 //echo var_dump(getAccidentsByTripID(11, $pdo)).'<br>';
 //echo var_dump($user->trip).'<br>';
 
 
-require_once 'templates/html.footer.php';
+require_once 'views/footer.php';
 ?>
