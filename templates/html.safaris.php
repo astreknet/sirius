@@ -1,12 +1,12 @@
 <?php
-(!isset($_POST['name'], $_POST['length'], $_POST['description']) ?: addUser(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo));
+(!isset($_POST['name'], $_POST['length']) || $me->userlevel < 2 ?: addSafari($_POST['name'], $_POST['length'], $pdo));
 foreach (getSafaris($pdo) as $s){
     $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
 }
 ?>
 <section id="my_trips">
     <h3>Safaris</h3>
-    <form action="" method="POST">
+    <form action method="POST">
         <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name">
         <select id="length" name="length" required>
             <option value="" selected disabled hidden>length:</option>

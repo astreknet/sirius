@@ -19,13 +19,13 @@ if (isset($_SESSION['validated'])){
 #    include 'templates/html.navbar.php';
     
     
-    if($_GET['menu'] == "users"){
+    if($_GET['menu'] == "users" && $me->userlevel > 1){
         include 'templates/html.user.php';    
     }
     elseif($_GET['menu'] == "account"){
         include 'templates/html.account.php';    
     }
-    elseif($_GET['menu'] == "safaris"){
+    elseif($_GET['menu'] == "safaris" && $me->userlevel > 1){
         include 'templates/html.safaris.php';
     }
     else{

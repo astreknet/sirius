@@ -295,12 +295,11 @@ function getSafariByID($safariId, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
-function addSafari($name, $length, $description, $pdo){
-    $sql = 'INSERT INTO safari (name, length, description) values (:name, :length, :description)';
+function addSafari($name, $length, $pdo){
+    $sql = 'INSERT INTO safari (name, length) values (:name, :length)';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':name', $name);
     $stmt->bindValue(':length', $length);
-    $stmt->bindValue(':description', $description);
     $stmt->execute();
     $stmt->closeCursor();
 }

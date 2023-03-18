@@ -31,10 +31,10 @@
 }
 @media  (min-width: 1400px) {
     :root {
-        --width: 42%;
+        --width: 60%;
         --next-img-width: 99%;
-        --font-size: 150%;
-        --input-width: 54%;
+        --font-size: 120%;
+        --input-width: 45%;
     }
 }
 

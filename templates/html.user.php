@@ -1,6 +1,6 @@
 <?php
 deleteOneDayOldNonRegisteredUsers($pdo);
-(!isset($_POST['email']) || !(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) || getUserByMail($_POST['email'], $pdo) ?: addUser(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo));
+(!isset($_POST['email']) || !(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) || getUserByMail($_POST['email'], $pdo) || $me->userlevel < 2 ?: addUser(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo));
 foreach (getUsers($pdo) as $u){
     $user[] = new User($u['email'], $pdo);
 }

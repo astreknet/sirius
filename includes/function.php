@@ -1,11 +1,11 @@
 <?php
 function value($post){
     if(isset($_POST[$post])){
-        echo 'value="'.$_POST[$post].'"';
+        return $_POST[$post];
     }
     else{
         if(isset($_SESSION[$post])){
-            echo 'value="'.$_SESSION[$post].'"';
+            return $_SESSION[$post];
         }
     }
 }
