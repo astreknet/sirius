@@ -57,7 +57,7 @@ h3 { text-align: center; }
 
 li { list-style: none; }
 
-header, section {
+header, section, footer {
         width: 98%;
         border-radius: 0.6em;
         padding: 0.9%;
@@ -143,4 +143,21 @@ textarea{
     background-color: var(--color);
     color: var(--background-color);
     border: 0.06em solid var(--background-color);
+}
+
+.svg_color { fill: var(--color); }
+.svg_text {
+        fill: var(--background-color);
+        font-family: 'Arial';
+        stroke-width: 0.03em;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.6em; 
+}
+
+footer svg {
+        width: 4.5em;
+        height: 4.5em;
 }
