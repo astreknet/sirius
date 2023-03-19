@@ -14,13 +14,12 @@
             ); 
 
             INSERT IGNORE INTO safari (id, name, length, description) VALUES
-                (1, "introduction to snowmobiling", 60, "Would you like to try snowmobiling for the first time, but are not sure if you are up to it?"),
-                (2, "scenic safari", 150, "This snowmobile safari is to enjoy the beautiful nature of Fell Lapland and having no rush with driving."),
-                (3, "rider\'s dream", 180, "Snowmobile safari for you who would like to find the real touch for driving."),
-                (4, "cross country skiing trip", 120, "Fasten the skis, lean on the ski poles and glide along the tracks through the pure whiteness."),
-                (5, "snow biking adventure", 180, "Come and join us on a guided snow adventure with fatbikes!"),
-                (6, "forest skiing experience", 180, "Join for short ski trip through the snow-covered forests and windswept fell areas!"),
-                (7, "other optional", 180, "taylor made safari");
+                (1, "snowmobiling intro", 60, "Easy experience. Including one stop for pictures"),
+                (2, "scenic snowmobile", 150, "Average driving. Beautiful ride. Stops for pictures. Hot berry juice"),
+                (3, "cross country ski", 120, "Easy tracks. Basic class. Hot berry juice and cookies"),
+                (4, "snow bike", 180, "Average experience. Hot berry juice and snack"),
+                (5, "forest ski", 180, "Off piste. Hot berry juice and snack"),
+                (6, "other optional", 180, "taylor made safari");
 
             CREATE TABLE IF NOT EXISTS user (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,

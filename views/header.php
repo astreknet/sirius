@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset = "UTF-8" >
-    <meta name="description" content="astrek aurora forecast, a fast, light, and responsive northern lights forecast" >
-    <meta name="Keywords" content="aurora, aurora forecast, lapland, northern lights, revontulet, guide, finland" >
+    <meta name="description" content="a guide, trip, safari manager for a small or medium safari company" >
+    <meta name="Keywords" content="aurora, lapland, guide, finland, safari" >
     <meta name="Author" content="hugo@astrek.net" />
     <link rel="shortcut icon" href="./img/favicon.ico" />
     <link rel="stylesheet" href="./sirius.css">
@@ -11,8 +11,8 @@
 </head>
 <body>
 <header>
-    <h1>sirius<h1/>
-    <h2>lapland safaris north</h2>
+    <h1>astrek<h1/>
+    <h2>sirius</h2>
 
 <?php
     if (isset($_SESSION['validated']) && ($_SESSION['validated'])) {
@@ -25,12 +25,12 @@
                 <li><a href="./?safaris">[safaris]</a></li>';
         }
         echo '  <li><a href="./?account">['.strtolower($me->fname).']</a></li>
-                <li><a href="./?out=1">[exit]</a></li>
+                <li><a href="./?out">[exit]</a></li>
             </ul>';
     }
     elseif (isset($_SESSION['registered'])) {
          echo ' <ul>
-                    <li><a href="./?out=1">[exit]</a></li>
+                    <li><a href="./?out">[exit]</a></li>
                 </ul>';
     }
     else {

@@ -15,7 +15,7 @@
 :root { color-scheme: light dark;}
 @media (max-width: 999px) {
     :root {
-        --width: 96%;
+        --width: 99%;
         --next-img-width: 99%;
         --font-size: 210%;
         --input-width: 99%;
@@ -60,7 +60,7 @@ li { list-style: none; }
 header, section {
         width: 99%;
         border-radius: 0.6em;
-        padding: 1.2%;
+        padding: 0.45%;
 }
 
 header{
@@ -99,6 +99,14 @@ fieldset {
     border-radius: 0.6em;
     border: 0.06em dashed var(--color);  
     margin-bottom: 9px;
+}
+
+#astrek {
+    background-image: url(https://astrek.net/pub/aurora_forecast_europe.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
 }
 
 #accident div {

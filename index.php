@@ -34,7 +34,7 @@ if (isset($_SESSION['validated'])){
 }
 else {
     #echo var_dump($me).'<br>';
-    include (isset($_SESSION['registered']) && !($_SESSION['registered']) ? 'views/account.php' : 'views/login.php');
+    include (isset($_SESSION['registered']) && !($_SESSION['registered']) ? 'views/account.php' : 'views/astrek.php');
 }
 //echo count($user->trip).'<br>';
 //echo var_dump(getAccidentsByTripID(11, $pdo)).'<br>';
