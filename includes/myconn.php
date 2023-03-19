@@ -178,12 +178,24 @@ function getTripsByUser($userId, $pdo){
             $result[] = $row;
         }
         $stmt->closeCursor();
-        return $result;
+        return (empty($result) ? FALSE : $result);
     }
     catch (PDOException $e) {
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
     include  __DIR__ . '/../templates/html.output.php';
+}
+
+function addTrip($user_id, $safari_id, $erp_link, $date, $route, $pdo){
+    $sql = 'INSERT INTO trip (user_id, safari_id, erp_link, date, route) VALUES (:user_id, :safari_id, :erp_link, :date, :route)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':user_id', $user_id);
+    $stmt->bindValue(':safari_id', $safari_id);
+    $stmt->bindValue(':erp_link', $erp_link);
+    $stmt->bindValue(':date', $date);
+    $stmt->bindValue(':route', $route);
+    $stmt->execute();
+    $stmt->closeCursor();
 }
 
 function getAccidentsByTripID($tripId, $pdo){

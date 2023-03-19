@@ -1,30 +1,31 @@
 <?php
+#$now = new DateTime('NOW');
+#$time_min = $now->format('H:i');
+#$diff4h = new DateInterval('PT4H');
+#$now->add($diff4h);
+#$time_max = $now->format('H:i');
 $mytime = new DateTime('NOW');
-    //$i =  $mytime->format('i');  //OLD STUFF
-    //while ($i < 60){
-    //    $i = $i + 15;
-    //}
-    //$i = 60 - $i;
-    $diffMin = new DateInterval('PT'.(60 - $mytime->format('i')).'M');
-    $diff15Min = new DateInterval('PT15M');
-    $diff30Min = new DateInterval('PT30M');
-    $mytime->add($diffMin);
+$diffMin = new DateInterval('PT'.(60 - $mytime->format('i')).'M');
+$diff15Min = new DateInterval('PT15M');
+$diff30Min = new DateInterval('PT30M');
+$mytime->add($diffMin);
 
+if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel > 0) {
+    $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
+    addTrip($me->id, $_POST['safari'], $erp_link, $_POST['time'], $_POST['route'], $pdo);
+}
+#echo var_dump($_SESSION).'<br>';
+#echo var_dump($me);
+#echo ($trips = getTripsByUser($me->id, $pdo) ? "good" : "bad");   
+#echo var_dump(getTripsByUser($me->id, $pdo)).'<br>';
+//echo var_dump(getAccidentsByTripID(11, $pdo)).'<br>';
+//echo var_dump($user->trip).'<br>';
 ?>
 <section id="my_trips">
     <h3>My Trips</h3>
     <form action method="POST">
-        <input type="text" name="erp_link" value="<?php echo value('erp_link'); ?>">
-        <select name="time">
-<?php       for ($i = 0; $i < 9; $i++){
-                $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
-                echo '<option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
-                $mytime->add($diff30Min);
-            } 
-?>
-        </select>
-        <select name="safari">
-            <option value="" selected disabled hidden>Choose a safari:</option>
+        <select id="safari" name="safari" required>
+            <option value="" selected disabled hidden>Choose a safari</option>
 <?php
             $row = getSafaris($pdo);
             foreach($row as $r){
@@ -33,15 +34,48 @@ $mytime = new DateTime('NOW');
             }
 ?>
         </select>
-        <input type="text" name="route" maxlength="150" value="<?php echo value('route'); ?>">
+        <select name="time" required>
+        <option value="" selected disabled hidden>Time</option>
+<?php       for ($i = 0; $i < 9; $i++){
+                $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
+                echo '<option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
+                $mytime->add($diff30Min);
+            }
+?>
+        </select>
+        <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="<?php echo value('erp_link'); ?>">
+        <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="<?php echo value('route'); ?>">
         <input type="submit" class="button" value="add trip">
     </form>
         
-    <ul>
 <?php
+    if ($trips = getTripsByUser($me->id, $pdo)) {
+        echo "<ul>";
+        foreach ($trips as $trip){
+            $safari = getSafariByID($trip['safari_id'], $pdo);
+            echo "  <li>".$safari[0]["name"]."</li>";
+        }
+        echo "</ul>";
+    }        
+    else {
+        echo "<p>You don't have any trip yet!</p>";
+    }        
+/*           
+ *
+        <input type="time" id="time" name="time" min="<?php echo $time_min; ?>" max="18:00" step="30min" required value="<?php echo value('time'); ?>">
+        <select name="time">
+<?php       for ($i = 0; $i < 9; $i++){
+                $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
+                echo '<option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
+                $mytime->add($diff30Min);
+            }
+?>
+    </select>
+
+
+    <ul>
     for($i=0; $i<count($user->trip); $i++){
         //echo var_dump(getAccidentsByTripID($row['id'], $pdo));
-        $safari = getSafariByID($user->trip[$i]['safari_id'], $pdo);
         $accidents = (is_array($user->trip[$i]['accident']) ? count($user->trip[$i]['accident']) : 0);
         $near_misses = (is_array($user->trip[$i]['near_miss']) ? count($user->trip[$i]['near_miss']) : 0);
         echo '  <li>'.formatdate($user->trip[$i]['date']).' <a href="https://www.explores.fi/ERP_Offer/DepartureDetail.aspx?DepartureId='.$user->trip[$i]['erp_link'].'" target="_blank" >'.$safari[0]["name"].'</a><br>
@@ -49,8 +83,8 @@ $mytime = new DateTime('NOW');
                 Near Misses: '.$near_misses.'
                 </li>';
     }
+ */
 ?>
-    </ul>
 </section>
 
 

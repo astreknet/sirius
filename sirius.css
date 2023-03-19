@@ -58,9 +58,9 @@ h3 { text-align: center; }
 li { list-style: none; }
 
 header, section {
-        width: 99%;
+        width: 98%;
         border-radius: 0.6em;
-        padding: 0.45%;
+        padding: 0.9%;
 }
 
 header{
