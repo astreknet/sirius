@@ -1,5 +1,5 @@
 <?php
-    $pdo = new PDO('mysql:host=localhost;dbname=sirius;charset=utf8mb4', 'sirius', 'S3r355');
+    $pdo = new PDO('mysql:host=127.0.0.1;dbname=sirius;charset=utf8mb4', 'sirius', 'S3r355');
     $sql = '
             CREATE TABLE IF NOT EXISTS safari (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,

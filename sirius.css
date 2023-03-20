@@ -102,11 +102,12 @@ fieldset {
 }
 
 #astrek {
+    border:none;
     background-image: url(https://astrek.net/pub/aurora_forecast_europe.webp);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 100vh;
+    height: 90vh;
 }
 
 #accident div {
