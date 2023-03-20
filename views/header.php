@@ -35,7 +35,7 @@
     }
     else {
         echo '
-            <form id="login" action="" method="POST">
+            <form id="login"  method="POST">
                 <input type="email" id="username" name="username" required maxlength="45" placeholder="username" value="'.value('username').'" autocomplete="username">
                 <input type="password" id="lpassword" name="lpassword" required maxlength="45" placeholder="password" autocomplete="current-password">
                 <input class="button" type="submit" value="log in">
