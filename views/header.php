@@ -4,14 +4,14 @@
     <meta charset = "UTF-8" >
     <meta name="description" content="a guide, trip, safari manager for a small or medium safari company" >
     <meta name="Keywords" content="aurora, lapland, guide, finland, safari" >
-    <meta name="Author" content="hugo@astrek.net" />
-    <link rel="shortcut icon" href="./img/favicon.ico" />
+    <meta name="Author" content="hugo@astrek.net" >
+    <link rel="shortcut icon" href="./img/favicon.ico" >
     <link rel="stylesheet" href="./sirius.css">
     <title id="title">sirius</title>
 </head>
 <body>
 <header>
-    <h1>astrek<h1/>
+    <h1>astrek</h1>
     <h2>sirius</h2>
 
 <?php
@@ -35,7 +35,7 @@
     }
     else {
         echo '
-            <form id="login" action method="POST">
+            <form id="login" action="" method="POST">
                 <input type="email" id="username" name="username" required maxlength="45" placeholder="username" value="'.value('username').'" autocomplete="username">
                 <input type="password" id="lpassword" name="lpassword" required maxlength="45" placeholder="password" autocomplete="current-password">
                 <input class="button" type="submit" value="log in">
