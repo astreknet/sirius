@@ -1,15 +1,17 @@
 @media screen and (prefers-color-scheme: light) {
     :root {
-        --background-color: #006199;
+        --background-color: rgba(0, 97, 153, 1);
         --bg-color-transparent: rgba(0, 97, 153, 0.81);
-        --color: #ccc;
+        --color: rgba(204, 204, 204, 1);
+        --color-transparent: rgba(204, 204, 204, 0.75);
     }
 }
 @media screen and (prefers-color-scheme: dark) {
     :root {
-        --background-color: #002D62;
+        --background-color: rgba(0, 45, 98, 1);
         --bg-color-transparent: rgba(0, 45, 98, 0.87);
-        --color: #ccc;
+        --color: rgba(204, 204, 204, 1);
+        --color-transparent: rgba(204, 204, 204, 0.75);
     }
 }
 :root { color-scheme: light dark;}
@@ -110,6 +112,18 @@ fieldset {
     height: 90vh;
 }
 
+#users a , #safaris a {
+    text-decoration: none;
+}
+
+#users {
+
+}
+.userlevel0 a, .safari0 a { color: var(--color-transparent); }
+.userlevel1 a, .safari1 a { color: var(--color); }
+.userlevel2, .userlevel3 a { color: rgb(255, 165, 0) }
+
+
 #accident div {
     float: right;
     width: 51%;
@@ -138,8 +152,12 @@ textarea{
     height: 90px;
     vertical-align: top;
 }
-
-.button { 
+input[type=checkbox] {
+    transform: scale(1.2);
+    width: auto;
+    border: 0.06em solid var(--color);
+}
+input[type=submit] { 
     width: auto;
     background-color: var(--color);
     color: var(--background-color);

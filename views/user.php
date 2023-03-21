@@ -14,12 +14,13 @@ foreach (getUsers($pdo) as $u){
         <input type="submit" class="button" value="add user" >
     </form>
                     
+    <ul>
 <?php
-
 foreach ($user as $s){
-    echo '<div class="userlevel'.$s->userlevel.'">';
+    echo '<li class="userlevel'.$s->userlevel.'"><a href="?users&userid='.$s->id.'">';
     echo (!is_null($s->fname) && !is_null($s->lname) ? $s->fname.' '.$s->lname : $s->email);
-    echo '</div>';
+    echo '</a></li>';
 } 
 ?>
+    </ul>
 </section>

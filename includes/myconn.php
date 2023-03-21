@@ -162,7 +162,7 @@ function updateUser($id, $email, $password, $fname, $lname, $tel, $pdo){
 }
 
 function deleteOneDayOldNonRegisteredUsers($pdo){
-    $sql = 'DELETE FROM user where DATEDIFF(current_timestamp(), created) > 1 AND password is NULL AND fname is NULL AND lname is NULL AND tel is NULL AND userlevel = 1';
+    $sql = 'DELETE FROM user where DATEDIFF(current_timestamp(), created) > 0 AND password is NULL AND fname is NULL AND lname is NULL AND tel is NULL AND userlevel = 1';
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $stmt->closeCursor();
@@ -295,7 +295,7 @@ function getSafariByID($safariId, $pdo){
         $stmt->bindValue(':safariId', $safariId);
         $stmt->execute();
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result[] = $row;
+            $result = $row;
         }
         $stmt->closeCursor();
         return $result;
@@ -311,6 +311,17 @@ function addSafari($name, $length, $pdo){
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':name', $name);
     $stmt->bindValue(':length', $length);
+    $stmt->execute();
+    $stmt->closeCursor();
+}
+
+function updateSafari($id, $name, $length, $active, $pdo){
+    $sql = 'UPDATE safari SET name = :name, length = :length, active = :active WHERE id = :id';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':id', $id);
+    $stmt->bindValue(':name', $name);
+    $stmt->bindValue(':length', $length);
+    $stmt->bindValue(':active', $active);
     $stmt->execute();
     $stmt->closeCursor();
 }

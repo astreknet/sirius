@@ -1,12 +1,39 @@
+<section id="safaris">
+    
 <?php
-(!isset($_POST['name'], $_POST['length']) || $me->userlevel < 2 ?: addSafari($_POST['name'], $_POST['length'], $pdo));
-foreach (getSafaris($pdo) as $s){
-    $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
-}
-?>
-<section id="my_trips">
+if (isset($_GET['safaris'], $_GET['id'])) {
+    if (isset($_POST['name'], $_POST['length']) && $me->userlevel > 1) { 
+        $active = (isset($_POST['active']) ? 1 : 0);
+        updateSafari($_GET['id'], $_POST['name'], $_POST['length'], $active, $pdo);
+        header( "refresh:0;url=?safaris" );
+    }
+    $safari = getSafariByID($_GET['id'], $pdo);
+    echo '    
+    <h3>update '.$safari['name'].'</h3>
+    <form method="POST">
+        <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name" value="'.$safari['name'].'"><br>
+        <select id="length" name="length" required>
+            <option value="" selected disabled hidden>length:</option>';
+            for ($i=60; $i<=300; $i=$i+30) {
+                $selected = ($safari['length'] == $i ? 'selected' : '');
+                echo '<option value="'.$i.'" '.$selected.'>'.($i/60).'h</option>';
+            }
+    echo '
+        </select><br>';
+    $check = ($safari['active'] ? 'checked' : '');        
+    echo '
+        active: <input type="checkbox" id="active" name="active" '.$check.'><br>
+        <input type="submit" value="update safari">
+    '; 
+    }
+else {
+    (!isset($_POST['name'], $_POST['length']) || $me->userlevel < 2 ?: addSafari($_POST['name'], $_POST['length'], $pdo));
+    foreach (getSafaris($pdo) as $s){
+        $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
+    }
+    echo '
     <h3>Safaris</h3>
-    <form action method="POST">
+    <form method="POST">
         <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name">
         <select id="length" name="length" required>
             <option value="" selected disabled hidden>length:</option>
@@ -23,11 +50,12 @@ foreach (getSafaris($pdo) as $s){
         <input type="submit" class="button" value="add safari">
     </form>
     
-    <ul>
-<?php
-foreach ($safari as $s){
-    echo '<li>'.$s->name.'</li>';
-} 
+    <ul>';
+    foreach ($safari as $s){
+        echo '<li class="safari'.$s->active.'"><a href="?safaris&id='.$s->id.'">'.$s->name.'</a></li>';
+    } 
+    echo '
+    </ul>';
+}
 ?>
-    </ul>
 </section>
