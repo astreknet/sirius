@@ -140,6 +140,22 @@ function getUserByMail($email, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
+function getUserById($id, $pdo){
+    try {
+        $sql = 'SELECT * FROM user WHERE id = :id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result;
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../templates/html.output.php';
+}
+
 function addUser($email, $pdo){
     $sql = 'INSERT INTO user (email) values (:email)';
     $stmt = $pdo->prepare($sql);
@@ -156,6 +172,15 @@ function updateUser($id, $email, $password, $fname, $lname, $tel, $pdo){
     $stmt->bindValue(':fname', $fname);
     $stmt->bindValue(':lname', $lname);
     $stmt->bindValue(':tel', $tel);
+    $stmt->bindValue(':id', $id);
+    $stmt->execute();
+    $stmt->closeCursor();
+}
+
+function updateUserLevel($id, $userlevel, $pdo){
+    $sql = 'UPDATE user SET userlevel = :userlevel WHERE id = :id';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':userlevel', $userlevel);
     $stmt->bindValue(':id', $id);
     $stmt->execute();
     $stmt->closeCursor();
@@ -288,7 +313,7 @@ function getSafaris($pdo){
 
 }
 
-function getSafariByID($safariId, $pdo){
+function getSafariById($safariId, $pdo){
     try {
         $sql = 'SELECT * FROM safari WHERE id = :safariId';
         $stmt = $pdo->prepare($sql);

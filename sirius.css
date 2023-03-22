@@ -119,9 +119,9 @@ fieldset {
 #users {
 
 }
-.userlevel0 a, .safari0 a { color: var(--color-transparent); }
-.userlevel1 a, .safari1 a { color: var(--color); }
-.userlevel2, .userlevel3 a { color: rgb(255, 165, 0) }
+.userlevel0, .userlevel0 a, .safari0 a { color: var(--color-transparent); }
+.userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
+.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a { color: rgb(255, 165, 0) }
 
 
 #accident div {
@@ -129,7 +129,7 @@ fieldset {
     width: 51%;
 }
 
-input, textarea, select {
+input, textarea, select, .back {
     -ms-box-sizing: content-box;
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box;
@@ -152,18 +152,23 @@ textarea{
     height: 90px;
     vertical-align: top;
 }
+
 input[type=checkbox] {
     transform: scale(1.2);
     width: auto;
     border: 0.06em solid var(--color);
 }
-input[type=submit] { 
-    width: auto;
+
+input[type=submit], .back { 
+    width: fit-content;
     background-color: var(--color);
     color: var(--background-color);
     border: 0.06em solid var(--background-color);
 }
 
+.back { 
+    margin: auto 0.3% 0.3% auto;
+    }
 .svg_color { fill: var(--color); }
 .svg_text {
         fill: var(--background-color);

@@ -7,10 +7,10 @@ if (isset($_GET['safaris'], $_GET['id'])) {
         updateSafari($_GET['id'], $_POST['name'], $_POST['length'], $active, $pdo);
         header( "refresh:0;url=?safaris" );
     }
-    $safari = getSafariByID($_GET['id'], $pdo);
+    $safari = getSafariById($_GET['id'], $pdo);
     echo '    
     <h3>update '.$safari['name'].'</h3>
-    <form method="POST">
+    <form action="" method="POST">
         <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name" value="'.$safari['name'].'"><br>
         <select id="length" name="length" required>
             <option value="" selected disabled hidden>length:</option>';
@@ -24,6 +24,7 @@ if (isset($_GET['safaris'], $_GET['id'])) {
     echo '
         active: <input type="checkbox" id="active" name="active" '.$check.'><br>
         <input type="submit" value="update safari">
+    </form>
     '; 
     }
 else {

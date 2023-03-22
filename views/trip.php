@@ -30,7 +30,9 @@ if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel >
             $row = getSafaris($pdo);
             foreach($row as $r){
                 $sel = ((isset($_POST['safari']) && ($_POST['safari'] == $r['id'])) ? 'selected' : '');
-                echo '<option value="'.$r['id'].'" '.$sel.'>'.$r['name'].'</option>';
+                if ($r['active']) {
+                    echo '<option value="'.$r['id'].'" '.$sel.'>'.$r['name'].'</option>';
+                }
             }
 ?>
         </select>
