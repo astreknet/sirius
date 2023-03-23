@@ -28,7 +28,7 @@ if (isset($_GET['safaris'], $_GET['id'])) {
     '; 
     }
 else {
-    (!isset($_POST['name'], $_POST['length']) || $me->userlevel < 2 ?: addSafari($_POST['name'], $_POST['length'], $pdo));
+    (!isset($_POST['name'], $_POST['length']) || getSafariByName($_POST['name'], $pdo) || $me->userlevel < 2 ?: addSafari($_POST['name'], $_POST['length'], $pdo));
     foreach (getSafaris($pdo) as $s){
         $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
     }

@@ -82,7 +82,7 @@ header li {
     display: inline-block;
 }
 
-header a {
+a {
     text-decoration: none;
 }
 
@@ -104,7 +104,7 @@ fieldset {
 }
 
 #astrek {
-    border:none;
+    border: none;
     background-image: url(https://astrek.net/pub/aurora_forecast_europe.webp);
     background-repeat: no-repeat;
     background-position: center;
@@ -112,17 +112,9 @@ fieldset {
     height: 90vh;
 }
 
-#users a , #safaris a {
-    text-decoration: none;
-}
-
-#users {
-
-}
 .userlevel0, .userlevel0 a, .safari0 a { color: var(--color-transparent); }
 .userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
 .userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a { color: rgb(255, 165, 0) }
-
 
 #accident div {
     float: right;

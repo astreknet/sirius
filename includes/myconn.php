@@ -3,7 +3,7 @@
     $sql = '
             CREATE TABLE IF NOT EXISTS safari (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
-                name varchar(60) NOT NULL,
+                name varchar(60) NOT NULL unique,
                 length INT2 unsigned NOT NULL,
                 weekday INT3 NOT NULL DEFAULT 1111111,
                 description LONG,
@@ -322,6 +322,22 @@ function getSafariById($safariId, $pdo){
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             $result = $row;
         }
+        $stmt->closeCursor();
+        return $result;
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../templates/html.output.php';
+}
+
+function getSafariByName($name, $pdo){
+    try {
+        $sql = 'SELECT * FROM safari WHERE name = :name';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':name', $name);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
         return $result;
     }
