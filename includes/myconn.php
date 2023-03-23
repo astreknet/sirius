@@ -4,7 +4,7 @@
             CREATE TABLE IF NOT EXISTS safari (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
                 name varchar(60) NOT NULL unique,
-                length INT2 unsigned NOT NULL,
+                length INT2 unsigned NOT NULL DEFAULT 60,
                 weekday INT3 NOT NULL DEFAULT 1111111,
                 description LONG,
                 time time NOT NULL DEFAULT "09:00:00",
@@ -13,13 +13,13 @@
                 PRIMARY KEY (id)
             ); 
 
-            INSERT IGNORE INTO safari (id, name, length, description) VALUES
-                (1, "snowmobiling intro", 60, "Easy experience. Including one stop for pictures"),
-                (2, "scenic snowmobile", 150, "Average driving. Beautiful ride. Stops for pictures. Hot berry juice"),
-                (3, "cross country ski", 120, "Easy tracks. Basic class. Hot berry juice and cookies"),
-                (4, "snow bike", 180, "Average experience. Hot berry juice and snack"),
-                (5, "forest ski", 180, "Off piste. Hot berry juice and snack"),
-                (6, "other optional", 180, "taylor made safari");
+            INSERT IGNORE INTO safari (id, name, description) VALUES
+                (1, "snowmobiling intro", "Easy experience. Including one stop for pictures"),
+                (2, "scenic snowmobile", "Average driving. Beautiful ride. Stops for pictures. Hot berry juice"),
+                (3, "cross country ski", "Easy tracks. Basic class. Hot berry juice and cookies"),
+                (4, "snow bike", "Average experience. Hot berry juice and snack"),
+                (5, "forest ski", "Off piste. Hot berry juice and snack"),
+                (6, "other optional", "taylor made safari");
 
             CREATE TABLE IF NOT EXISTS user (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
@@ -40,7 +40,7 @@
                 user_id INT2 unsigned NOT NULL,
                 safari_id INT2 unsigned NOT NULL,
                 erp_link varchar(150),
-                date datetime,
+                date datetime NOT NULL DEFAULT current_timestamp(),
                 route varchar(150),
                 remarks varchar(300),
                 done bool DEFAULT FALSE,
@@ -121,7 +121,7 @@ function selectAllfrom($table, $pdo){
     catch (PDOException $e) {
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
-    include  __DIR__ . '/../templates/html.output.php';
+    include  __DIR__ . '/../views/output.php';
 }
 
 function selectAllFromBy($table, $item, $i, $pdo){
@@ -137,37 +137,60 @@ function selectAllFromBy($table, $item, $i, $pdo){
     catch (PDOException $e) {
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
-    include  __DIR__ . '/../templates/html.output.php';
+    include  __DIR__ . '/../views/output.php';
 }
 
-function addUser($email, $pdo){
-    $sql = 'INSERT INTO user (email) values (:email)';
+function selectIdFromByAnd($table, $item0, $i0, $item1 , $i1, $pdo){
+    try {
+        $sql = 'SELECT id FROM '.$table.' WHERE '.$item0.' = :'.$item0.' AND '.$item1.' = :'.$item1;
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':'.$item0, $i0);
+        $stmt->bindValue(':'.$item1, $i1);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result;
+    }
+    catch (PDOException $e) {
+        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
+    }
+    include  __DIR__ . '/../views/output.php';
+}
+
+function updateTableItemWhere($table, $item, $i, $by, $b, $pdo){
+    $sql = 'UPDATE '.$table.' SET '.$item.' = :'.$item.' WHERE '.$by.' = :'.$by;
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':email', $email);
+    $stmt->bindValue(':'.$item, $i);
+    $stmt->bindValue(':'.$by, $b);
     $stmt->execute();
     $stmt->closeCursor();
 }
 
-function updateUser($id, $email, $password, $fname, $lname, $tel, $pdo){
-    $sql = 'UPDATE user SET email = :email, password = :password, fname = :fname, lname = :lname, tel = :tel WHERE id = :id';
+function add($table, $item, $i, $pdo){
+    $sql = 'INSERT INTO '.$table.' ('.$item.') values (:'.$item.')';
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':email', $email);
-    $stmt->bindValue(':password', $password);
-    $stmt->bindValue(':fname', $fname);
-    $stmt->bindValue(':lname', $lname);
-    $stmt->bindValue(':tel', $tel);
-    $stmt->bindValue(':id', $id);
+    $stmt->bindValue(':'.$item, $i);
     $stmt->execute();
+    $sql = 'SELECT LAST_INSERT_ID() as id';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
+    return $result;
 }
 
-function updateUserLevel($id, $userlevel, $pdo){
-    $sql = 'UPDATE user SET userlevel = :userlevel WHERE id = :id';
+function addItems($table, $item0, $i0, $item1, $i1, $pdo){
+    $sql = 'INSERT INTO '.$table.' ('.$item0.','.$item1.') values (:'.$item0.',:'.$item1.')';
     $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':userlevel', $userlevel);
-    $stmt->bindValue(':id', $id);
+    $stmt->bindValue(':'.$item0, $i0);
+    $stmt->bindValue(':'.$item1, $i1);
     $stmt->execute();
+    $sql = 'SELECT LAST_INSERT_ID() as id';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
+    return $result;
 }
 
 function deleteOneDayOldNonRegisteredUsers($pdo){
@@ -192,7 +215,7 @@ function getTripsByUser($userId, $pdo){
     catch (PDOException $e) {
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
-    include  __DIR__ . '/../templates/html.output.php';
+    include  __DIR__ . '/../views/output.php';
 }
 
 function addTrip($user_id, $safari_id, $erp_link, $date, $route, $pdo){
@@ -222,7 +245,7 @@ function getAccidentsByTripID($tripId, $pdo){
     catch (PDOException $e) {
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
-    include  __DIR__ . '/../templates/html.output.php';
+    include  __DIR__ . '/../views/output.php';
 }
 
 function getNear_missesByTripID($tripId, $pdo){
@@ -240,7 +263,7 @@ function getNear_missesByTripID($tripId, $pdo){
     catch (PDOException $e) {
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
-    include  __DIR__ . '/../templates/html.output.php';
+    include  __DIR__ . '/../views/output.php';
 }
 
 function getAccidentsByUser($userId, $pdo){
@@ -258,7 +281,7 @@ function getAccidentsByUser($userId, $pdo){
     catch (PDOException $e) {
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
-    include  __DIR__ . '/../templates/html.output.php';
+    include  __DIR__ . '/../views/output.php';
 }
 
 function getNearMissByUser($userId, $pdo){
@@ -276,26 +299,6 @@ function getNearMissByUser($userId, $pdo){
     catch (PDOException $e) {
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
-    include  __DIR__ . '/../templates/html.output.php';
-}
-
-function addSafari($name, $length, $pdo){
-    $sql = 'INSERT INTO safari (name, length) values (:name, :length)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':name', $name);
-    $stmt->bindValue(':length', $length);
-    $stmt->execute();
-    $stmt->closeCursor();
-}
-
-function updateSafari($id, $name, $length, $active, $pdo){
-    $sql = 'UPDATE safari SET name = :name, length = :length, active = :active WHERE id = :id';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $id);
-    $stmt->bindValue(':name', $name);
-    $stmt->bindValue(':length', $length);
-    $stmt->bindValue(':active', $active);
-    $stmt->execute();
-    $stmt->closeCursor();
+    include  __DIR__ . '/../views/output.php';
 }
 ?>

@@ -4,7 +4,9 @@
 if (isset($_GET['safaris'], $_GET['id'])) {
     if (isset($_POST['name'], $_POST['length']) && $me->userlevel > 1) { 
         $active = (isset($_POST['active']) ? 1 : 0);
-        updateSafari($_GET['id'], $_POST['name'], $_POST['length'], $active, $pdo);
+        updateTableItemWhere('safari', 'name', $_POST['name'], 'id', $_GET['id'], $pdo);
+        updateTableItemWhere('safari', 'length', $_POST['length'], 'id', $_GET['id'], $pdo);
+        updateTableItemWhere('safari', 'active', $active, 'id', $_GET['id'], $pdo);
         header( "refresh:0;url=?safaris" );
     }
     $safari = selectAllFromBy('safari', 'id', $_GET['id'], $pdo);
@@ -28,7 +30,10 @@ if (isset($_GET['safaris'], $_GET['id'])) {
     '; 
     }
 else {
-    (!isset($_POST['name'], $_POST['length']) || selectAllFromBy('safari', 'name', $_POST['name'], $pdo) || $me->userlevel < 2 ?: addSafari($_POST['name'], $_POST['length'], $pdo));
+    if (isset($_POST['name'], $_POST['length']) && !(selectAllFromBy('safari', 'name', $_POST['name'], $pdo)) && $me->userlevel > 1) {
+        add('safari', 'name', $_POST['name'], $pdo);
+        updateTableItemWhere('safari', 'length', $_POST['length'], 'name', $_POST['name'], $pdo);
+    }
     foreach (selectAllfrom('safari', $pdo) as $s){
         $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
     }

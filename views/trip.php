@@ -1,67 +1,88 @@
+<section id="my_trips">
+<?php
+if (isset($_GET['tid']) && $me->userlevel > 0) {
+    $safari = selectAllFromBy('safari', 'id', $_GET['tid'], $pdo);
+    echo ' 
+        <h3>'.$safari['name'].'</h3>
+    ';
+}
+
+else {
+    $mytime = new DateTime('NOW');
+    $diffMin = new DateInterval('PT'.(60 - $mytime->format('i')).'M');
+    $diff15Min = new DateInterval('PT15M');
+    $diff30Min = new DateInterval('PT30M');
+    $mytime->add($diffMin);
+
+    if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromBy('trip', 'date', $_POST['time'], $pdo) && selectAllFromBy('trip', 'user_id', $me->id, $pdo))) {
+        $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
+        $tripId = addItems('trip', 'user_id', $me->id, 'safari_id', $_POST['safari'], $pdo); 
+        updateTableItemWhere('trip', 'erp_link', $erp_link, 'id', $tripId['id'], $pdo);
+        updateTableItemWhere('trip', 'date', $_POST['time'], 'id', $tripId['id'], $pdo);
+        updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $tripId['id'], $pdo);
+        #addTrip($me->id, $_POST['safari'], $erp_link, $_POST['time'], $_POST['route'], $pdo);
+    }
+
+    echo '
+        <h3>My Trips</h3>
+        <form action method="POST">
+            <select id="safari" name="safari" required>
+                <option value="" selected disabled hidden>Choose a safari</option>
+    ';
+    $row = selectAllfrom('safari', $pdo);
+    foreach($row as $r){
+        $sel = ((isset($_POST['safari']) && ($_POST['safari'] == $r['id'])) ? 'selected' : '');
+        if ($r['active']) {
+            echo '<option value="'.$r['id'].'" '.$sel.'>'.$r['name'].'</option>';
+        }
+    }
+    echo '
+            </select>
+            <select name="time" required>
+                <option value="" selected disabled hidden>Time</option>
+    ';
+    for ($i = 0; $i < 9; $i++){
+        $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
+        echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
+        $mytime->add($diff30Min);
+    }
+    echo '
+            </select>
+            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'">
+            <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.value('route').'">
+            <input type="submit" class="button" value="add trip">
+        </form>
+    ';
+    if ($trips = getTripsByUser($me->id, $pdo)) {
+        echo '<ul>';
+        foreach ($trips as $trip){
+            $safari = selectAllFromBy('safari', 'id', $trip['safari_id'], $pdo);
+            echo '  <li class="trip'.$trip['done'].'"><a href="?tid='.$trip['id'].'">'.$safari['name'].'</a></li>';
+        }
+        echo '</ul>';
+    }
+    else {
+        echo "<p>You don't have any trip yet!</p>";
+    }
+
+}
+?>
+</section>
+
 <?php
 #$now = new DateTime('NOW');
 #$time_min = $now->format('H:i');
 #$diff4h = new DateInterval('PT4H');
 #$now->add($diff4h);
 #$time_max = $now->format('H:i');
-$mytime = new DateTime('NOW');
-$diffMin = new DateInterval('PT'.(60 - $mytime->format('i')).'M');
-$diff15Min = new DateInterval('PT15M');
-$diff30Min = new DateInterval('PT30M');
-$mytime->add($diffMin);
 
-if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel > 0) {
-    $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
-    addTrip($me->id, $_POST['safari'], $erp_link, $_POST['time'], $_POST['route'], $pdo);
-}
 #echo var_dump($_SESSION).'<br>';
 #echo var_dump($me);
 #echo ($trips = getTripsByUser($me->id, $pdo) ? "good" : "bad");   
 #echo var_dump(getTripsByUser($me->id, $pdo)).'<br>';
 //echo var_dump(getAccidentsByTripID(11, $pdo)).'<br>';
 //echo var_dump($user->trip).'<br>';
-?>
-<section id="my_trips">
-    <h3>My Trips</h3>
-    <form action method="POST">
-        <select id="safari" name="safari" required>
-            <option value="" selected disabled hidden>Choose a safari</option>
-<?php
-            $row = getSafaris($pdo);
-            foreach($row as $r){
-                $sel = ((isset($_POST['safari']) && ($_POST['safari'] == $r['id'])) ? 'selected' : '');
-                if ($r['active']) {
-                    echo '<option value="'.$r['id'].'" '.$sel.'>'.$r['name'].'</option>';
-                }
-            }
-?>
-        </select>
-        <select name="time" required>
-        <option value="" selected disabled hidden>Time</option>
-<?php       for ($i = 0; $i < 9; $i++){
-                $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
-                echo '<option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
-                $mytime->add($diff30Min);
-            }
-?>
-        </select>
-        <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="<?php echo value('erp_link'); ?>">
-        <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="<?php echo value('route'); ?>">
-        <input type="submit" class="button" value="add trip">
-    </form>
-        
-<?php
-    if ($trips = getTripsByUser($me->id, $pdo)) {
-        echo "<ul>";
-        foreach ($trips as $trip){
-            $safari = getSafariByID($trip['safari_id'], $pdo);
-            echo "  <li>".$safari[0]["name"]."</li>";
-        }
-        echo "</ul>";
-    }        
-    else {
-        echo "<p>You don't have any trip yet!</p>";
-    }        
+
 /*           
  *
         <input type="time" id="time" name="time" min="<?php echo $time_min; ?>" max="18:00" step="30min" required value="<?php echo value('time'); ?>">
@@ -85,18 +106,6 @@ if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel >
                 Near Misses: '.$near_misses.'
                 </li>';
     }
- */
-?>
-</section>
-
-
-
-
-
-<?php
-                            
-                            
-/*                            
 //$sql = $conn->query('SELECT t.id, s.name as s_name, erp_link, date, route FROM trip t Left JOIN safari s on s.id = t.safari_id where user_id = '.$_SESSION['user_id'].' and done = false');
 //$undone = $sql->fetch_array(MYSQLI_ASSOC);
 

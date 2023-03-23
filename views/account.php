@@ -17,9 +17,13 @@ if (
         $fname = htmlspecialchars(trim($_POST['fname']));
         $lname = htmlspecialchars(trim($_POST['lname']));
         $tel = filter_var($_POST['tel'], FILTER_SANITIZE_NUMBER_INT);
-        updateUser($_SESSION['id'], $_SESSION['usermail'], $password, $fname, $lname, $tel, $pdo);
+        updateTableItemWhere('user', 'fname', $fname, 'id', $_SESSION['id'], $pdo);
+        updateTableItemWhere('user', 'lname', $lname, 'id', $_SESSION['id'], $pdo);
+        updateTableItemWhere('user', 'tel', $tel, 'id', $_SESSION['id'], $pdo);
+        updateTableItemWhere('user', 'password', $password, 'id', $_SESSION['id'], $pdo);
         header( "Location: index.php?out" ); 
 }
+
 
 ?>
 <section id="register">

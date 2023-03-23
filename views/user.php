@@ -12,7 +12,7 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
     }
     else {
         if (isset($_POST['userlevel']) && $me->userlevel > 1) {
-            updateUserLevel($_GET['id'], $_POST['userlevel'], $pdo);
+            updateTableItemWhere('user', 'userlevel', $_POST['userlevel'], 'id', $_GET['id'], $pdo);
             header( "refresh:0;url=?users" );
         }
         echo '
@@ -38,7 +38,7 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
 }
 else {
     deleteOneDayOldNonRegisteredUsers($pdo);
-    (!isset($_POST['email']) || !(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) || selectAllFromBy('user', 'email', $_POST['email'], $pdo) || $me->userlevel < 2 ?: addUser(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo));
+    (!isset($_POST['email']) || !(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) || selectAllFromBy('user', 'email', $_POST['email'], $pdo) || $me->userlevel < 2 ?: add('user', 'email', filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo));
     foreach (selectAllfrom('user', $pdo) as $u){
         $user[] = new User($u['email'], $pdo);
     }
