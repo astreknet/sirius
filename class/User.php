@@ -4,7 +4,7 @@ class User{
     #public $trip, $accident, $nearmiss;
 
     public function __construct($pMail, $pdo){
-        if ($r = getUserByMail(filter_var($pMail, FILTER_VALIDATE_EMAIL), $pdo)) {
+        if ($r = selectAllFromBy('user', 'email', filter_var($pMail, FILTER_VALIDATE_EMAIL), $pdo)) {
             $this->email = $r['email'];
             $this->id = $r['id'];
             $this->password = $r['password'];

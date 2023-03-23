@@ -1,7 +1,7 @@
 <section id="users">
 <?php
 if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1 ) {
-    $user = getUserById($_GET['id'], $pdo);
+    $user = selectAllFromBy('user', 'id', $_GET['id'], $pdo); 
     $userlevels = array('inactive', 'guide', 'admin');
     if (is_null($user['password']) && is_null($user['fname']) && is_null($user['lname']) && is_null($user['tel'])) {
         echo "
@@ -38,8 +38,8 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
 }
 else {
     deleteOneDayOldNonRegisteredUsers($pdo);
-    (!isset($_POST['email']) || !(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) || getUserByMail($_POST['email'], $pdo) || $me->userlevel < 2 ?: addUser(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo));
-    foreach (getUsers($pdo) as $u){
+    (!isset($_POST['email']) || !(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) || selectAllFromBy('user', 'email', $_POST['email'], $pdo) || $me->userlevel < 2 ?: addUser(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo));
+    foreach (selectAllfrom('user', $pdo) as $u){
         $user[] = new User($u['email'], $pdo);
     }
     echo '

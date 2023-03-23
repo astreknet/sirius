@@ -107,9 +107,9 @@
     $stmt->execute();
     $stmt->closeCursor();
 
-function getUsers($pdo){
+function selectAllfrom($table, $pdo){
     try {
-        $sql = 'SELECT * FROM user';
+        $sql = 'SELECT * FROM '.$table;
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -124,27 +124,11 @@ function getUsers($pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
-function getUserByMail($email, $pdo){
+function selectAllFromBy($table, $item, $i, $pdo){
     try {
-        $sql = 'SELECT * FROM user WHERE email = :email';
-        $stmt = $pdo->prepare($sql); 
-        $stmt->bindValue(':email', $email);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
-        return $result;
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../templates/html.output.php';
-}
-
-function getUserById($id, $pdo){
-    try {
-        $sql = 'SELECT * FROM user WHERE id = :id';
+        $sql = 'SELECT * FROM '.$table.' WHERE '.$item.' = :'.$item;
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':'.$item, $i);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
@@ -295,58 +279,6 @@ function getNearMissByUser($userId, $pdo){
     include  __DIR__ . '/../templates/html.output.php';
 }
 
-function getSafaris($pdo){
-    try {
-        $sql = 'SELECT * FROM safari';
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result[] = $row;
-        }
-        $stmt->closeCursor();
-        return $result;
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../templates/html.output.php';
-
-}
-
-function getSafariById($safariId, $pdo){
-    try {
-        $sql = 'SELECT * FROM safari WHERE id = :safariId';
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':safariId', $safariId);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result = $row;
-        }
-        $stmt->closeCursor();
-        return $result;
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../templates/html.output.php';
-}
-
-function getSafariByName($name, $pdo){
-    try {
-        $sql = 'SELECT * FROM safari WHERE name = :name';
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':name', $name);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
-        return $result;
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../templates/html.output.php';
-}
-
 function addSafari($name, $length, $pdo){
     $sql = 'INSERT INTO safari (name, length) values (:name, :length)';
     $stmt = $pdo->prepare($sql);
@@ -366,5 +298,4 @@ function updateSafari($id, $name, $length, $active, $pdo){
     $stmt->execute();
     $stmt->closeCursor();
 }
-
 ?>

@@ -7,7 +7,7 @@ if (isset($_GET['safaris'], $_GET['id'])) {
         updateSafari($_GET['id'], $_POST['name'], $_POST['length'], $active, $pdo);
         header( "refresh:0;url=?safaris" );
     }
-    $safari = getSafariById($_GET['id'], $pdo);
+    $safari = selectAllFromBy('safari', 'id', $_GET['id'], $pdo);
     echo '    
     <h3>update '.$safari['name'].'</h3>
     <form action="" method="POST">
@@ -28,8 +28,8 @@ if (isset($_GET['safaris'], $_GET['id'])) {
     '; 
     }
 else {
-    (!isset($_POST['name'], $_POST['length']) || getSafariByName($_POST['name'], $pdo) || $me->userlevel < 2 ?: addSafari($_POST['name'], $_POST['length'], $pdo));
-    foreach (getSafaris($pdo) as $s){
+    (!isset($_POST['name'], $_POST['length']) || selectAllFromBy('safari', 'name', $_POST['name'], $pdo) || $me->userlevel < 2 ?: addSafari($_POST['name'], $_POST['length'], $pdo));
+    foreach (selectAllfrom('safari', $pdo) as $s){
         $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
     }
     echo '
