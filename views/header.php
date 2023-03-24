@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset = "UTF-8" >
-    <meta name="description" content="a guide, trip, safari manager for a small or medium safari company" >
-    <meta name="Keywords" content="aurora, lapland, guide, finland, safari" >
+    <meta name="description" content="a work manager for a small or medium safari company" >
+    <meta name="Keywords" content="work manager, aurora, lapland, guide, finland, safari" >
     <meta name="Author" content="hugo@astrek.net" >
     <link rel="shortcut icon" href="./img/favicon.ico" >
     <link rel="stylesheet" href="./sirius.css">

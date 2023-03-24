@@ -100,7 +100,7 @@
     $stmt->execute();
     $stmt->closeCursor();
 
-function selectAllfrom($table, $pdo){
+function selectAllFrom($table, $pdo){
     try {
         $sql = 'SELECT * FROM '.$table;
         $stmt = $pdo->prepare($sql);
@@ -117,13 +117,15 @@ function selectAllfrom($table, $pdo){
     include  __DIR__ . '/../views/output.php';
 }
 
-function selectAllFromBy($table, $item, $i, $pdo){
+function selectAllFromWhere($table, $item, $i, $pdo){
     try {
         $sql = 'SELECT * FROM '.$table.' WHERE '.$item.' = :'.$item;
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':'.$item, $i);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $result[] = $row;
+        }
         $stmt->closeCursor();
         return $result;
     }
@@ -133,16 +135,16 @@ function selectAllFromBy($table, $item, $i, $pdo){
     include  __DIR__ . '/../views/output.php';
 }
 
-function updateTableItemWhere($table, $item, $i, $by, $b, $pdo){
-    $sql = 'UPDATE '.$table.' SET '.$item.' = :'.$item.' WHERE '.$by.' = :'.$by;
+function updateTableItemWhere($table, $item, $i, $where, $w, $pdo){
+    $sql = 'UPDATE '.$table.' SET '.$item.' = :'.$item.' WHERE '.$where.' = :'.$where;
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':'.$item, $i);
-    $stmt->bindValue(':'.$by, $b);
+    $stmt->bindValue(':'.$where, $w);
     $stmt->execute();
     $stmt->closeCursor();
 }
 
-function add($table, $item, $i, $pdo){
+function insertInto($table, $item, $i, $pdo){
     $sql = 'INSERT INTO '.$table.' ('.$item.') values (:'.$item.')';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':'.$item, $i);
@@ -162,93 +164,4 @@ function deleteOneDayOldNonRegisteredUsers($pdo){
     $stmt->closeCursor();
 }
 
-function getTripsByUser($userId, $pdo){
-    try {
-        $sql = 'SELECT * FROM trip WHERE user_id = :userId';
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':userId', $userId);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result[] = $row;
-        }
-        $stmt->closeCursor();
-        return (empty($result) ? FALSE : $result);
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../views/output.php';
-}
-
-function getAccidentsByTripID($tripId, $pdo){
-    try {
-        $sql = 'SELECT * FROM accident WHERE trip_id = :tripId';
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':tripId', $tripId);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result[] = $row;
-        }
-        $stmt->closeCursor();
-        return (!isset($result) ?: $result);
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../views/output.php';
-}
-
-function getNear_missesByTripID($tripId, $pdo){
-    try {
-        $sql = 'SELECT * FROM nearmiss WHERE trip_id = :tripId';
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':tripId', $tripId);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result[] = $row;
-        }
-        $stmt->closeCursor();
-        return (!isset($result) ?: $result);
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../views/output.php';
-}
-
-function getAccidentsByUser($userId, $pdo){
-    try {
-        $sql = 'SELECT * FROM accident WHERE user_id = :userId';
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':userId', $userId);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result[] = $row;
-        }
-        $stmt->closeCursor();
-        return $result;
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../views/output.php';
-}
-
-function getNearMissByUser($userId, $pdo){
-    try {
-        $sql = 'SELECT * FROM nearmiss WHERE user_id = :userId';
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':userId', $userId);
-        $stmt->execute();
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $result[] = $row;
-        }
-        $stmt->closeCursor();
-        return $result;
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../views/output.php';
-}
 ?>

@@ -1,9 +1,10 @@
 <section id="my_trips">
 <?php
-if (isset($_GET['tid']) && $me->userlevel > 0) {
-    $safari = selectAllFromBy('safari', 'id', $_GET['tid'], $pdo);
+if (isset($_GET['tid']) && $me->userlevel > 0 ) {
+    $trip = selectAllFromWhere('trip', 'id', $_GET['tid'], $pdo);
+    $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
     echo ' 
-        <h3>'.$safari['name'].'</h3>
+        <h3>'.$safari[0]['name'].'</h3>
     ';
 }
 
@@ -14,9 +15,9 @@ else {
     $diff30Min = new DateInterval('PT30M');
     $mytime->add($diffMin);
 
-    if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromBy('trip', 'date', $_POST['time'], $pdo) && selectAllFromBy('trip', 'user_id', $me->id, $pdo))) {
+    if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'date', $_POST['time'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
         $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
-        $tripId = add('trip', 'user_id', $me->id, $pdo); 
+        $tripId = insertInto('trip', 'user_id', $me->id, $pdo); 
         updateTableItemWhere('trip', 'safari_id', $_POST['safari'], 'id', $tripId['id'], $pdo);
         updateTableItemWhere('trip', 'erp_link', $erp_link, 'id', $tripId['id'], $pdo);
         updateTableItemWhere('trip', 'date', $_POST['time'], 'id', $tripId['id'], $pdo);
@@ -30,11 +31,11 @@ else {
             <select id="safari" name="safari" required>
                 <option value="" selected disabled hidden>Choose a safari</option>
     ';
-    $row = selectAllfrom('safari', $pdo);
-    foreach($row as $r){
-        $sel = ((isset($_POST['safari']) && ($_POST['safari'] == $r['id'])) ? 'selected' : '');
-        if ($r['active']) {
-            echo '<option value="'.$r['id'].'" '.$sel.'>'.$r['name'].'</option>';
+    $safari = selectAllFromWhere('safari', 'active', 1, $pdo);
+    foreach($safari as $s){
+        $sel = ((isset($_POST['safari']) && ($_POST['safari'] == $s['id'])) ? 'selected' : '');
+        if ($s['active']) {
+            echo '<option value="'.$s['id'].'" '.$sel.'>'.$s['name'].'</option>';
         }
     }
     echo '
@@ -54,11 +55,11 @@ else {
             <input type="submit" class="button" value="add trip">
         </form>
     ';
-    if ($trips = getTripsByUser($me->id, $pdo)) {
+    if ($trips = selectAllFromWhere('trip', 'user_id', $me->id, $pdo)) {
         echo '<ul>';
         foreach ($trips as $trip){
-            $safari = selectAllFromBy('safari', 'id', $trip['safari_id'], $pdo);
-            echo '  <li class="trip'.$trip['done'].'"><a href="?tid='.$trip['id'].'">'.$safari['name'].'</a></li>';
+            $saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
+            echo '  <li class="trip'.$trip['done'].'"><a href="?tid='.$trip['id'].'">'.$saf[0]['name'].'</a></li>';
         }
         echo '</ul>';
     }

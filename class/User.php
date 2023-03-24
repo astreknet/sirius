@@ -4,14 +4,14 @@ class User{
     #public $trip, $accident, $nearmiss;
 
     public function __construct($pMail, $pdo){
-        if ($r = selectAllFromBy('user', 'email', filter_var($pMail, FILTER_VALIDATE_EMAIL), $pdo)) {
-            $this->email = $r['email'];
-            $this->id = $r['id'];
-            $this->password = $r['password'];
-            $this->fname = $r['fname'];
-            $this->lname = $r['lname'];
-            $this->tel = $r['tel'];
-            $this->userlevel = $r['userlevel'];
+        if ($r = selectAllFromWhere('user', 'email', filter_var($pMail, FILTER_VALIDATE_EMAIL), $pdo)) {
+            $this->email = $r[0]['email'];
+            $this->id = $r[0]['id'];
+            $this->password = $r[0]['password'];
+            $this->fname = $r[0]['fname'];
+            $this->lname = $r[0]['lname'];
+            $this->tel = $r[0]['tel'];
+            $this->userlevel = $r[0]['userlevel'];
             #$this->trip = getTripsByUser($this->id, $pdo);
             #for($i=0; $i<count($this->trip); $i++){
             #    $this->trip[$i]['accident'] = getAccidentsByTripID($this->trip[$i]['id'], $pdo);

@@ -9,20 +9,20 @@ if (isset($_GET['safaris'], $_GET['id'])) {
         updateTableItemWhere('safari', 'active', $active, 'id', $_GET['id'], $pdo);
         header( "refresh:0;url=?safaris" );
     }
-    $safari = selectAllFromBy('safari', 'id', $_GET['id'], $pdo);
+    $safari = selectAllFromWhere('safari', 'id', $_GET['id'], $pdo);
     echo '    
-    <h3>update '.$safari['name'].'</h3>
+    <h3>update '.$safari[0]['name'].'</h3>
     <form action="" method="POST">
-        <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name" value="'.$safari['name'].'"><br>
+        <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name" value="'.$safari[0]['name'].'"><br>
         <select id="length" name="length" required>
             <option value="" selected disabled hidden>length:</option>';
             for ($i=60; $i<=300; $i=$i+30) {
-                $selected = ($safari['length'] == $i ? 'selected' : '');
+                $selected = ($safari[0]['length'] == $i ? 'selected' : '');
                 echo '<option value="'.$i.'" '.$selected.'>'.($i/60).'h</option>';
             }
     echo '
         </select><br>';
-    $check = ($safari['active'] ? 'checked' : '');        
+    $check = ($safari[0]['active'] ? 'checked' : '');        
     echo '
         active: <input type="checkbox" id="active" name="active" '.$check.'><br>
         <input type="submit" value="update safari">
@@ -30,11 +30,11 @@ if (isset($_GET['safaris'], $_GET['id'])) {
     '; 
 }
 else {
-    if (isset($_POST['name'], $_POST['length']) && !(selectAllFromBy('safari', 'name', $_POST['name'], $pdo)) && $me->userlevel > 1) {
-        add('safari', 'name', $_POST['name'], $pdo);
+    if (isset($_POST['name'], $_POST['length']) && !(selectAllFromWhere('safari', 'name', $_POST['name'], $pdo)) && $me->userlevel > 1) {
+        insertInto('safari', 'name', $_POST['name'], $pdo);
         updateTableItemWhere('safari', 'length', $_POST['length'], 'name', $_POST['name'], $pdo);
     }
-    foreach (selectAllfrom('safari', $pdo) as $s){
+    foreach (selectAllFrom('safari', $pdo) as $s){
         $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
     }
     echo '
