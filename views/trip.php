@@ -3,8 +3,21 @@
 if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $trip = selectAllFromWhere('trip', 'id', $_GET['tid'], $pdo);
     $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
+    if (isset($_POST['erp_link'], $_POST['route'], $_POST['remarks']) && $me->userlevel > 0) {
+        updateTableItemWhere('trip', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
+        updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $_GET['tid'], $pdo);
+        updateTableItemWhere('trip', 'remarks', $_POST['remarks'], 'id', $_GET['tid'], $pdo);
+        updateTableItemWhere('trip', 'done', 1, 'id', $_GET['tid'], $pdo);
+        header( "refresh:0;url=./" );
+    }
     echo ' 
         <h3>'.$safari[0]['name'].'</h3>
+        <form action="" method="POST">
+            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.$trip[0]['erp_link'].'">
+            <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$trip[0]['route'].'">
+            <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable?"></textarea>
+            <input type="submit" class="button" value="update trip">
+        </form>
     ';
 }
 

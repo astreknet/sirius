@@ -21,6 +21,7 @@
         --next-img-width: 99%;
         --font-size: 210%;
         --input-width: 99%;
+        --textarea-width: 91.8%;
     }
 }
 @media only screen and (min-width: 999px) and (max-width: 1400px) {
@@ -29,6 +30,7 @@
         --next-img-width: 99%;
         --font-size: 180%;
         --input-width: 90%;
+        --textarea-width: 91.8%;
     }
 }
 @media  (min-width: 1400px) {
@@ -37,6 +39,7 @@
         --next-img-width: 99%;
         --font-size: 120%;
         --input-width: 45%;
+        --textarea-width: 91.8%;
     }
 }
 
@@ -135,12 +138,10 @@ input, textarea, select, .back {
     color: var(--color);
     margin-top: 0.15em;
 }
-input, textarea {
-    width: var(--input-width);
-}
+input { width: var(--input-width);}
 
 textarea{
-    width: 95%;
+    width: var(--textarea-width);
     height: 90px;
     vertical-align: top;
 }
