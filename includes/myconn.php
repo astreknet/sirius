@@ -38,7 +38,7 @@
             CREATE TABLE IF NOT EXISTS trip (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
                 user_id INT2 unsigned NOT NULL,
-                safari_id INT2 unsigned NOT NULL,
+                safari_id INT2 unsigned NOT NULL DEFAULT 1,
                 erp_link varchar(150),
                 date datetime NOT NULL DEFAULT current_timestamp(),
                 route varchar(150),
@@ -94,13 +94,6 @@
                 CONSTRAINT fk_nearmiss_trip FOREIGN KEY (trip_id) REFERENCES trip (id) ON DELETE CASCADE
             );
 
-            CREATE TABLE IF NOT EXISTS customer (
-                id INT2 unsigned NOT NULL AUTO_INCREMENT,
-                email varchar(45) unique,
-                fname varchar(18) NOT NULL,
-                lname varchar(18) NOT NULL,
-                PRIMARY KEY (id)
-            );
         ';
     
     $stmt = $pdo->prepare($sql);
@@ -140,23 +133,6 @@ function selectAllFromBy($table, $item, $i, $pdo){
     include  __DIR__ . '/../views/output.php';
 }
 
-function selectIdFromByAnd($table, $item0, $i0, $item1 , $i1, $pdo){
-    try {
-        $sql = 'SELECT id FROM '.$table.' WHERE '.$item0.' = :'.$item0.' AND '.$item1.' = :'.$item1;
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':'.$item0, $i0);
-        $stmt->bindValue(':'.$item1, $i1);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
-        return $result;
-    }
-    catch (PDOException $e) {
-        $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
-    }
-    include  __DIR__ . '/../views/output.php';
-}
-
 function updateTableItemWhere($table, $item, $i, $by, $b, $pdo){
     $sql = 'UPDATE '.$table.' SET '.$item.' = :'.$item.' WHERE '.$by.' = :'.$by;
     $stmt = $pdo->prepare($sql);
@@ -170,20 +146,6 @@ function add($table, $item, $i, $pdo){
     $sql = 'INSERT INTO '.$table.' ('.$item.') values (:'.$item.')';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':'.$item, $i);
-    $stmt->execute();
-    $sql = 'SELECT LAST_INSERT_ID() as id';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
-    return $result;
-}
-
-function addItems($table, $item0, $i0, $item1, $i1, $pdo){
-    $sql = 'INSERT INTO '.$table.' ('.$item0.','.$item1.') values (:'.$item0.',:'.$item1.')';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':'.$item0, $i0);
-    $stmt->bindValue(':'.$item1, $i1);
     $stmt->execute();
     $sql = 'SELECT LAST_INSERT_ID() as id';
     $stmt = $pdo->prepare($sql);
@@ -216,18 +178,6 @@ function getTripsByUser($userId, $pdo){
         $output = 'Unable to connect to the database server: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() ;
     }
     include  __DIR__ . '/../views/output.php';
-}
-
-function addTrip($user_id, $safari_id, $erp_link, $date, $route, $pdo){
-    $sql = 'INSERT INTO trip (user_id, safari_id, erp_link, date, route) VALUES (:user_id, :safari_id, :erp_link, :date, :route)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':user_id', $user_id);
-    $stmt->bindValue(':safari_id', $safari_id);
-    $stmt->bindValue(':erp_link', $erp_link);
-    $stmt->bindValue(':date', $date);
-    $stmt->bindValue(':route', $route);
-    $stmt->execute();
-    $stmt->closeCursor();
 }
 
 function getAccidentsByTripID($tripId, $pdo){

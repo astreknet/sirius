@@ -16,16 +16,17 @@ else {
 
     if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromBy('trip', 'date', $_POST['time'], $pdo) && selectAllFromBy('trip', 'user_id', $me->id, $pdo))) {
         $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
-        $tripId = addItems('trip', 'user_id', $me->id, 'safari_id', $_POST['safari'], $pdo); 
+        $tripId = add('trip', 'user_id', $me->id, $pdo); 
+        updateTableItemWhere('trip', 'safari_id', $_POST['safari'], 'id', $tripId['id'], $pdo);
         updateTableItemWhere('trip', 'erp_link', $erp_link, 'id', $tripId['id'], $pdo);
         updateTableItemWhere('trip', 'date', $_POST['time'], 'id', $tripId['id'], $pdo);
         updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $tripId['id'], $pdo);
-        #addTrip($me->id, $_POST['safari'], $erp_link, $_POST['time'], $_POST['route'], $pdo);
+        header( "refresh:0;url=./" );
     }
 
     echo '
         <h3>My Trips</h3>
-        <form action method="POST">
+        <form method="POST">
             <select id="safari" name="safari" required>
                 <option value="" selected disabled hidden>Choose a safari</option>
     ';

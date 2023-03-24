@@ -28,7 +28,7 @@ if (isset($_GET['safaris'], $_GET['id'])) {
         <input type="submit" value="update safari">
     </form>
     '; 
-    }
+}
 else {
     if (isset($_POST['name'], $_POST['length']) && !(selectAllFromBy('safari', 'name', $_POST['name'], $pdo)) && $me->userlevel > 1) {
         add('safari', 'name', $_POST['name'], $pdo);
