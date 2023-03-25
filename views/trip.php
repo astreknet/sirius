@@ -6,7 +6,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
     echo ' <h3>'.$safari[0]['name'].'</h3>';
     
-    if ($trip[0]['done']) {
+    if ($trip[0]['status']) {
         echo var_dump($trip);
         echo '
             <div class="back"><a href="./?tid='.$_GET['tid'].'&near_miss">near miss</a></div>
@@ -19,7 +19,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
             updateTableItemWhere('trip', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
             updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $_GET['tid'], $pdo);
             updateTableItemWhere('trip', 'remarks', $_POST['remarks'], 'id', $_GET['tid'], $pdo);
-            updateTableItemWhere('trip', 'done', 1, 'id', $_GET['tid'], $pdo);
+            updateTableItemWhere('trip', 'status', 1, 'id', $_GET['tid'], $pdo);
             header( "refresh:0;url=./" );
         }
         echo ' 
@@ -85,7 +85,7 @@ else {
         array_multisort(array_column( $trips, 'date' ), SORT_DESC, $trips);
         foreach ($trips as $trip){
             $saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            echo '  <li class="trip'.$trip['done'].'"><a href="?tid='.$trip['id'].'">'.$saf[0]['name'].' - '.date("j/M/Y G:i", strtotime($trip['date'])).'</a></li>';
+            echo '  <li class="trip'.$trip['status'].'"><a href="?tid='.$trip['id'].'">'.$saf[0]['name'].' - '.date("j/M/Y G:i", strtotime($trip['date'])).'</a></li>';
         }
         echo '</ul>';
     }

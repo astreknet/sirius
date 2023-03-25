@@ -116,8 +116,9 @@ fieldset {
 }
 
 .userlevel0, .userlevel0 a, .safari0 a, .trip0 a { color: var(--color-transparent); }
-.userlevel1, .userlevel1 a, .safari1 a, .trip1 a, address a { color: var(--color); }
-.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a { color: rgb(255, 165, 0) }
+.userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
+.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a { color: rgb(255, 165, 0); }
+.trip1 a { color: rgb(152,251,152); }
 
 #accident div {
     float: right;

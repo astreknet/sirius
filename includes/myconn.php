@@ -43,6 +43,7 @@
                 date datetime NOT NULL DEFAULT current_timestamp(),
                 route varchar(150),
                 remarks varchar(300),
+                status INT1 unsigned NOT NULL DEFAULT 0,
                 done bool DEFAULT FALSE,
                 PRIMARY KEY (id),
                 KEY fk_trip_user (user_id),
@@ -163,5 +164,4 @@ function deleteOneDayOldNonRegisteredUsers($pdo){
     $stmt->execute();
     $stmt->closeCursor();
 }
-
 ?>
