@@ -24,5 +24,4 @@ function formatdate($date) {
     else
         return date("D M j G:i", $myunixdate);
 }
-
 ?>
