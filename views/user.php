@@ -58,7 +58,19 @@ else {
     } 
 
     echo '
-        </ul>';
+        </ul>
+        <div class="back"><a href="?users&vcard">get vCard</a></div>';
+
+    if (isset($_GET['vcard'])){
+        $sql = 'select fname, lname, tel, email from user where userlevel > 0 and userlevel < 3 and tel is not NULL';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $_SESSION['vcards'] = array();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $_SESSION['vcards'][] = $row;
+        }
+        header( "refresh:0;url=views/downloads.php" );
+    }
 }
 ?>
 </section>

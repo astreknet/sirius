@@ -106,6 +106,7 @@ function selectAllFrom($table, $pdo){
         $sql = 'SELECT * FROM '.$table;
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
+        $result = array();
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             $result[] = $row;
         }
@@ -124,6 +125,7 @@ function selectAllFromWhere($table, $item, $i, $pdo){
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':'.$item, $i);
         $stmt->execute();
+        $result = array();
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             $result[] = $row;
         }
