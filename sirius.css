@@ -6,6 +6,7 @@
         --color-transparent: rgba(74,100,108, 0.75);
         --color-orange: rgba(255,117,24, 1);
         --color-green: rgba(0,106,78, 1);
+        --color-red: rgba(255,0,0, 1);
     }
 }
 @media screen and (prefers-color-scheme: dark) {
@@ -16,6 +17,7 @@
         --color-transparent: rgba(204, 204, 204, 0.75);
         --color-orange: rgba(255,117,24, 1);
         --color-green: rgba(34,139,34, 1);
+        --color-red: rgba(255,0,0, 1);
     }
 }
 :root { color-scheme: light dark;}
@@ -113,7 +115,8 @@ fieldset {
 
 .userlevel0, .userlevel0 a, .safari0 a, .trip0 a { color: var(--color-transparent); }
 .userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
-.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a { color: var(--color-orange); }
+.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, #near_miss a { color: var(--color-orange); }
+#accident a { color: var(--color-red); }
 .trip1 a { color: var(--color-green); }
 
 #accident div {
@@ -121,7 +124,7 @@ fieldset {
     width: 51%;
 }
 
-input, textarea, select, .back {
+input, textarea, select, .button a {
     -ms-box-sizing: content-box;
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box;
@@ -149,16 +152,19 @@ input[type=checkbox] {
     border: 0.06em solid var(--color);
 }
 
-input[type=submit], .back { 
+input[type=submit], .button a { 
     width: fit-content;
     background-color: var(--color);
     color: var(--background-color);
-    border: 0.06em solid var(--background-color);
+    #border: 0.06em solid var(--background-color);
 }
-
-.back { 
+#buttons {
+    margin-top: 0.9%;
+}
+.button { 
     margin: auto 0.3% 0.3% auto;
-    }
+    float: right;
+}
 .svg_color { fill: var(--background-color); }
 .svg_text {
         fill: var(--color);

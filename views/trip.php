@@ -9,9 +9,11 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     if ($trip[0]['status']) {
         echo var_dump($trip);
         echo '
-            <div class="back"><a href="./?tid='.$_GET['tid'].'&near_miss">near miss</a></div>
-            <div class="back"><a href="./?tid='.$_GET['tid'].'&accident">acident</a></div>
-            <div class="back"><a href="./">back</a></div>
+            <div id="buttons">
+            <div class="button"><a href="./">back</a></div>
+            <div id="accident" class="button"><a href="./?tid='.$_GET['tid'].'&accident">acident</a></div>
+            <div id="near_miss" class="button"><a href="./?tid='.$_GET['tid'].'&near_miss">near miss</a></div>
+            </div>
             ';
     }
     else {
