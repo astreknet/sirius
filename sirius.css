@@ -130,7 +130,6 @@ input, textarea, select, .button a {
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
     font-size: inherit;
-    vertical-align: middle;
     background-color: var(--background-color);
     border: 0.06em solid var(--color);
     border-radius: 0.3em;
@@ -161,8 +160,8 @@ input[type=submit], .button a {
 #buttons {
     margin-top: 0.9%;
 }
-.button { 
-    margin: auto 0.3% 0.3% auto;
+.button {
+    margin-left: 0.15em;
     float: right;
 }
 .svg_color { fill: var(--background-color); }

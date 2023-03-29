@@ -4,10 +4,17 @@
 if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $trip = selectAllFromWhere('trip', 'id', $_GET['tid'], $pdo);
     $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
-    echo ' <h3>'.$safari[0]['name'].'</h3>';
+    echo ' <h3 class="">'.$safari[0]['name'].' - '.date("j/M/Y G:i", strtotime($trip[0]['date'])).'</h3>';
     
     if ($trip[0]['status']) {
-        echo var_dump($trip);
+        echo '        <ul>';
+    if (!empty($trip[0]['erp_link'])) {
+        echo '<li><a href="'.$trip[0]['erp_link'].'">ERP</a></li>';
+    }
+        echo '<li>'.$trip[0]['route'].'</li>';
+    if (!empty($trip[0]['remarks'])) {
+        echo '<li>'.$trip[0]['erp_link'].'</li>';
+    }
         echo '
             <div id="buttons">
             <div class="button"><a href="./">back</a></div>
