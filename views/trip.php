@@ -4,22 +4,25 @@
 if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $trip = selectAllFromWhere('trip', 'id', $_GET['tid'], $pdo);
     $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
+    $nearmiss = selectAllFromWhere('nearmiss', 'trip_id', $_GET['tid'], $pdo);
+    $accident = selectAllFromWhere('accident', 'trip_id', $_GET['tid'], $pdo);
     echo ' <h3 class="">'.$safari[0]['name'].' - '.date("j/M/Y G:i", strtotime($trip[0]['date'])).'</h3>';
-    
+    $nearmiss_color = (count($nearmiss) == 0 ? 'nearmiss_green' : 'nearmiss_orange');
+    $accident_color = (count($accident) == 0 ? 'accident_green' : 'accident_red');
     if ($trip[0]['status']) {
         echo '        <ul>';
     if (!empty($trip[0]['erp_link'])) {
-        echo '<li><a href="'.$trip[0]['erp_link'].'">ERP</a></li>';
+        echo '<li><a href="'.$trip[0]['erp_link'].'" target="_blank">ERP</a></li>';
     }
         echo '<li>'.$trip[0]['route'].'</li>';
     if (!empty($trip[0]['remarks'])) {
-        echo '<li>'.$trip[0]['erp_link'].'</li>';
+        echo '<li>'.$trip[0]['remarks'].'</li>';
     }
         echo '
             <div id="buttons">
             <div class="button"><a href="./">back</a></div>
-            <div id="accident" class="button"><a href="./?tid='.$_GET['tid'].'&accident">acident</a></div>
-            <div id="near_miss" class="button"><a href="./?tid='.$_GET['tid'].'&near_miss">near miss</a></div>
+            <div id="'.$accident_color.'" class="button"><a href="./?tid='.$_GET['tid'].'&accident">acident ('.count($accident).')</a></div>
+            <div id="'.$nearmiss_color.'" class="button"><a href="./?tid='.$_GET['tid'].'&near_miss">near miss ('.count($nearmiss).')</a></div>
             </div>
             ';
     }

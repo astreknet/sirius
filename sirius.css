@@ -5,7 +5,7 @@
         --color: rgba(74,100,108, 1);
         --color-transparent: rgba(74,100,108, 0.75);
         --color-orange: rgba(255,117,24, 1);
-        --color-green: rgba(0,106,78, 1);
+        --color-green: rgba(124,252,0, 1);
         --color-red: rgba(255,0,0, 1);
     }
 }
@@ -115,9 +115,9 @@ fieldset {
 
 .userlevel0, .userlevel0 a, .safari0 a, .trip0 a { color: var(--color-transparent); }
 .userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
-.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, #near_miss a { color: var(--color-orange); }
-#accident a { color: var(--color-red); }
-.trip1 a { color: var(--color-green); }
+.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, #nearmiss_orange a { color: var(--color-orange); }
+#accident_red a { color: var(--color-red); }
+.trip1 a, #accident_green a, #nearmiss_green a { color: var(--color-green); }
 
 #accident div {
     float: right;
