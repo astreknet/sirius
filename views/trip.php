@@ -6,18 +6,48 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
     $nearmiss = selectAllFromWhere('nearmiss', 'trip_id', $_GET['tid'], $pdo);
     $accident = selectAllFromWhere('accident', 'trip_id', $_GET['tid'], $pdo);
-    echo ' <h3 class="">'.$safari[0]['name'].' - '.date("j/M/Y G:i", strtotime($trip[0]['date'])).'</h3>';
     $nearmiss_color = (count($nearmiss) == 0 ? 'nearmiss_green' : 'nearmiss_orange');
     $accident_color = (count($accident) == 0 ? 'accident_green' : 'accident_red');
-    if ($trip[0]['status']) {
-        echo '        <ul>';
-    if (!empty($trip[0]['erp_link'])) {
-        echo '<li><a href="'.$trip[0]['erp_link'].'" target="_blank">ERP</a></li>';
+
+    echo ' <h3 class="">'.$safari[0]['name'].' - '.date("j/M/Y G:i", strtotime($trip[0]['date'])).'</h3>';
+    
+    if (isset($_GET['tid'], $_GET['near_miss'])) {
+        $mytime = new DateTime($trip[0]['date']);
+        $diff15Min = new DateInterval('PT15M');
+        echo '  <form action="" method="POST">
+                    <select name="time" required>
+                        <option value="" selected disabled hidden>Time</option>
+        ';
+        for ($i = 0; $i < ($safari[0]['length']/15)+6; $i++){
+            $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
+            echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
+            $mytime->add($diff15Min);
+        }
+        echo '
+                    </select>
+                    <input type="text" id="place" name="place" required maxlength="150" placeholder="place">
+                    <textarea id="description" name="description" required maxlength="270" placeholder="description""></textarea>
+                    guide: <input type="checkbox" id="guide_involved" name="guide_involved">
+                    customer: <input type="checkbox" id="customer_involved" name="customer_involved"><br>
+                    <input type="submit" class="button" value="add near miss">
+                </form>
+            ';
     }
+    elseif (isset($_GET['tid'], $_GET['accident'])) {
+
+
+
+    }
+    else {
+        if ($trip[0]['status']) {
+            echo '        <ul>';
+        if (!empty($trip[0]['erp_link'])) {
+            echo '<li><a href="'.$trip[0]['erp_link'].'" target="_blank">ERP</a></li>';
+        }
         echo '<li>'.$trip[0]['route'].'</li>';
-    if (!empty($trip[0]['remarks'])) {
-        echo '<li>'.$trip[0]['remarks'].'</li>';
-    }
+        if (!empty($trip[0]['remarks'])) {
+            echo '<li>'.$trip[0]['remarks'].'</li>';
+        }
         echo '
             <div id="buttons">
             <div class="button"><a href="./">back</a></div>
@@ -25,24 +55,25 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
             <div id="'.$nearmiss_color.'" class="button"><a href="./?tid='.$_GET['tid'].'&near_miss">near miss ('.count($nearmiss).')</a></div>
             </div>
             ';
-    }
-    else {
-        if (isset($_POST['erp_link'], $_POST['route'], $_POST['remarks']) && $me->userlevel > 0) {
-            updateTableItemWhere('trip', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
-            updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $_GET['tid'], $pdo);
-            updateTableItemWhere('trip', 'remarks', $_POST['remarks'], 'id', $_GET['tid'], $pdo);
-            updateTableItemWhere('trip', 'status', 1, 'id', $_GET['tid'], $pdo);
-            header( "refresh:0;url=./" );
         }
-        echo ' 
-            <form action="" method="POST">
-                <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.$trip[0]['erp_link'].'">
-                <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$trip[0]['route'].'">
-                <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable?"></textarea>
-                <input type="submit" class="button" value="update trip">
-            </form>
-        ';
-    }
+        else {
+            if (isset($_POST['erp_link'], $_POST['route'], $_POST['remarks']) && $me->userlevel > 0) {
+                updateTableItemWhere('trip', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
+                updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $_GET['tid'], $pdo);
+                updateTableItemWhere('trip', 'remarks', $_POST['remarks'], 'id', $_GET['tid'], $pdo);
+                updateTableItemWhere('trip', 'status', 1, 'id', $_GET['tid'], $pdo);
+                header( "refresh:0;url=./" );
+            }
+            echo ' 
+                <form action="" method="POST">
+                    <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.$trip[0]['erp_link'].'">
+                    <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$trip[0]['route'].'">
+                    <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable?"></textarea>
+                    <input type="submit" class="button" value="update trip">
+                </form>
+            ';
+        }
+    }   
 }
 
 else {
