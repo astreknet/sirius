@@ -4,12 +4,12 @@
             CREATE TABLE IF NOT EXISTS safari (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
                 name varchar(60) NOT NULL unique,
-                length INT2 unsigned NOT NULL DEFAULT 60,
-                weekday INT3 NOT NULL DEFAULT 1111111,
+                length INT2 unsigned DEFAULT 60,
+                weekday INT3 DEFAULT 1111111,
                 description LONG,
-                time time NOT NULL DEFAULT "09:00:00",
-                price decimal(8,2) NOT NULL DEFAULT 0.00,
-                active bool NOT NULL DEFAULT TRUE,
+                time time DEFAULT "09:00:00",
+                price decimal(8,2) DEFAULT 0.00,
+                active bool DEFAULT TRUE,
                 PRIMARY KEY (id)
             ); 
 
@@ -28,8 +28,8 @@
                 fname varchar(18),
                 lname varchar(18),
                 tel varchar(18),
-                userlevel INT1 unsigned NOT NULL DEFAULT 1,
-                created timestamp NOT NULL DEFAULT current_timestamp(),
+                userlevel INT1 unsigned DEFAULT 1,
+                created timestamp DEFAULT current_timestamp(),
                 PRIMARY KEY (id)
             );
 
@@ -38,12 +38,12 @@
             CREATE TABLE IF NOT EXISTS trip (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
                 user_id INT2 unsigned NOT NULL,
-                safari_id INT2 unsigned NOT NULL DEFAULT 1,
+                safari_id INT2 unsigned DEFAULT 1,
                 erp_link varchar(150),
-                date datetime NOT NULL DEFAULT current_timestamp(),
+                date datetime DEFAULT current_timestamp(),
                 route varchar(150),
                 remarks varchar(300),
-                status INT1 unsigned NOT NULL DEFAULT 0,
+                status INT1 unsigned DEFAULT 0,
                 done bool DEFAULT FALSE,
                 PRIMARY KEY (id),
                 KEY fk_trip_user (user_id),
@@ -55,14 +55,14 @@
             CREATE TABLE IF NOT EXISTS accident (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
                 user_id INT2 unsigned NOT NULL,
-                trip_id INT2 unsigned NOT NULL,
-                datetime datetime NOT NULL,
-                place varchar(150) NOT NULL,
-                description varchar(300) NOT NULL,
+                trip_id INT2 unsigned DEFAULT 1,
+                datetime datetime DEFAULT current_timestamp(),
+                place varchar(150),
+                description varchar(300),
                 customer_erp_link varchar(150),
-                customer_name varchar(150) NOT NULL,
-                customer_address varchar(150) NOT NULL,
-                customer_email varchar(45) NOT NULL,
+                customer_name varchar(150),
+                customer_address varchar(150),
+                customer_email varchar(45),
                 sm_reg_n varchar(27),
                 sm_model varchar(30),
                 waiver bool DEFAULT FALSE,
@@ -82,8 +82,8 @@
             CREATE TABLE IF NOT EXISTS nearmiss (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
                 user_id INT2 unsigned NOT NULL,
-                trip_id INT2 unsigned NOT NULL DEFAULT 1,
-                datetime datetime NOT NULL DEFAULT current_timestamp(),
+                trip_id INT2 unsigned DEFAULT 1,
+                datetime datetime DEFAULT current_timestamp(),
                 place varchar(150),
                 description varchar(300),
                 guide_involved bool DEFAULT FALSE,
@@ -94,7 +94,6 @@
                 CONSTRAINT fk_nearmiss_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
                 CONSTRAINT fk_nearmiss_trip FOREIGN KEY (trip_id) REFERENCES trip (id) ON DELETE CASCADE
             );
-
         ';
     
     $stmt = $pdo->prepare($sql);
