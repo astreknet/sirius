@@ -1,53 +1,55 @@
+:root {
+    --color-orange: rgb(255, 117, 24);
+    --color-green: rgb(124, 252, 0);
+    --color-red: rgb(255, 0, 0);
+}
 @media screen and (prefers-color-scheme: light) {
     :root {
-        --background-color: rgba(248,248,255, 1);
-        --bg-color-transparent: rgba(248,248,255, 0.81);
-        --color: rgba(74,100,108, 1);
-        --color-transparent: rgba(74,100,108, 0.75);
-        --color-orange: rgba(255,117,24, 1);
-        --color-green: rgba(124,252,0, 1);
-        --color-red: rgba(255,0,0, 1);
+        --background-color: rgb(248, 248, 255);
+        --bg-color-transparent: rgb(248, 248, 255); opacity: 0.81;
+        --color: rgb(74, 100, 108);
+        --color-transparent: rgb(74, 100, 108); opacity: 0.75;
     }
 }
 @media screen and (prefers-color-scheme: dark) {
     :root {
-        --background-color: rgba(0, 45, 98, 1);
-        --bg-color-transparent: rgba(0, 45, 98, 0.87);
-        --color: rgba(204, 204, 204, 1);
-        --color-transparent: rgba(204, 204, 204, 0.75);
-        --color-orange: rgba(255,117,24, 1);
-        --color-green: rgba(34,139,34, 1);
-        --color-red: rgba(255,0,0, 1);
+        --background-color: rgb(0, 45, 98);
+        --bg-color-transparent: rgb(0, 45, 98); opacity: 0.87;
+        --color: rgb(204, 204, 204);
+        --color-transparent: rgb(204, 204, 204); opacity: 0.75;
     }
 }
 :root { color-scheme: light dark;}
+
+:root {
+  --next-img-width: 99%;
+  --textarea-width: 91.8%;
+}
+
 @media (max-width: 999px) {
-    :root {
-        --width: 97.2%;
-        --next-img-width: 99%;
-        --font-size: 210%;
-        --input-width: 99%;
-        --textarea-width: 91.8%;
-    }
+  :root {
+    --width: 97.2%;
+    --font-size: 2.1rem; /* equivalent to 210% */
+    --input-width: 99%;
+  }
 }
-@media only screen and (min-width: 999px) and (max-width: 1400px) {
-    :root {
-        --width: 69%;
-        --next-img-width: 99%;
-        --font-size: 180%;
-        --input-width: 90%;
-        --textarea-width: 91.8%;
-    }
+
+@media only screen and (min-width: 1000px) and (max-width: 1400px) {
+  :root {
+    --width: 69%;
+    --font-size: 1.8rem; /* equivalent to 180% */
+    --input-width: 90%;
+  }
 }
-@media  (min-width: 1400px) {
-    :root {
-        --width: 60%;
-        --next-img-width: 99%;
-        --font-size: 120%;
-        --input-width: 45%;
-        --textarea-width: 91.8%;
-    }
+
+@media (min-width: 1400px) {
+  :root {
+    --width: 60%;
+    --font-size: 1.2rem; /* equivalent to 120% */
+    --input-width: 45%;
+  }
 }
+
 
 body {
     padding: 0;
@@ -68,9 +70,9 @@ li { list-style: none; }
 
 header, section, footer {
     margin: 0 auto; 
-    width: var(--width);
     border-radius: 0.6em;
     padding: 0.9%;
+    width: var(--width);
 }
 
 header{
@@ -115,8 +117,8 @@ fieldset {
 
 .userlevel0, .userlevel0 a, .safari0 a, .trip0 a { color: var(--color-transparent); }
 .userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
-.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, #nearmiss_orange a { color: var(--color-orange); }
-#accident_red a { color: var(--color-red); }
+.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, #nearmiss_orange a, .trip2 a { color: var(--color-orange); }
+#accident_red a, .trip3 a { color: var(--color-red); }
 .trip1 a, #accident_green a, #nearmiss_green a { color: var(--color-green); }
 
 #accident div {
@@ -125,7 +127,6 @@ fieldset {
 }
 
 input, textarea, select, .button a {
-    -ms-box-sizing: content-box;
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
