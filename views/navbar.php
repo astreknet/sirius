@@ -1,30 +1,13 @@
 <section id="navbar">
 <?php
-    if (isset($_SESSION['validated']) && ($_SESSION['validated'])) {
-        (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
-        echo '<ul>
-                <li><a href="./">[trips]</a></li>';
-        if (isset($me) && $me->userlevel > 1) { 
-            echo '
-                <li><a href="./?users">[users]</a></li>
-                <li><a href="./?safaris">[safaris]</a></li>';
-        }
-        echo '  <li><a href="./?account">['.strtolower($me->fname).']</a></li>
-                <li><a href="./?out">[exit]</a></li>
-            </ul>';
-    }
-    elseif (isset($_SESSION['registered'])) {
-         echo ' <ul>
-                    <li><a href="./?out">[exit]</a></li>
-                </ul>';
-    }
-    else {
-        echo '
-            <form id="login"  method="POST">
-                <input type="email" id="username" name="username" required maxlength="45" placeholder="username" value="'.value('username').'" autocomplete="username">
-                <input type="password" id="lpassword" name="lpassword" required maxlength="45" placeholder="password" autocomplete="current-password">
-                <input class="button" type="submit" value="log in">
-            </form>';
-    }
+$menu_all = array("a" => "trips", "e" => strtolower($me->fname));
+$menu_admin = array("b" => "reports", "c" => "safaris", "d" => "users");
+$menu_exit = array("f" => "exit");
+$menu = (isset($_SESSION['register']) && $_SESSION['register'] ? $menu_exit : ($me->userlevel > 1 ? array_merge($menu_all, $menu_admin, $menu_exit) : array_merge($menu_all, $menu_exit)));
+ksort($menu);
+
+foreach($menu as $m) {
+    echo '<div><a href="./?'.str_replace(' ', '_', $m).'">['.$m.']</a></div>';
+}
 ?>
 </section>

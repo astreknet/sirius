@@ -5,7 +5,7 @@ include_once 'includes/function.php';
 require_once 'includes/myconn.php';
 include_once 'class/User.php';
 
-(!isset($_GET['out']) ?: getout());
+(!isset($_GET['exit']) ?: getout());
 
 ### VALIDATION ############################################
 if (isset($_POST['username'], $_POST['lpassword']) && ($me = new User($_POST['username'], $pdo)) && ($me->userlevel)) {
@@ -22,7 +22,7 @@ require_once 'views/header.php';
 ### ROUTING ###############################################
 if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SESSION['usermail'], $pdo)) && ($me->userlevel) && ($_SESSION['validated'])) {
     require_once 'views/navbar.php';
-    if ((isset($_SESSION['register']) && $_SESSION['register']) || isset($_GET['account'])) {
+    if ((isset($_SESSION['register']) && $_SESSION['register']) || isset($_GET[str_replace(' ', '_', strtolower($me->fname))])) {
         include_once 'views/account.php';
     }
     elseif (isset($_GET['reports']) && $me->userlevel > 1) {
