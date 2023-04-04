@@ -1,6 +1,5 @@
 <?php
 (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
-$_SESSION['id'] = $me->id;
 (empty($me->fname) ?: $_SESSION['fname'] = $me->fname);
 (empty($me->lname) ?: $_SESSION['lname'] = $me->lname);
 (empty($me->tel) ?: $_SESSION['tel'] = $me->tel);
@@ -17,10 +16,10 @@ if (
         $fname = htmlspecialchars(trim($_POST['fname']));
         $lname = htmlspecialchars(trim($_POST['lname']));
         $tel = filter_var($_POST['tel'], FILTER_SANITIZE_NUMBER_INT);
-        updateTableItemWhere('user', 'fname', $fname, 'id', $_SESSION['id'], $pdo);
-        updateTableItemWhere('user', 'lname', $lname, 'id', $_SESSION['id'], $pdo);
-        updateTableItemWhere('user', 'tel', $tel, 'id', $_SESSION['id'], $pdo);
-        updateTableItemWhere('user', 'password', $password, 'id', $_SESSION['id'], $pdo);
+        updateTableItemWhere('user', 'fname', $fname, 'id', $me->id, $pdo);
+        updateTableItemWhere('user', 'lname', $lname, 'id', $me->id, $pdo);
+        updateTableItemWhere('user', 'tel', $tel, 'id', $me->id, $pdo);
+        updateTableItemWhere('user', 'password', $password, 'id', $me->id, $pdo);
         header( "Location: index.php?out" ); 
 }
 

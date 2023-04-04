@@ -7,29 +7,39 @@ include_once 'class/User.php';
 
 (!isset($_GET['out']) ?: getout());
 
-(!isset($_POST['username'], $_POST['lpassword']) || !($me = new User($_POST['username'], $pdo)) || !($me->userlevel && $me->validate(hash('sha256', $_POST['lpassword']))) ?: $_SESSION = array('id' => $me->id, 'usermail' => $me->email, 'validated' => TRUE));
-(!isset($_POST['username'], $_POST['lpassword']) || !is_null($me->password) || (hash('sha256', $_POST['lpassword']) !== hash('sha256', $me->email)) ?: $_SESSION = array('registered' => FALSE, 'usermail' => $me->email));
+### VALIDATION ############################################
+if (isset($_POST['username'], $_POST['lpassword']) && ($me = new User($_POST['username'], $pdo)) && ($me->userlevel)) {
+    if (is_null($me->password) && hash('sha256', $_POST['lpassword']) === hash('sha256', $me->email)) { 
+        $_SESSION = array('usermail' => $me->email, 'validated' => TRUE, 'register' => TRUE);
+    }
+    if ($me->validate(hash('sha256', $_POST['lpassword']))) { 
+        $_SESSION = array('usermail' => $me->email, 'validated' => TRUE);
+    }
+}
 
 require_once 'views/header.php';
 
-if (isset($_SESSION['validated'])){
-    (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
-    
-    if(isset($_GET['users']) && $me->userlevel > 1){
-        include 'views/user.php';    
+### ROUTING ###############################################
+if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SESSION['usermail'], $pdo)) && ($me->userlevel) && ($_SESSION['validated'])) {
+    require_once 'views/navbar.php';
+    if ((isset($_SESSION['register']) && $_SESSION['register']) || isset($_GET['account'])) {
+        include_once 'views/account.php';
     }
-    elseif(isset($_GET['account'])){
-        include 'views/account.php';    
+    elseif (isset($_GET['reports']) && $me->userlevel > 1) {
+        include_once 'views/report.php';
     }
-    elseif(isset($_GET['safaris']) && $me->userlevel > 1){
-        include 'views/safari.php';
+    elseif (isset($_GET['safaris']) && $me->userlevel > 1) {
+        include_once 'views/safari.php';
     }
-    else{
-        include 'views/trip.php';    
+    elseif (isset($_GET['users']) && $me->userlevel > 1) {
+        include_once 'views/user.php';
+    }
+    else {
+        include_once 'views/trip.php';
     }
 }
 else {
-    include (isset($_SESSION['registered']) && !($_SESSION['registered']) ? 'views/account.php' : 'views/astrek.php');
+    include_once 'views/login.php';
 }
 
 require_once 'views/footer.php';
