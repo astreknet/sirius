@@ -59,10 +59,7 @@ body {
     font-family: verdana;
 }
 
-h1, h2 {
-    margin: 0;
-    margin-left: 0.3%;
-}
+h1, h2 { margin: 0; }
 
 h3 { text-align: center; }
 
@@ -70,49 +67,37 @@ li { list-style: none; }
 
 header, section, footer {
     margin: 0 auto; 
-    border-radius: 0.6em;
-    padding: 0.9%;
+    padding: 0.9rem;
     width: var(--width);
+    box-sizing: border-box;
 }
 
 header{
-        margin-top: 0.3%;
-        border: 0.06em dashed var(--color);
-        top: 0;
-        position: -webkit-sticky; /* Safari */
-        position: sticky;
-        opacity: 0.9;
-        filter: alpha(opacity=90);
-        z-index: 9;
-}
-header ul { padding: 0; }
-header li { display: inline-block; }
-header li a { color: var(--color) }
-
-
-a {
-    text-decoration: none;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
 }
 
-.center, section { margin:1.5% auto; }
+a { text-decoration: none; }
 
 .left_align { text-align: left; }
 
-section { text-align: right;}
-
-fieldset {
-    border-radius: 0.6em;
-    border: 0.06em dashed var(--color);  
-    margin-bottom: 9px;
+section { 
+    text-align: right;
+    border-radius: 0.45rem;
+    border: 0.06em dashed var(--color);
 }
 
-#astrek {
+#navbar {
     border: none;
-    background-image: url(https://astrek.net/pub/aurora_forecast_europe.webp);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 90vh;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+}
+#navbar a { color: var(--color); }
+
+#navbar, #trip_buttons {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .userlevel0, .userlevel0 a, .safari0 a, .trip0 a { color: var(--color-transparent); }
@@ -158,28 +143,18 @@ input[type=submit], .button a {
     color: var(--background-color);
     #border: 0.06em solid var(--background-color);
 }
-#buttons {
+#trip_buttons {
     margin-top: 0.9%;
 }
-.button {
-    margin-left: 0.15em;
-    float: right;
-}
-.svg_color { fill: var(--background-color); }
+
+.svg_color { fill: var(--color); }
 .svg_text {
-        fill: var(--color);
+        fill: var(--background-color);
         font-family: 'Arial';
         stroke-width: 0.03em;
 }
 
 footer {
-    margin: 0 auto; 
-    bottom: 0;
-    position: absolute;
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    background-color: var(--color);
-    color: var(--background-color);
     text-align: center;
     font-size: 0.6em; 
 }

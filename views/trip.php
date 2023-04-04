@@ -134,10 +134,10 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
             echo '<li>'.$trip[0]['remarks'].'</li>';
         }
         echo '
-            <div id="buttons">
-            <div class="button"><a href="./">back</a></div>
-            <div id="'.$accident_color.'" class="button"><a href="./?tid='.$_GET['tid'].'&accident">acident ('.count($accident).')</a></div>
-            <div id="'.$nearmiss_color.'" class="button"><a href="./?tid='.$_GET['tid'].'&near_miss">near miss ('.count($nearmiss).')</a></div>
+            <div id="trip_buttons">
+                <div id="'.$nearmiss_color.'" class="button"><a href="./?tid='.$_GET['tid'].'&near_miss">near miss ('.count($nearmiss).')</a></div>
+                <div id="'.$accident_color.'" class="button"><a href="./?tid='.$_GET['tid'].'&accident">acident ('.count($accident).')</a></div>
+                <div class="button"><a href="./">back</a></div>
             </div>
             ';
         }
