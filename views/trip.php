@@ -208,13 +208,13 @@ else {
         </form>
     ';
     if ($trips = selectAllFromWhere('trip', 'user_id', $me->id, $pdo)) {
-        echo '<ul>';
-        array_multisort(array_column( $trips, 'date' ), SORT_DESC, $trips);
+        echo '<ol>';
+        #array_multisort(array_column( $trips, 'date' ), SORT_DESC, $trips); // reverse order
         foreach ($trips as $trip){
             $saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            echo '  <li class="trip'.$trip['status'].'"><a href="?tid='.$trip['id'].'">'.$saf[0]['name'].' - '.date("j/M/Y G:i", strtotime($trip['date'])).'</a></li>';
+            echo '  <li class="trip'.$trip['status'].'"><a href="?tid='.$trip['id'].'">'.date("d M Y H:i", strtotime($trip['date'])).' - '.$saf[0]['name'].'</a></li>';
         }
-        echo '</ul>';
+        echo '</ol>';
     }
     else {
         echo "<p>You don't have any trip yet!</p>";

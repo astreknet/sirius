@@ -63,7 +63,10 @@ h1, h2 { margin: 0; }
 
 h3 { text-align: center; }
 
-li { list-style: none; }
+ol { 
+    display: flex;
+    flex-direction: column-reverse;
+}
 
 header, section, footer {
     margin: 0 auto; 
@@ -82,7 +85,6 @@ a { text-decoration: none; }
 .left_align { text-align: left; }
 
 section { 
-    text-align: right;
     border-radius: 0.45rem;
     border: 0.06em dashed var(--color);
 }
@@ -106,11 +108,6 @@ section {
 #accident_red a, .trip3 a { color: var(--color-red); }
 .trip1 a, #accident_green a, #nearmiss_green a { color: var(--color-green); }
 
-#accident div {
-    float: right;
-    width: 51%;
-}
-
 input, textarea, select, .button a {
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box;
@@ -132,6 +129,7 @@ textarea{
 }
 
 input[type=checkbox] {
+    vertical-align: middle;
     transform: scale(1.2);
     width: auto;
     border: 0.06em solid var(--color);
