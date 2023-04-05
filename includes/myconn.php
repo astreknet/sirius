@@ -43,7 +43,7 @@
                 date datetime DEFAULT current_timestamp(),
                 route varchar(150),
                 remarks varchar(300),
-                status INT1 unsigned DEFAULT 0,
+                updated datetime ON UPDATE current_timestamp(),
                 PRIMARY KEY (id),
                 KEY fk_trip_user (user_id),
                 KEY fk_trip_safari (safari_id),
