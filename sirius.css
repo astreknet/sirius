@@ -50,6 +50,11 @@
   }
 }
 
+* { 
+    box-sizing: border-box; 
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
 
 body {
     padding: 0;
@@ -68,21 +73,18 @@ ol {
     flex-direction: column-reverse;
 }
 
+a { text-decoration: none; }
+
 header, section, footer {
     margin: 0 auto; 
     padding: 0.9rem;
     width: var(--width);
-    box-sizing: border-box;
 }
 
 header{
     position: -webkit-sticky; /* Safari */
     position: sticky;
 }
-
-a { text-decoration: none; }
-
-.left_align { text-align: left; }
 
 section { 
     border-radius: 0.45rem;
@@ -91,10 +93,9 @@ section {
 
 #navbar {
     border: none;
-    display: flex;
-    flex-wrap: wrap;
     margin-bottom: 0;
 }
+
 #navbar a { color: var(--color); }
 
 #navbar, #trip_buttons {
@@ -109,9 +110,6 @@ section {
 .trip1 a, #accident_green a, #nearmiss_green a { color: var(--color-green); }
 
 input, textarea, select, .button a {
-    -moz-box-sizing: content-box;
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
     font-size: inherit;
     background-color: var(--background-color);
     border: 0.06em solid var(--color);
@@ -160,4 +158,3 @@ svg text {
     font-family: 'Arial';
     stroke-width: 0.03em;
 }
-

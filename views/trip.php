@@ -9,7 +9,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $accident = selectAllFromWhere('accident', 'trip_id', $_GET['tid'], $pdo);
     $nearmiss_color = (count($nearmiss) == 0 ? 'nearmiss_green' : 'nearmiss_orange');
     $accident_color = (count($accident) == 0 ? 'accident_green' : 'accident_red');
-        echo '<h4 class="">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
+        echo '<h4>'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
 
 
 ### NEAR MISS ###
