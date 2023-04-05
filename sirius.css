@@ -139,25 +139,25 @@ input[type=submit], .button a {
     width: fit-content;
     background-color: var(--color);
     color: var(--background-color);
-    #border: 0.06em solid var(--background-color);
 }
+
 #trip_buttons {
     margin-top: 0.9%;
 }
 
-.svg_color { fill: var(--color); }
-.svg_text {
-        fill: var(--background-color);
-        font-family: 'Arial';
-        stroke-width: 0.03em;
-}
-
 footer {
-    text-align: center;
-    font-size: 0.6em; 
+    text-align: right;
 }
 
-footer svg {
-        width: 4.5em;
-        height: 4.5em;
+svg {
+    width: 2.7rem;
+    height: 2.7rem;
+    fill: var(--color);
 }
+
+svg text {
+    fill: var(--background-color);
+    font-family: 'Arial';
+    stroke-width: 0.03em;
+}
+
