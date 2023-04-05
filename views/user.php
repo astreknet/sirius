@@ -49,7 +49,7 @@ else {
             <input type="submit" class="button" value="add user" >
         </form>
                     
-        <ul>';
+        <ol>';
     
     foreach ($user as $s){
         echo '<li class="userlevel'.$s->userlevel.'"><a href="?users&id='.$s->id.'">';
@@ -58,7 +58,7 @@ else {
     } 
 
     echo '
-        </ul>
+        </ol>
         <div class="button"><a href="?users&vcard">get vCard</a></div>';
 
     if (isset($_GET['vcard'])){
