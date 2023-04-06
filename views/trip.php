@@ -11,8 +11,12 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $nearmiss_color = (count($nearmiss) == 0 ? 'nearmiss_green' : 'nearmiss_orange');
     $accident_color = (count($accident) == 0 ? 'accident_green' : 'accident_red');
     
-    echo '<h4>'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
-
+    if (!empty($trip[0]['erp_link'])) { 
+        echo '<h4><a href="'.$trip[0]['erp_link'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</a></h4>';
+    }
+    else {
+        echo '<h4>'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
+    }
 ### NEAR MISS ########################################
     if (isset($_GET['tid'], $_GET['near_miss'])) {
         if (isset($_POST['datetime'], $_POST['place'], $_POST['description'])) {

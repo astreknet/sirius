@@ -104,7 +104,7 @@ section {
 }
 
 .userlevel0, .userlevel0 a, .safari0 a, .trip0 a { color: var(--color-transparent); }
-.userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
+h4 a, .userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
 .userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, #nearmiss_orange a, .trip2 a { color: var(--color-orange); }
 #accident_red a, .trip3 a { color: var(--color-red); }
 .trip1 a, #accident_green a, #nearmiss_green a { color: var(--color-green); }
@@ -118,6 +118,7 @@ input, textarea, select, .button a {
     color: var(--color);
     margin-top: 0.15em;
 }
+
 input { width: var(--input-width);}
 
 textarea{
