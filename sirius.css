@@ -103,6 +103,14 @@ section {
     flex-wrap: wrap;
 }
 
+#update_trip, #near_miss, #accident {
+    padding: 1.8%;
+}
+
+#near_miss, #accident {
+    border-top: 0.06em dashed var(--color);
+}
+
 .userlevel0, .userlevel0 a, .safari0 a, .trip0 a { color: var(--color-transparent); }
 h4 a, .userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
 .userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, #nearmiss_orange a, .trip2 a { color: var(--color-orange); }
@@ -140,7 +148,7 @@ input[type=submit], .button a {
     color: var(--background-color);
 }
 
-#trip_buttons {
+.button {
     margin-top: 0.9%;
 }
 
