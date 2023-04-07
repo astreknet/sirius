@@ -112,7 +112,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 <input type="number" id="total_euro" name="total_euro" min="0.00" max="10000.00" step="0.01" placeholder="total euro">
                 <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" placeholder="total paid">
                 <textarea id="injury" name="injury" maxlength="270" placeholder="injury"></textarea><br>
-                <input type="checkbox" id="first_aid_by_staff" name="first_aid_by_staff"> first aid given by staff<br>
+                <input type="checkbox" id="first_aid" name="first_aid"> first aid<br>
                 <input type="checkbox" id="hospital_offer" name="hospital offer"> hospital offer<br>
                 <input type="checkbox" id="hospital_visit" name="hospital visit"> hospital visit<br>
                 <input type="submit" class="button" value="add accident"><br>

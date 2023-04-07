@@ -15,11 +15,8 @@
 
             INSERT IGNORE INTO safari (id, name, description) VALUES
                 (1, "snowmobiling intro", "Easy experience. Including one stop for pictures"),
-                (2, "scenic snowmobile", "Average driving. Beautiful ride. Stops for pictures. Hot berry juice"),
-                (3, "cross country ski", "Easy tracks. Basic class. Hot berry juice and cookies"),
-                (4, "snow bike", "Average experience. Hot berry juice and snack"),
-                (5, "forest ski", "Off piste. Hot berry juice and snack"),
-                (6, "other optional", "taylor made safari");
+                (2, "forest ski", "Off piste. Hot berry juice and snack"),
+                (3, "other optional", "taylor made safari");
 
             CREATE TABLE IF NOT EXISTS user (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,
@@ -68,7 +65,7 @@
                 total_euro decimal(8,2) DEFAULT 0.00,
                 total_paid decimal(8,2) DEFAULT 0.00,
                 injury varchar(300),
-                first_aid_by_staff bool DEFAULT FALSE,
+                first_aid bool DEFAULT FALSE,
                 hospital_offer bool DEFAULT FALSE,
                 hospital_visit bool DEFAULT FALSE,
                 PRIMARY KEY (id),
