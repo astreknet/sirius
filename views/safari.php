@@ -24,7 +24,7 @@ if (isset($_GET['safaris'], $_GET['id'])) {
         </select><br>';
     $check = ($safari[0]['active'] ? 'checked' : '');        
     echo '
-        active: <input type="checkbox" id="active" name="active" '.$check.'><br>
+        <input type="checkbox" id="active" name="active" '.$check.'> active<br>
         <input type="submit" value="update safari">
     </form>
     '; 
