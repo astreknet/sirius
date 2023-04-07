@@ -71,7 +71,8 @@ h1, h2 { margin: 0; }
 
 h3 { text-align: center; }
 
-ol { 
+ol {
+    margin: 1.2rem;
     display: flex;
     flex-direction: column-reverse;
 }
@@ -91,19 +92,33 @@ header{
 
 section { 
     border-radius: 0.45rem;
-    border: 0.06em dashed var(--color);
+    border: 0.09rem dashed var(--color);
 }
 
 #navbar {
     border: none;
-    margin-bottom: 0;
-}
-
-#navbar a { color: var(--color); }
-
-#navbar, #trip_buttons {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#navbar > * {
+    border-radius: 0.18rem;
+    flex: auto;
+    width: auto;
+    margin: 0.12rem;
+    text-align: center;
+}
+
+#navbar a:link, #navbar a:visited, #navbar a:focus {
+    color: var(--background-color);
+    background-color: var(--color);
+}
+
+#navbar a:hover, #navbar a:active {
+    color: var(--color);
+    background-color: var(--background-color);
 }
 
 #update_trip, #near_miss, #accident { padding: 1.8%; }
@@ -121,11 +136,11 @@ h4 a, .userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
 input, textarea, select, .button a {
     font-size: inherit;
     background-color: var(--background-color);
-    border: 0.06em solid var(--color);
-    border-radius: 0.3em;
-    padding: 0.15em;
+    border: 0.09rem solid var(--color);
+    border-radius: 0.45rem;
+    padding: 0.18rem;
     color: var(--color);
-    margin-top: 0.15em;
+    margin-top: 0.18rem;
 }
 
 input { width: var(--input-width);}
@@ -138,9 +153,9 @@ textarea{
 
 input[type=checkbox] {
     vertical-align: middle;
-    transform: scale(1.2);
+    transform: scale(0.99);
     width: auto;
-    border: 0.06em solid var(--color);
+    border: 0.09rem solid var(--color);
 }
 
 input[type=submit], .button a { 
@@ -166,5 +181,5 @@ svg {
 svg text {
     fill: var(--background-color);
     font-family: 'Arial';
-    stroke-width: 0.03em;
+    stroke-width: 0.03rem;
 }

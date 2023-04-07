@@ -7,7 +7,7 @@ if (!isset($_SESSION['register']) || !$_SESSION['register']) {
 }
 
 foreach($menu as $m) {
-    echo '<div><a href="./?'.str_replace(' ', '_', $m).'">['.$m.']</a></div>';
+    echo '<a href="./?'.str_replace(' ', '_', $m).'"><div>'.$m.'</div></a>';
 }
 ?>
 </section>
