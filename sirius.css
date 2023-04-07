@@ -86,11 +86,6 @@ header, section, footer {
     width: var(--width);
 }
 
-header{
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-}
-
 section { border: 0.09rem dashed var(--color); }
 
 #navbar {
@@ -118,7 +113,10 @@ section { border: 0.09rem dashed var(--color); }
     background-color: var(--background-color);
 }
 
-#update_trip, #near_miss, #accident { padding: 1.8%; }
+#update_trip, #near_miss, #accident { 
+    margin: 0.9% 0;
+    padding: 1.8%; 
+}
 
 #update_trip { background-color: var(--color-green-pale); }
 #near_miss { background-color: var(--color-orange-pale); }
