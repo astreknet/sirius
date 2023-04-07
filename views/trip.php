@@ -8,14 +8,13 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $diff15Min = new DateInterval('PT15M');
     $nearmiss = selectAllFromWhere('nearmiss', 'trip_id', $_GET['tid'], $pdo);
     $accident = selectAllFromWhere('accident', 'trip_id', $_GET['tid'], $pdo);
-    $nearmiss_color = (count($nearmiss) == 0 ? 'nearmiss_green' : 'nearmiss_orange');
-    $accident_color = (count($accident) == 0 ? 'accident_green' : 'accident_red');
-
+    $h4class = (count($accident) > 0 ? 'class_red' : (count($nearmiss) > 0 ? 'class_orange' : (is_null($trip[0]['remarks']) ? 'class_pale' : 'class_green')));
+    
     if (!empty($trip[0]['erp_link'])) { 
-        echo '<h4><a href="'.$trip[0]['erp_link'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</a></h4>';
+        echo '<h4 class="'.$h4class.'"><a href="'.$trip[0]['erp_link'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</a></h4>';
     }
     else {
-        echo '<h4>'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
+        echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
     }
         
 ### UPDATE TRIP #####################################
@@ -36,7 +35,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         </div>';
     
 ### NEAR MISS ########################################        
-    if (isset($_POST['datetime'], $_POST['place'], $_POST['description'])) {
+    if (isset($_POST['nm_datetime'], $_POST['nm_place'], $_POST['nm_description'])) {
         $nearmissId = insertInto('nearmiss', 'user_id', $me->id, $pdo);
         updateTableItemWhere('nearmiss', 'trip_id', $_GET['tid'], 'id', $nearmissId['id'], $pdo);
         updateTableItemWhere('nearmiss', 'datetime', $_POST['datetime'], 'id', $nearmissId['id'], $pdo);
@@ -50,7 +49,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         <div id="near_miss">
         <h5>Near Miss</h5>
             <form action="" method="POST">
-                <select name="datetime" required>
+                <select name="nm_datetime" required>
                     <option value="" selected disabled hidden>Time</option>';
         for ($i = 0; $i < ($safari[0]['length']/15)+6; $i++){
             $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
@@ -58,8 +57,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
             $mytime->add($diff15Min);
         }
     echo '      </select>
-                <input type="text" id="place" name="place" required maxlength="150" placeholder="place">
-                <textarea id="description" name="description" required maxlength="270" placeholder="description"></textarea><br>
+                <input type="text" id="nm_place" name="nm_place" required maxlength="150" placeholder="place">
+                <textarea id="nm_description" name="nm_description" required maxlength="270" placeholder="description"></textarea><br>
                 <input type="checkbox" id="guide" name="guide"> guide<br>
                 <input type="checkbox" id="customer" name="customer" checked> customer<br>
                 <input type="submit" class="button" value="add near miss"><br>
@@ -183,8 +182,11 @@ else {
         echo '<ol>';
         #array_multisort(array_column( $trips, 'date' ), SORT_DESC, $trips); // reverse order
         foreach ($trips as $trip){
+            $nm = selectAllFromWhere('nearmiss', 'trip_id', $trip['id'], $pdo);
+            $ac = selectAllFromWhere('accident', 'trip_id', $trip['id'], $pdo);
             $saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            echo '  <li class="trip'.$trip['status'].'"><a href="?tid='.$trip['id'].'">'.date("d M Y H:i", strtotime($trip['date'])).' - '.$saf[0]['name'].'</a></li>';
+            $tripclass = (count($ac) > 0 ? 'class_red' : (count($nm) > 0 ? 'class_orange' : (is_null($trip['remarks']) ? 'class_pale' : 'class_green')));
+            echo '  <li class="'.$tripclass.'"><a href="?tid='.$trip['id'].'">'.date("d M Y H:i", strtotime($trip['date'])).' - '.$saf[0]['name'].'</a></li>';
         }
         echo '</ol>';
     }

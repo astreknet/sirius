@@ -78,7 +78,10 @@ ol {
     flex-direction: column-reverse;
 }
 
-a { text-decoration: none; }
+a { 
+    text-decoration: none; 
+    color: var(--color);
+}
 
 header, section, footer {
     margin: 0 auto; 
@@ -122,11 +125,10 @@ section { border: 0.09rem dashed var(--color); }
 #near_miss { background-color: var(--color-orange-pale); }
 #accident { background-color: var(--color-red-pale); }
 
-.userlevel0, .userlevel0 a, .safari0 a, .trip0 a { color: var(--color-transparent); }
-h4 a, .userlevel1, .userlevel1 a, .safari1 a, address a { color: var(--color); }
-.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, #nearmiss_orange a, .trip2 a { color: var(--color-orange); }
-#accident_red a, .trip3 a { color: var(--color-red); }
-.trip1 a, #accident_green a, #nearmiss_green a { color: var(--color-green); }
+.userlevel0, .userlevel0 a, .safari0 a, .class_pale, .class_pale a { color: var(--color-transparent); }
+.userlevel2, .userlevel3, .userlevel2 a, .userlevel3 a, .class_orange, .class_orange a { color: var(--color-orange); }
+.class_red { color: var(--color-red); }
+.class_green, .class_green a { color: var(--color-green); }
 
 input, textarea, select, .button a {
     font-size: inherit;
