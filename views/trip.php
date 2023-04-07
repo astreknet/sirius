@@ -38,9 +38,9 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     if (isset($_POST['nm_datetime'], $_POST['nm_place'], $_POST['nm_description'])) {
         $nearmissId = insertInto('nearmiss', 'user_id', $me->id, $pdo);
         updateTableItemWhere('nearmiss', 'trip_id', $_GET['tid'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('nearmiss', 'datetime', $_POST['datetime'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('nearmiss', 'place', $_POST['place'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('nearmiss', 'description', $_POST['description'], 'id', $nearmissId['id'], $pdo);
+        updateTableItemWhere('nearmiss', 'datetime', $_POST['nm_datetime'], 'id', $nearmissId['id'], $pdo);
+        updateTableItemWhere('nearmiss', 'place', $_POST['nm_place'], 'id', $nearmissId['id'], $pdo);
+        updateTableItemWhere('nearmiss', 'description', $_POST['nm_description'], 'id', $nearmissId['id'], $pdo);
         (!isset($_POST['guide']) ?: updateTableItemWhere('nearmiss', 'guide', 1, 'id', $nearmissId['id'], $pdo));
         (!isset($_POST['customer']) ?: updateTableItemWhere('nearmiss', 'customer', 1, 'id', $nearmissId['id'], $pdo));
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
@@ -77,14 +77,22 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     }
     echo '</div>';        
 ### ACCIDENT ########################################
-    if (isset($_POST['datetime'], $_POST['place'], $_POST['description'])) {
+    if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email'])) {
         $accidentId = insertInto('accident', 'user_id', $me->id, $pdo);
-        updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('accident', 'datetime', $_POST['datetime'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('accident', 'place', $_POST['place'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('accident', 'description', $_POST['description'], 'id', $nearmissId['id'], $pdo);
-        (!isset($_POST['guide']) ?: updateTableItemWhere('nearmiss', 'guide', 1, 'id', $nearmissId['id'], $pdo));
-        (!isset($_POST['customer']) ?: updateTableItemWhere('nearmiss', 'customer', 1, 'id', $nearmissId['id'], $pdo));
+        $non_required = array('customer_erp_link', 'sm_reg_n', 'sm_model', 'total_euro', 'total_paid', 'injury');
+        foreach ($non_required as $nc) {
+            $data = (isset($_POST[$nc]) ? $_POST[$nc] : NULL);
+            updateTableItemWhere('accident', $nc, $data, 'id', $accidentId['id'], $pdo);
+        }
+        $required = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email');
+        foreach ($required as $r) {
+            updateTableItemWhere('accident', $r, $_POST[$r], 'id', $accidentId['id'], $pdo);
+        }
+        updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId['id'], $pdo);
+        $checks = array('waiver', 'first_aid', 'hospital_offer', 'hospital_visit');
+        foreach($checks as $c) {
+            (!isset($_POST[$c]) ?: updateTableItemWhere('accident', $c, 1, 'id', $accidentId['id'], $pdo));
+        }
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '  
@@ -99,8 +107,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
             $mytime->add($diff15Min);
         }
     echo '      </select>
-                <input type="text" id="place" name="place" required maxlength="150" placeholder="place">
-                <textarea id="description" name="description" required maxlength="270" placeholder="description"></textarea>
+                <input type="text" id="place" name="acc_place" required maxlength="150" placeholder="place">
+                <textarea id="description" name="acc_description" required maxlength="270" placeholder="description"></textarea>
                 <input type="text" id="customer_erp_link" name="customer_erp_link" maxlength="150" placeholder="customer erp link">
                 <input type="text" id="customer_name" name="customer_name" required maxlength="150" placeholder="customer name">
                 <input type="text" id="customer_address" name="customer_address" required maxlength="150" placeholder="customer address">
@@ -120,8 +128,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         echo '  <ul>';
         foreach ($accident as $n){
             #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            $involved = ($n['guide'] && $n['customer'] ? 'guide and customer' : ($n['guide'] ? 'guide' : 'customer'));
-            echo '  <li>'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$involved.'</li>';
+            echo '  <li>'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</li>';
             }
         echo '</ul>';
     }
