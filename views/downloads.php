@@ -18,42 +18,27 @@ header( 'Content-Type: text/vcf' );
 header( 'Content-Disposition: attachment;filename=guides.vcf');
 }
 
-if(isset($_SESSION['trip_report'], $_SESSION['validated']) && $_SESSION['validated']) {
-    $filename = 'trip_report';
+function downloadCsv($name){
     $out = fopen('php://output', 'w');
-    foreach ($_SESSION['trip_report'] as $t){
+    foreach ($_SESSION[$name] as $t){
         fputcsv($out, $t);
     }
     fclose($out);
-    unset($_SESSION['trip_report']);
+    unset($_SESSION[$name]);
     header( 'Content-Type: text/csv' );
-    header( 'Content-Disposition: attachment;filename='.$filename);
+    header( 'Content-Disposition: attachment;filename='.$name.'-'.date('YmdHis').'.csv' );
+}
+
+if(isset($_SESSION['trip_report'], $_SESSION['validated']) && $_SESSION['validated']) {
+    downloadCsv('trip_report');
 }
 
 if(isset($_SESSION['accident_report'], $_SESSION['validated']) && $_SESSION['validated']) {
-    $filename = 'accident_report';
-    $out = fopen('php://output', 'w');
-    foreach ($_SESSION['accident_report'] as $t){
-        fputcsv($out, $t);
-    }
-    fclose($out);
-    unset($_SESSION['accident_report']);
-    header( 'Content-Type: text/csv' );
-    header( 'Content-Disposition: attachment;filename='.$filename);
+    downloadCsv('accident_report');
 }
 
 if(isset($_SESSION['nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) {
-    $filename = 'nearmiss_report';
-    $out = fopen('php://output', 'w');
-    foreach ($_SESSION['nearmiss_report'] as $t){
-        fputcsv($out, $t);
-    }
-    fclose($out);
-    unset($_SESSION['nearmiss_report']);
-    header( 'Content-Type: text/csv' );
-    header( 'Content-Disposition: attachment;filename='.$filename);
+    downloadCsv('nearmiss_report');
 }
-
-
 
 ?>
