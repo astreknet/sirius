@@ -29,16 +29,8 @@ function downloadCsv($name){
     header( 'Content-Disposition: attachment;filename='.$name.'-'.date('YmdHis').'.csv' );
 }
 
-if(isset($_SESSION['trip_report'], $_SESSION['validated']) && $_SESSION['validated']) {
-    downloadCsv('trip_report');
-}
-
-if(isset($_SESSION['accident_report'], $_SESSION['validated']) && $_SESSION['validated']) {
-    downloadCsv('accident_report');
-}
-
-if(isset($_SESSION['nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) {
-    downloadCsv('nearmiss_report');
-}
+if(isset($_SESSION['trip_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('trip_report'); }
+if(isset($_SESSION['nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('nearmiss_report'); }
+if(isset($_SESSION['accident_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('accident_report'); }
 
 ?>

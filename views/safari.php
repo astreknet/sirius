@@ -1,5 +1,4 @@
 <section id="safaris">
-    
 <?php
 if (isset($_GET['safaris'], $_GET['id'])) {
     if (isset($_POST['name'], $_POST['length']) && $me->userlevel > 1) { 
@@ -10,25 +9,22 @@ if (isset($_GET['safaris'], $_GET['id'])) {
         header( "refresh:0;url=?safaris" );
     }
     $safari = selectAllFromWhere('safari', 'id', $_GET['id'], $pdo);
-    echo '    
-    <h3>update '.$safari[0]['name'].'</h3>
-    <form action="" method="POST">
-        <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name" value="'.$safari[0]['name'].'"><br>
-        <select id="length" name="length" required>
-            <option value="" selected disabled hidden>length:</option>';
-            for ($i=60; $i<=300; $i=$i+30) {
-                $selected = ($safari[0]['length'] == $i ? 'selected' : '');
-                echo '<option value="'.$i.'" '.$selected.'>'.($i/60).'h</option>';
-            }
-    echo '
-        </select><br>';
     $check = ($safari[0]['active'] ? 'checked' : '');        
-    echo '
-        <input type="checkbox" id="active" name="active" '.$check.'> active<br>
-        <input type="submit" value="update safari">
-    </form>
-    '; 
+    echo '<h3>update '.$safari[0]['name'].'</h3>
+            <form action="" method="POST">
+                <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name" value="'.$safari[0]['name'].'"><br>
+                <select id="length" name="length" required>
+                    <option value="" selected disabled hidden>length:</option>';
+    for ($i=60; $i<=300; $i=$i+30) {
+        $selected = ($safari[0]['length'] == $i ? 'selected' : '');
+        echo '      <option value="'.$i.'" '.$selected.'>'.($i/60).' h</option>';
+        }
+    echo '      </select><br>
+                <input type="checkbox" id="active" name="active" '.$check.'> active<br>
+                <input type="submit" value="update safari">
+            </form>'; 
 }
+
 else {
     if (isset($_POST['name'], $_POST['length']) && !(selectAllFromWhere('safari', 'name', $_POST['name'], $pdo)) && $me->userlevel > 1) {
         insertInto('safari', 'name', $_POST['name'], $pdo);
@@ -37,31 +33,23 @@ else {
     foreach (selectAllFrom('safari', $pdo) as $s){
         $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
     }
-    echo '
-    <h3>Safaris</h3>
-    <form method="POST">
-        <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name">
-        <select id="length" name="length" required>
-            <option value="" selected disabled hidden>length:</option>
-            <option value="60">1h</option>
-            <option value="90">1h 30m</option>
-            <option value="120">2h</option>
-            <option value="150">2h 30m</option>
-            <option value="180">3h</option>
-            <option value="210">3h 30m</option>
-            <option value="240">4h</option>
-            <option value="270">4h 30m</option>
-            <option value="300">5h</option>
-        </select>
-        <input type="submit" class="button" value="add safari">
-    </form>
+    echo '<h3>Safaris</h3>
+            <form method="POST">
+                <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name">
+                <select id="length" name="length" required>
+                    <option value="" selected disabled hidden>length:</option>';
+    for ($i=60; $i<=360; $i=$i+30) {
+        echo '      <option value="'.$i.'">'.($i/60).' h</option>';
+        }  
+        echo '  </select>
+                <input type="submit" class="button" value="add safari">
+            </form>
     
-    <ul>';
+            <ul>';
     foreach ($safari as $s){
-        echo '<li class="safari'.$s->active.'"><a href="?safaris&id='.$s->id.'">'.$s->name.'</a></li>';
+        echo '  <li class="safari'.$s->active.'"><a href="?safaris&id='.$s->id.'">'.$s->name.'</a></li>';
     } 
-    echo '
-    </ul>';
+    echo '  </ul>';
 }
 ?>
 </section>

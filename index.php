@@ -41,6 +41,5 @@ if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SE
 else {
     include_once 'views/login.php';
 }
-
 require_once 'views/footer.php';
 ?>

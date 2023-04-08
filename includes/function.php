@@ -1,13 +1,6 @@
 <?php
 function value($post){
-    if(isset($_POST[$post])){
-        return $_POST[$post];
-    }
-    else{
-        if(isset($_SESSION[$post])){
-            return $_SESSION[$post];
-        }
-    }
+    return (isset($_POST[$post]) ? $_POST[$post] : (!isset($_SESSION[$post]) ?: $_SESSION[$post]) );
 }
 
 function getout(){
