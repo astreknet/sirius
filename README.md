@@ -8,8 +8,8 @@ simple, intuitive, _light_ and fast **safari class** and **accident report** web
 
 ## built with
 
-* [OpenBSD](https://www.openbsd.org)
-* [PHP](https://www.php.net)
+* [OpenBSD 7.2](https://www.openbsd.org)
+* [PHP 8.1](https://www.php.net)
 * [HTML5](https://html.spec.whatwg.org)
 * [CSS3](https://www.w3.org/TR/CSS/#css)
 
