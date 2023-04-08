@@ -180,8 +180,8 @@ else {
     }
     echo '
             </select>
-            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'">
-            <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.value('route').'">
+            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'" >
+            <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.value('route').'" >
             <input type="submit" class="button" value="add trip">
         </form>
     ';

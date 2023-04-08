@@ -1,11 +1,9 @@
 <?php
 session_start();
 date_default_timezone_set('Europe/Helsinki');
-include_once 'includes/function.php';
 require_once 'includes/myconn.php';
+include_once 'includes/function.php';
 include_once 'class/User.php';
-
-(!isset($_GET['exit']) ?: getout());
 
 ### VALIDATION ############################################
 if (isset($_POST['username'], $_POST['lpassword']) && ($me = new User($_POST['username'], $pdo)) && ($me->userlevel)) {
@@ -17,9 +15,9 @@ if (isset($_POST['username'], $_POST['lpassword']) && ($me = new User($_POST['us
     }
 }
 
-require_once 'views/header.php';
-
 ### ROUTING ###############################################
+(!isset($_GET['exit']) ?: getout());
+require_once 'views/header.php';
 if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SESSION['usermail'], $pdo)) && ($me->userlevel) && ($_SESSION['validated'])) {
     require_once 'views/navbar.php';
     if ((isset($_SESSION['register']) && $_SESSION['register']) || isset($_GET[str_replace(' ', '_', strtolower($me->fname))])) {
