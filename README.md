@@ -2,7 +2,7 @@
 simple, intuitive, _light_ and fast **safari class** and **accident report** web application
 
 <p align="center">
-  <img src="./example.webp" width=45% />
+  <img src=".img/example.webp" width=45% />
 </p>
 
 
