@@ -21,4 +21,26 @@ function formatdate($date) {
     else
         return date("D M j G:i", $myunixdate);
 }
+
+function prepareReport($name, $sql, $csvheader, $pdo) {
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $_SESSION[$name] = array();
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        $_SESSION[$name][] = $row;
+    }
+    array_unshift($_SESSION[$name], $csvheader);
+    header( "refresh:0;url=views/downloads.php" );
+}
+
+function downloadCsv($name){
+    $out = fopen('php://output', 'w');
+    foreach ($_SESSION[$name] as $t){
+        fputcsv($out, $t);
+    }
+    fclose($out);
+    unset($_SESSION[$name]);
+    header( 'Content-Type: text/csv' );
+    header( 'Content-Disposition: attachment;filename='.$name.'-'.date('YmdHis').'.csv' );
+}
 ?>

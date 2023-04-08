@@ -1,16 +1,5 @@
 <?php
 
-function prepareReport($name, $sql, $csvheader, $pdo) {
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $_SESSION[$name] = array();
-    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        $_SESSION[$name][] = $row;
-    }
-    array_unshift($_SESSION[$name], $csvheader);
-    header( "refresh:0;url=views/downloads.php" );
-}
-
 if (isset($_GET['trip'])) {
     $sql = "select trip.date, safari.name, concat(user.fname, ' ', user.lname), trip.erp_link, trip.route, trip.remarks, trip.updated from trip LEFT JOIN safari on trip.safari_id = safari.id LEFT JOIN user on trip.user_id = user.id";
     $csvheader = array('date', 'safari', 'guide', 'erp link', 'route', 'remarks', 'updated');

@@ -1,5 +1,7 @@
 <?php
 session_start();
+include_once '../includes/function.php';
+
 if(isset($_SESSION['vcards'], $_SESSION['validated']) && $_SESSION['validated']) {
     $out = fopen('php://output', 'w');
     foreach ($_SESSION['vcards'] as $v){
@@ -18,19 +20,7 @@ header( 'Content-Type: text/vcf' );
 header( 'Content-Disposition: attachment;filename=guides.vcf');
 }
 
-function downloadCsv($name){
-    $out = fopen('php://output', 'w');
-    foreach ($_SESSION[$name] as $t){
-        fputcsv($out, $t);
-    }
-    fclose($out);
-    unset($_SESSION[$name]);
-    header( 'Content-Type: text/csv' );
-    header( 'Content-Disposition: attachment;filename='.$name.'-'.date('YmdHis').'.csv' );
-}
-
 if(isset($_SESSION['trip_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('trip_report'); }
 if(isset($_SESSION['nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('nearmiss_report'); }
 if(isset($_SESSION['accident_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('accident_report'); }
-
 ?>
