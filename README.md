@@ -38,17 +38,17 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
 * [x] automatic darkmode
 * [x] responsive
 * [x] manage users and userlevels (inactive, guide, admin)
-* [x] download vcards with user contacts
+* [x] guide contact vcards
 * [x] create and activate safari templates
 * [x] create and update personal trips
 * [x] report accidents and close calls
 * [x] download trips, accidents and near misses reports in csv format
 * [x] work issues: accidents and near misses for the staff
-* [ ] report work issues
+* [ ] work issues report
 * [ ] add 'days of the week' to safaris
 * [ ] add pictures to the accident report
-* [ ] add gear parts and prices
-* [ ] print accident report pdf
+* [ ] add gear parts and prices (snowmobiles, bikes, skis, etc...)
+* [ ] accident report pdf
 * [ ] multi-language:
   - [x] english
   - [ ] spanish
