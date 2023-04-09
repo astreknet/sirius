@@ -90,6 +90,19 @@
                 CONSTRAINT fk_nearmiss_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
                 CONSTRAINT fk_nearmiss_trip FOREIGN KEY (trip_id) REFERENCES trip (id) ON DELETE CASCADE
             );
+        
+            CREATE TABLE IF NOT EXISTS issue (
+                id INT2 unsigned NOT NULL AUTO_INCREMENT,
+                user_id INT2 unsigned NOT NULL,
+                datetime datetime DEFAULT current_timestamp(),
+                place varchar(150),
+                description varchar(300),
+                injury varchar(300),
+                hospital_visit bool DEFAULT FALSE,
+                PRIMARY KEY (id),
+                KEY fk_issue_user (user_id),
+                CONSTRAINT fk_issue_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
+            );
         ';
     
     $stmt = $pdo->prepare($sql);
