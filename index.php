@@ -32,6 +32,9 @@ if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SE
     elseif (isset($_GET['users']) && $me->userlevel > 1) {
         include_once 'views/user.php';
     }
+    elseif (isset($_GET['issues'])) {
+        include_once 'views/issue.php';
+    }
     else {
         include_once 'views/trip.php';
     }

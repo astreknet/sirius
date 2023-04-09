@@ -2,7 +2,7 @@
 <?php
 $menu = array('exit');
 if (!isset($_SESSION['register']) || !$_SESSION['register']) {
-    $menu =  array('reports', 'safaris', 'users', 'trips',  strtolower($me->fname), 'exit');
+    $menu =  array('reports', 'safaris', 'users', 'trips', 'issues', strtolower($me->fname), 'exit');
     $menu = ($me->userlevel > 1 ? $menu : array_slice($menu, 3));
 }
 
