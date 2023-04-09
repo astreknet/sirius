@@ -40,7 +40,7 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
 * [x] create and update personal trips
 * [x] report accidents and close calls
 * [x] download trips, accidents and near misses reports in csv format
-* [ ] add work issues: accidents and near misses for the staff
+* [x] add work issues: accidents and near misses for the staff
 * [ ] add 'days of the week' to safaris
 * [ ] add pictures to the accident report
 * [ ] add gear parts and prices

@@ -98,6 +98,7 @@
                 place varchar(150),
                 description varchar(300),
                 injury varchar(300),
+                first_aid bool DEFAULT FALSE,
                 hospital_visit bool DEFAULT FALSE,
                 PRIMARY KEY (id),
                 KEY fk_issue_user (user_id),
