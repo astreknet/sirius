@@ -1,5 +1,5 @@
 # sirius, safari class
-Simple, intuitive, _light_ and fast **safari class** and **accident report** web application
+Minimalistic **safari class** and **accident report** web application. Ask for a _testing account_ at the contact mail on the [site](https://sirius.astrek.net) 
 
 <p align="center">
   <img src="img/example.webp" width=60% />
