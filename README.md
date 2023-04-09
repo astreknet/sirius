@@ -1,10 +1,27 @@
 # sirius, safari class
-simple, intuitive, _light_ and fast **safari class** and **accident report** web application
+Simple, intuitive, _light_ and fast **safari class** and **accident report** web application
 
 <p align="center">
   <img src="img/example.webp" width=45% />
 </p>
 
+## users
+Just an **email** is needed to create a user and the **password** for the **first login** will be the **same email**. On the first login the user is forced to _register_. Only the user can **edit his own data**. 
+
+### userlevels
+* **inactive**: _limbo_ status, can not log in.
+* **guide**: can log in, create and update his own data, trips, close calls and accidents.
+* **admin**: same privileges as guide. Also can create and modify safaris, upgrade userslevel, reset passwords, download [_vcards_](https://en.wikipedia.org/wiki/VCard) and [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) reports.
+* **superadmin**: same privileges as admin. Also can create and modify admins.
+
+## safaris
+This are the _templates_ of the _trips_. A safari has an **unique name**, a duration and it can be _active_, therefore _available_ for the _trips_.
+
+## trips
+An _active user_ can _add_ and _update_ trips. A trip has a _safari name_, _time_ and a _route_. _Remarks_ can be added later. A trip could have _near misses_ and _accidents_.
+
+## reports
+The admins can download trip, near miss and accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://en.wikipedia.org/wiki/LibreOffice_Calc), and [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel) among others.
 
 ## built with
 

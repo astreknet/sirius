@@ -1,8 +1,10 @@
 <section id="users">
 <?php
-if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1 ) {
+if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1 && $_GET['id'] != $me->id) {
     $user = selectAllFromWhere('user', 'id', $_GET['id'], $pdo); 
     $userlevels = array('inactive', 'guide', 'admin');
+    if ($me->userlevel < 3)
+        array_pop($userlevels);
     if (is_null($user[0]['password']) && is_null($user[0]['fname']) && is_null($user[0]['lname']) && is_null($user[0]['tel'])) {
         echo "
             <h3>".$user[0]['email']."</h3>
@@ -12,7 +14,7 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
     }
     else {
         if (isset($_POST['userlevel']) && $me->userlevel > 1) {
-            updateTableItemWhere('user', 'userlevel', $_POST['userlevel'], 'id', $_GET['id'], $pdo);
+            $me->updateUserlevel($me, $_GET['id'], $_POST['userlevel'], $pdo);
             header( "refresh:0;url=?users" );
         }
         echo '
