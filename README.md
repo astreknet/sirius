@@ -2,7 +2,7 @@
 Simple, intuitive, _light_ and fast **safari class** and **accident report** web application
 
 <p align="center">
-  <img src="img/example.webp" width=45% />
+  <img src="img/example.webp" width=60% />
 </p>
 
 ## users
@@ -43,7 +43,8 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
 * [x] create and update personal trips
 * [x] report accidents and close calls
 * [x] download trips, accidents and near misses reports in csv format
-* [x] add work issues: accidents and near misses for the staff
+* [x] work issues: accidents and near misses for the staff
+* [ ] report work issues
 * [ ] add 'days of the week' to safaris
 * [ ] add pictures to the accident report
 * [ ] add gear parts and prices
