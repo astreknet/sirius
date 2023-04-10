@@ -58,3 +58,4 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
   - [x] english
   - [ ] spanish
   - [ ] finnish
+* [ ] svg icons
