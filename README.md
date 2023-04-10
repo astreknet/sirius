@@ -28,10 +28,11 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
 
 ## built with
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
-    <a href="https://www.php.net" target="_blank"><img src="img/svg/php.svg" alt="PHP" width="9%" style="fill:blue; vertical-align: middle;"></a>
-    <a href="https://html.spec.whatwg.org" target="_blank"><img src="img/svg/html5.svg" alt="HTML5" width="9%" style="fill:blue; vertical-align: middle;"></a>
-    <a href="https://www.w3.org/TR/CSS/#css" target="_blank"><img src="img/svg/css3-alt.svg" alt="CSS3" width="9%" style="fill:blue; vertical-align: middle;"></a>
+    <a href="https://www.php.net" target="_blank"><img src="img/svg/php.svg" alt="PHP" width="9%" style="fill:blue;"></a>
+    <a href="https://html.spec.whatwg.org" target="_blank"><img src="img/svg/html5.svg" alt="HTML5" width="9%" style="fill:blue;"></a>
+    <a href="https://www.w3.org/TR/CSS/#css" target="_blank"><img src="img/svg/css3-alt.svg" alt="CSS3" width="9%" style="fill:blue;"></a>
 </div>
+
 ## roadmap
 
 * [x] automatic darkmode
