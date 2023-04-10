@@ -23,4 +23,6 @@ header( 'Content-Disposition: attachment;filename=guides.vcf');
 if(isset($_SESSION['trip_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('trip_report'); }
 if(isset($_SESSION['nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('nearmiss_report'); }
 if(isset($_SESSION['accident_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('accident_report'); }
+if(isset($_SESSION['work_nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('work_nearmiss_report'); }
+if(isset($_SESSION['work_accident_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('work_accident_report'); }
 ?>

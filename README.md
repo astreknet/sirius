@@ -42,9 +42,8 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
 * [x] create and activate safari templates
 * [x] create and update personal trips
 * [x] report accidents and close calls
-* [x] download trips, accidents and near misses reports in csv format
 * [x] work issues: accidents and near misses for the staff
-* [ ] work issues report
+* [x] download trips, accidents, near misses and work issues reports in csv format
 * [ ] add 'days of the week' to safaris
 * [ ] add pictures to the accident report
 * [ ] add gear parts and prices (snowmobiles, bikes, skis, etc...)
