@@ -27,11 +27,9 @@ Work issues are _near misses_ or _accidents_, when the _injury_ field is filled,
 The admins can download trip, near miss and accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://en.wikipedia.org/wiki/LibreOffice_Calc), and [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel) among others.
 
 ## built with
-<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
-    <a href="https://www.php.net" target="_blank"><img src="img/svg/php.svg" alt="PHP" width="9%" style="fill:blue;"></a>
-    <a href="https://html.spec.whatwg.org" target="_blank"><img src="img/svg/html5.svg" alt="HTML5" width="9%" style="fill:blue;"></a>
-    <a href="https://www.w3.org/TR/CSS/#css" target="_blank"><img src="img/svg/css3-alt.svg" alt="CSS3" width="9%" style="fill:blue;"></a>
-</div>
+    <a href="https://www.php.net" target="_blank"><img src="img/svg/php.svg" alt="PHP" width="9%" ></a>
+    <a href="https://html.spec.whatwg.org" target="_blank"><img src="img/svg/html5.svg" alt="HTML5" width="4.5%" ></a>
+    <a href="https://www.w3.org/TR/CSS/#css" target="_blank"><img src="img/svg/css3-alt.svg" alt="CSS3" width="4.5%" ></a>
 
 ## roadmap
 
