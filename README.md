@@ -2,7 +2,7 @@
 Minimalistic **safari class** and **accident report** web application. Ask for a _testing account_ at the contact mail on the [site](https://sirius.astrek.net) 
 
 <p align="center">
-  <img src="img/example.webp" width=75% />
+  <img src="img/example.webp" width=81% />
 </p>
 
 ## users
@@ -43,7 +43,12 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
 * [x] create and update personal trips
 * [x] report accidents and close calls
 * [x] work issues: accidents and near misses for the staff
-* [x] download trips, accidents, near misses and work issues reports in csv format
+* [x] download CSV reports
+    - [x] trips
+    - [x] trip near misses
+    - [x] trip accidents
+    - [x] work near misses
+    - [x] work accidents
 * [ ] add geolocation button to near misses and accidents 
 * [ ] add 'days of the week' to safaris
 * [ ] add pictures to the accident report
