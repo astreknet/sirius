@@ -101,9 +101,11 @@ section { border: 0.09rem dashed var(--color); }
 
 #navbar > * {
     flex: auto;
+    padding: 0.3rem;
     width: auto;
     margin: 0.12rem;
     text-align: center;
+    font-weight: bold;
 }
 
 #navbar a:link, #navbar a:visited, #navbar a:focus {
