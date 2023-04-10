@@ -27,8 +27,8 @@ Work issues are _near misses_ or _accidents_, when the _injury_ field is filled,
 The admins can download trip, near miss and accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://en.wikipedia.org/wiki/LibreOffice_Calc), and [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel) among others.
 
 ## built with
-
-<img src="./img/svg/php.svg">
+![PHP](./img/svg/php.svg)
+<img src="img/svg/php.svg" width=30>
 * [OpenBSD 7.2](https://www.openbsd.org)
 * [PHP 8.1](https://www.php.net)
 * [HTML5](https://html.spec.whatwg.org)
