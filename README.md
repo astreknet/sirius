@@ -28,6 +28,7 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
 
 ## built with
 
+<a href="https://www.php.net"><img src="img/svg/php.svg" width=30% /></a>
 * [OpenBSD 7.2](https://www.openbsd.org)
 * [PHP 8.1](https://www.php.net)
 * [HTML5](https://html.spec.whatwg.org)
