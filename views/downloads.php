@@ -17,7 +17,7 @@ if(isset($_SESSION['vcards'], $_SESSION['validated']) && $_SESSION['validated'])
     unset($_SESSION['vcards']);
     fclose($out);
 header( 'Content-Type: text/vcf' );
-header( 'Content-Disposition: attachment;filename=guides.vcf');
+header( 'Content-Disposition: attachment;filename=sirius_contacts-'.date('YmdHis').'.vcf');
 }
 
 if(isset($_SESSION['trip_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('trip_report'); }
