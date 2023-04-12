@@ -15,12 +15,12 @@ class User{
     }
 
     public function resetPassword($me, $userId, $pdo){
-        if ($row = selectAllFromWhere('user', 'id', $userId, $pdo) &&  $me->userlevel > 1 && $row[0]['userlevel'] < $me->userlevel) 
+        if (($row = selectAllFromWhere('user', 'id', $userId, $pdo)) &&  $me->userlevel > 1 && $row[0]['userlevel'] < $me->userlevel) 
             updateTableItemWhere('user', 'password', NULL, 'id', $userId, $pdo);
     }
 
     public function updateUserlevel($me, $userId, $userLevel, $pdo){
-        if ($row = selectAllFromWhere('user', 'id', $userId, $pdo) &&  $me->userlevel > 1 && $row[0]['userlevel'] < $me->userlevel && $userLevel < $me->userlevel)
+        if (($row = selectAllFromWhere('user', 'id', $userId, $pdo)) &&  $me->userlevel > 1 && $row[0]['userlevel'] < $me->userlevel && $userLevel < $me->userlevel)
             updateTableItemWhere('user', 'userlevel', $userLevel, 'id', $userId, $pdo);
     }
 }
