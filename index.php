@@ -20,7 +20,7 @@ if (isset($_POST['username'], $_POST['lpassword']) && ($me = new User($_POST['us
 require_once 'views/header.php';
 if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SESSION['usermail'], $pdo)) && ($me->userlevel) && ($_SESSION['validated'])) {
     require_once 'views/navbar.php';
-    if ((isset($_SESSION['register']) && $_SESSION['register']) || isset($_GET[str_replace(' ', '_', strtolower($me->fname))])) {
+    if ((isset($_SESSION['register']) && $_SESSION['register']) || isset($_GET['account'])) {
         include_once 'views/account.php';
     }
     elseif (isset($_GET['reports']) && $me->userlevel > 1) {
