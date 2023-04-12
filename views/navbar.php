@@ -1,13 +1,20 @@
 <section id="navbar">
 <?php
-$menu = array('exit');
+$menu_exit = array('?exit' => '⍈');
 if (!isset($_SESSION['register']) || !$_SESSION['register']) {
-    $menu =  array('reports', 'safaris', 'users', 'trips', 'issues', strtolower($me->fname), '⍈');
-    $menu = ($me->userlevel > 1 ? $menu : array_slice($menu, 3));
+    $menu_admin =  array(
+        '?reports' => 'reports', 
+        '?safaris' => 'safaris', 
+        '?users' => 'users', 
+        './' => 'trips', 
+        '?issues' => 'issues', 
+        '?account' => strtolower($me->fname)
+    );
+    $menu = ($me->userlevel > 1 ? array_merge($menu_admin, $menu_exit) : array_merge(array_slice($menu_admin, 3), $menu_exit));
 }
 
-foreach($menu as $m) {
-    echo '<a href="./?'.str_replace(' ', '_', $m).'"><div>'.$m.'</div></a>';
+foreach($menu as $k => $v) {
+    echo '<a href="./'.$k.'"><div>'.$v.'</div></a>';
 }
 ?>
 </section>
