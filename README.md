@@ -30,7 +30,7 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
     
 <a href="https://www.php.net" target="_blank"><img src="img/svg/php.svg" alt="PHP" width="9%" ></a>
 <a href="https://html.spec.whatwg.org" target="_blank"><img src="img/svg/html5.svg" alt="HTML5" width="4.5%" ></a>
-<a href="https://www.w3.org/TR/CSS/#css" target="_blank"><img src="img/svg/css3-alt.svg" alt="CSS3" width="4.5%" ></a>
+<a href="https://www.w3.org/TR/CSS/#css" target="_blank"><img src="img/svg/css3.svg" alt="CSS3" width="4.5%" ></a>
 <a href="https://fontawesome.com" target="_blank"><img src="img/svg/font-awesome.svg" alt="Font Awesome" width="4.5%" ></a>
 
 ## roadmap
