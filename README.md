@@ -28,10 +28,10 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
 
 ## built with
     
-<a href="https://www.php.net" target="_blank"><img src="img/svg/php.svg" alt="PHP" width="9%" ></a>
-<a href="https://html.spec.whatwg.org" target="_blank"><img src="img/svg/html5.svg" alt="HTML5" width="4.5%" ></a>
-<a href="https://www.w3.org/TR/CSS/#css" target="_blank"><img src="img/svg/css3.svg" alt="CSS3" width="4.5%" ></a>
-<a href="https://fontawesome.com" target="_blank"><img src="img/svg/font-awesome.svg" alt="Font Awesome" width="4.5%" ></a>
+* [OpenBSD 7.2](https://www.openbsd.org)
+* [PHP 8.1](https://www.php.net)
+* [HTML5](https://html.spec.whatwg.org)
+* [CSS3](https://www.w3.org/TR/CSS/#css)
 
 ## roadmap
 
