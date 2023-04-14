@@ -73,7 +73,7 @@ if (isset($_GET['accident'])) {
                         'total', 
                         'total paid', 
                         'injury', 
-                        'fist aid by staff', 
+                        'first aid by staff', 
                         'hospital offer', 
                         'hospital visit');
     prepareReport('accident_report', $sql, $csvheader, $pdo);
@@ -98,7 +98,7 @@ if (isset($_GET['issue_accident'])) {
                     issue.first_aid,
                     issue.hospital_visit 
             FROM issue LEFT JOIN user ON issue.user_id = user.id WHERE injury IS NOT NULL";
-    $csvheader = array('date', 'guide', 'place', 'description', 'injury', 'fist aid', 'hospital visit');
+    $csvheader = array('date', 'guide', 'place', 'description', 'injury', 'first aid', 'hospital visit');
     prepareReport('work_accident_report', $sql, $csvheader, $pdo);
 }
 
