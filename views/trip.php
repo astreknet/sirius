@@ -141,7 +141,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
 
 else {
     $mytime = new DateTime('NOW');
-    $diffMin = new DateInterval('PT'.(60 - $mytime->format('i')).'M');
+    $min = (($mytime->format("i") > 29) ? 60 : 30);
+    $diffMin = new DateInterval('PT'.($min - $mytime->format('i')).'M');
     $diff15Min = new DateInterval('PT15M');
     $diff30Min = new DateInterval('PT30M');
     $mytime->add($diffMin);
