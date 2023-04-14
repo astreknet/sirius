@@ -107,8 +107,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
             $mytime->add($diff15Min);
         }
     echo '      </select>
-                <input type="text" id="place" name="acc_place" required maxlength="150" placeholder="place">
-                <textarea id="description" name="acc_description" required maxlength="270" placeholder="description"></textarea>
+                <input type="text" id="place" name="place" required maxlength="150" placeholder="place">
+                <textarea id="description" name="description" required maxlength="270" placeholder="description"></textarea>
                 <input type="text" id="customer_erp_link" name="customer_erp_link" maxlength="150" placeholder="customer erp link">
                 <input type="text" id="customer_name" name="customer_name" required maxlength="150" placeholder="customer name">
                 <input type="text" id="customer_address" name="customer_address" required maxlength="150" placeholder="customer address">
