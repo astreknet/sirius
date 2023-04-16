@@ -5,7 +5,7 @@
     <meta name="description" content="a work manager for a small or medium safari company" >
     <meta name="Keywords" content="work manager, aurora, lapland, guide, finland, safari" >
     <meta name="Author" content="hugo@astrek.net" >
-    <link rel="shortcut icon" href="./img/favicon.ico" >
+    <link rel="icon" href="favicon.ico" >
     <link rel="stylesheet" href="./sirius.css">
     <title id="title">sirius</title>
 </head>

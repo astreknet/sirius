@@ -9,7 +9,7 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
         echo "
             <h3>".$user[0]['email']."</h3>
             <p>If this user doesn't complete the registration soon will be deleted!</p>
-            <div class='button'><a href='?users'>back</a></div>
+            <div class='button_svg'><a href='?users'>".file_get_contents('img/back.svg')."</a></div>
         "; 
     }
     else {
@@ -61,7 +61,7 @@ else {
 
     echo '
         </ol>
-        <div class="button"><a href="?users&vcard">get vCard</a></div>';
+        <div class="button_svg"><a href="?users&vcard">'.file_get_contents("img/vcard.svg").'</a></div>';
 
     if (isset($_GET['vcard'])){
         $sql = 'select fname, lname, tel, email from user where userlevel > 0 and userlevel < 3 and tel is not NULL';

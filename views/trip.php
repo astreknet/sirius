@@ -136,7 +136,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         echo "<p>You don't have any accident in this trip. Yay!</p>";
     }
     echo '</div>';
-    echo ' <div class="button"><a href="./">back</a></div>';
+    echo ' <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
 }
 
 else {

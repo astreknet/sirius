@@ -156,13 +156,28 @@ input[type=checkbox] {
     border: 0.09rem solid var(--color);
 }
 
-input[type=submit], .button a { 
+input[type=submit], .button a, .button_svg a { 
     width: fit-content;
     background-color: var(--color);
     color: var(--background-color);
 }
 
-.button { margin-top: 0.9%; }
+.button, .button_svg { margin-top: 0.9%; }
+
+.button_svg svg {
+    height: 2.1rem;
+    vertical-align: middle;
+}
+
+.button_svg a:link, .button_svg a:visited, .button_svg a:focus {
+    background-color: var(--background-color);
+    fill: var(--color);
+}
+
+.button_svg a:hover, .button_svg a:active {
+    background-color: var(--color);
+    fill: var(--background-color);
+}
 
 footer { text-align: right; }
 
