@@ -77,6 +77,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     }
     echo '</div>';        
 ### ACCIDENT ########################################
+    $mytime = new DateTime($trip[0]['date']);
     if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email'])) {
         $accidentId = insertInto('accident', 'user_id', $me->id, $pdo);
         $non_required = array('customer_erp_link', 'sm_reg_n', 'sm_model', 'total_euro', 'total_paid', 'injury');
