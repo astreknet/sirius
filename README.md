@@ -24,7 +24,7 @@ An _active user_ can _add_ and _update_ trips. A trip has a _safari name_, _time
 Work issues are _near misses_ or _accidents_, when the _injury_ field is filled, related to the guide on a safari or any situation during the work time.
 
 ## reports
-The admins can download trip, near miss and accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://en.wikipedia.org/wiki/LibreOffice_Calc), and [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel) among others.
+The admins can download trip, near miss, accident, work near miss and work accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://en.wikipedia.org/wiki/LibreOffice_Calc), and [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel) among others.
 
 ## built with
     
@@ -59,3 +59,5 @@ The admins can download trip, near miss and accident reports in CSV format, [spr
   - [ ] spanish
   - [ ] finnish
 * [ ] svg icons
+  - [x] buttons
+  - [ ] menu

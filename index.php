@@ -16,7 +16,7 @@ if (isset($_POST['username'], $_POST['lpassword']) && ($me = new User($_POST['us
 }
 
 ### ROUTING ###############################################
-(!isset($_GET['⍈']) ?: getout());
+(!isset($_GET['exit']) ?: getout());
 require_once 'views/header.php';
 if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SESSION['usermail'], $pdo)) && ($me->userlevel) && ($_SESSION['validated'])) {
     require_once 'views/navbar.php';
