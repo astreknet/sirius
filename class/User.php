@@ -1,6 +1,6 @@
 <?php
 class User{
-    public $id, $email, $password, $fname, $lname, $tel, $userlevel, $created; 
+    public $id, $email, $password, $fname, $lname, $tel, $userlevel, $activation, $updated; 
 
     public function __construct($pMail, $pdo){
         if ($row = selectAllFromWhere('user', 'email', filter_var($pMail, FILTER_VALIDATE_EMAIL), $pdo)) {

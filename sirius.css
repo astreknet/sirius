@@ -162,7 +162,10 @@ input[type=submit], .button a, .button_svg a {
     color: var(--background-color);
 }
 
-.button, .button_svg { margin-top: 0.9%; }
+.button, .button_svg { 
+    width: max-content;
+    margin-top: 0.9%; 
+}
 
 .button_svg svg {
     height: 2.1rem;

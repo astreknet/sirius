@@ -19,6 +19,7 @@ if (
         updateTableItemWhere('user', 'fname', $fname, 'id', $me->id, $pdo);
         updateTableItemWhere('user', 'lname', $lname, 'id', $me->id, $pdo);
         updateTableItemWhere('user', 'tel', $tel, 'id', $me->id, $pdo);
+        updateTableItemWhere('user', 'activation', NULL, 'id', $me->id, $pdo);
         updateTableItemWhere('user', 'password', $password, 'id', $me->id, $pdo);
         getout();
 }

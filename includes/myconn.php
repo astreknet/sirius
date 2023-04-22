@@ -26,7 +26,8 @@
                 lname varchar(18),
                 tel varchar(18),
                 userlevel INT1 unsigned DEFAULT 1,
-                created timestamp DEFAULT current_timestamp(),
+                activation char(32), 
+                updated timestamp ON UPDATE current_timestamp(),
                 PRIMARY KEY (id)
             );
 
