@@ -27,7 +27,7 @@
                 tel varchar(18),
                 userlevel INT1 unsigned DEFAULT 1,
                 activation char(32), 
-                updated timestamp ON UPDATE current_timestamp(),
+                updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
                 PRIMARY KEY (id)
             );
 
@@ -174,7 +174,7 @@ function insertInto($table, $item, $i, $pdo){
 }
 
 function deleteOneDayOldNonRegisteredUsers($pdo){
-    $sql = 'DELETE FROM user where DATEDIFF(current_timestamp(), created) > 0 AND password is NULL AND fname is NULL AND lname is NULL AND tel is NULL AND userlevel = 1';
+    $sql = 'DELETE FROM user where DATEDIFF(current_timestamp(), updated) > 0 AND password is NULL AND fname is NULL AND lname is NULL AND tel is NULL AND userlevel = 1';
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $stmt->closeCursor();
