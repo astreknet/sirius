@@ -1,4 +1,7 @@
 <?php
+ini_set('session.gc_maxlifetime',900);  #  
+ini_set('session.gc_probability',1);    #
+ini_set('session.gc_divisor',1);        # Kicks you out in 15 min if inactive
 session_start();
 date_default_timezone_set('Europe/Helsinki');
 require_once 'includes/myconn.php';
