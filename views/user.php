@@ -45,8 +45,8 @@ else {
         $activation = bin2hex(random_bytes(16));
         updateTableItemWhere('user', 'activation', $activation, 'email', $mail, $pdo);
         $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$mail.'&activation='.$activation;
-        $headers = array('From' => 'hugo@astrek.net', 'Reply-To' => 'sirius@astrek.net');
-        mail($mail, 'sirius acivation', $url, $headers);
+        #$headers = array('From' => 'hugo@astrek.net', 'Reply-To' => 'sirius@astrek.net');
+        mail($mail, 'sirius acivation', $url);
     }
     foreach (selectAllFrom('user', $pdo) as $u){
         $user[] = new User($u['email'], $pdo);
