@@ -38,6 +38,7 @@ The admins can download trip, near miss, accident, work near miss and work accid
 * [x] automatic darkmode
 * [x] responsive
 * [x] manage users and userlevels (inactive, guide, admin)
+* [ ] registration and password recover by mail
 * [x] guide contact vcards
 * [x] create and activate safari templates
 * [x] create and update personal trips
