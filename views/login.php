@@ -4,7 +4,7 @@ if (isset($_GET['user_lock'])){
     if (isset($_POST['username']) && ($me = new User(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL), $pdo)) && ($me->userlevel)){
         $activation = bin2hex(random_bytes(16));
         $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$_POST['username'].'&activation='.$activation;
-	    $headers = array('From' => 'sirius@astrek.net', 'Reply-To' => 'sirius@astrek.net');
+	    $headers = array('From' => 'hugo@astrek.net', 'Reply-To' => 'sirius@astrek.net');
         updateTableItemWhere('user', 'activation', $activation, 'email', $me->email, $pdo);
         mail($_POST['username'], 'sirius acivation', $url, $headers);
         getout();
