@@ -3,7 +3,9 @@
 if (isset($_GET['user_lock'])){
     if (isset($_POST['username']) && ($me = new User($_POST['username'], $pdo)) && ($me->userlevel)){
         $activation = bin2hex(random_bytes(16));
+        $url = $_SERVER['HTTP_HOST'].'?account&username='.$_POST['username'].'&activation='.$activation;
         updateTableItemWhere('user', 'activation', $activation, 'email', $me->email, $pdo);
+        mail($_POST['username'], 'sirius acivation', $url, 'hugo@dabug.go');
         getout();
     }
     echo '
