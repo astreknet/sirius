@@ -40,12 +40,13 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
 }
 else {
     deleteOneDayOldNonRegisteredUsers($pdo);
-    if(isset($_POST['email']) && !(selectAllFromWhere('user', 'email', filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo)) && ($me->userlevel > 1)) {
-        insertInto('user', 'email', filter_var($_POST['email'], FILTER_VALIDATE_EMAIL), $pdo);
+    if(isset($_POST['email']) && ($mail = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))  && !(selectAllFromWhere('user', 'email', $mail, $pdo)) && ($me->userlevel > 1)) {
+        insertInto('user', 'email', $mail, $pdo);
         $activation = bin2hex(random_bytes(16));
-        $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$_POST['email'].'&activation='.$activation;
+        updateTableItemWhere('user', 'activation', $activation, 'email', $mail, $pdo);
+        $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$mail.'&activation='.$activation;
         $headers = array('From' => 'sirius@astrek.net', 'Reply-To' => 'sirius@astrek.net');
-        mail($_POST['email'], 'sirius acivation', $url, $headers);
+        mail($mail, 'sirius acivation', $url, $headers);
     }
     foreach (selectAllFrom('user', $pdo) as $u){
         $user[] = new User($u['email'], $pdo);
