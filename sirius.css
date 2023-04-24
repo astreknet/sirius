@@ -108,6 +108,24 @@ section { border: 0.09rem dashed var(--color); }
     font-weight: bold;
 }
 
+.rack {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rack > * {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    margin: 0.3rem;
+}
+
+.pre_button {
+    font-size: small;
+    text-decoration: underline;
+}
+
 #navbar a:link, #navbar a:visited, #navbar a:focus {
     color: var(--background-color);
     background-color: var(--color);
