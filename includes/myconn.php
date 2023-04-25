@@ -31,7 +31,7 @@
                 PRIMARY KEY (id)
             );
 
-            INSERT IGNORE INTO user (id, email, userlevel) VALUES (1, "hugo@dabug.go", 3);
+            INSERT IGNORE INTO user (id, email, userlevel) VALUES (1, "hugo@astrek.net", 3);
 
             CREATE TABLE IF NOT EXISTS trip (
                 id INT2 unsigned NOT NULL AUTO_INCREMENT,

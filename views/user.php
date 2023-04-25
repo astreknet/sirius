@@ -13,17 +13,13 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
         "; 
     }
     else {
-        if (isset($_POST['userlevel']) && $me->userlevel > 1) {
-            $me->updateUserlevel($me, $_GET['id'], $_POST['userlevel'], $pdo);
-            header( "refresh:0;url=?users" );
-        }
         echo '
             <h3 class="userlevel'.$user[0]['userlevel'].'">'.$user[0]['fname'].' '.$user[0]['lname'].'</h3>
             <p><address>
                 <a href="tel:'.$user[0]['tel'].'">'.$user[0]['tel'].'</a><br>
                 <a href="mailto:'.$user[0]['email'].'">'.$user[0]['email'].'</a>
             </address></p>
-            <form action="" method="POST">
+            <form action="?users" method="POST">
                 <select id="userlevel" name="userlevel" required>
                     <option value="" selected disabled hidden>userlevel:</option>';
                 for ($i = 0; $i < count($userlevels); $i++) {
@@ -33,6 +29,7 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
                     }
         echo '  
                 </select><br>
+                <input type="hidden" id="userID" name="userId" value="'.$_GET['id'].'">
                 <input type="submit" value="update user">
             </form>
         ';
@@ -40,13 +37,12 @@ if (isset($_GET['users'], $_GET['id']) && $me->userlevel > 1 && $_GET['id'] != 1
 }
 else {
     deleteOneDayOldNonRegisteredUsers($pdo);
-    if(isset($_POST['email']) && ($mail = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))  && !(selectAllFromWhere('user', 'email', $mail, $pdo)) && ($me->userlevel > 1)) {
-        insertInto('user', 'email', $mail, $pdo);
-        $activation = bin2hex(random_bytes(16));
-        updateTableItemWhere('user', 'activation', $activation, 'email', $mail, $pdo);
-        $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$mail.'&activation='.$activation;
-        #$headers = array('From' => 'hugo@astrek.net', 'Reply-To' => 'sirius@astrek.net');
-        mail($mail, 'sirius acivation', $url);
+    if (isset($_POST['userlevel'], $_POST['userId'])) {
+            $me->updateUserlevel($_POST['userId'], $_POST['userlevel'], $pdo);
+    }
+
+    if(isset($_POST['email'])) { 
+        $me->createUser($_POST['email'], $pdo);
     }
     foreach (selectAllFrom('user', $pdo) as $u){
         $user[] = new User($u['email'], $pdo);

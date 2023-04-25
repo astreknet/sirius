@@ -1,12 +1,8 @@
 <section id="login">
 <?php
 if (isset($_GET['user_lock'])){
-    if (isset($_POST['username']) && ($me = new User(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL), $pdo)) && ($me->userlevel)){
-        $activation = bin2hex(random_bytes(16));
-        $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$me->email.'&activation='.$activation;
-	    #$headers = array('From' => 'hugo@astrek.net', 'Reply-To' => 'sirius@astrek.net');
-        updateTableItemWhere('user', 'activation', $activation, 'email', $me->email, $pdo);
-        mail($_POST['username'], 'sirius recover', $url);
+    if (isset($_POST['username']) && ($me = new User(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL), $pdo))){
+        $me->resetPassword($pdo);
         getout();
     }
     echo '
@@ -19,9 +15,8 @@ if (isset($_GET['user_lock'])){
             </div>
         </form>
     ';
-
-
 }
+
 else{
     echo '
         <h3>log in</h3>

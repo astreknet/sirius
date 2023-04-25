@@ -14,13 +14,28 @@ class User{
         return ($pPassword === $this->password ? true : false);
     }
 
-    public function resetPassword($me, $userId, $pdo){
-        if (($row = selectAllFromWhere('user', 'id', $userId, $pdo)) &&  $me->userlevel > 1 && $row[0]['userlevel'] < $me->userlevel) 
-            updateTableItemWhere('user', 'password', NULL, 'id', $userId, $pdo);
+    public function resetPassword($pdo){
+        if ($this->userlevel){
+            $activation = bin2hex(random_bytes(16));
+            $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$this->email.'&activation='.$activation;
+            updateTableItemWhere('user', 'activation', $activation, 'email', $this->email, $pdo);
+            mail($this->email, 'sirius recover', $url);
+        }
     }
 
-    public function updateUserlevel($me, $userId, $userLevel, $pdo){
-        if (($row = selectAllFromWhere('user', 'id', $userId, $pdo)) &&  $me->userlevel > 1 && $row[0]['userlevel'] < $me->userlevel && $userLevel < $me->userlevel)
+    public function createUser($userMail, $pdo){
+        if (filter_var($userMail, FILTER_VALIDATE_EMAIL)  && !(selectAllFromWhere('user', 'email', $userMail, $pdo)) && ($this->userlevel > 1)) {
+            insertInto('user', 'email', $userMail, $pdo);
+            $activation = bin2hex(random_bytes(16));
+            $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$userMail.'&activation='.$activation;
+            updateTableItemWhere('user', 'activation', $activation, 'email', $userMail, $pdo);
+            #$headers = array('From' => 'hugo@astrek.net', 'Reply-To' => 'sirius@astrek.net');
+            mail($userMail, 'sirius acivation', $url); 
+        }    
+    }
+
+    public function updateUserlevel($userId, $userLevel, $pdo){
+        if (($row = selectAllFromWhere('user', 'id', $userId, $pdo)) &&  $this->userlevel > 1 && $row[0]['userlevel'] < $this->userlevel && $userLevel < $this->userlevel)
             updateTableItemWhere('user', 'userlevel', $userLevel, 'id', $userId, $pdo);
     }
 }
