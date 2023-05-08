@@ -79,18 +79,13 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     echo '</div>';        
 ### ACCIDENT ########################################
     $mytime = new DateTime($trip[0]['date']);
-    if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email'])) {
+    if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email']) && 
+        !empty($_POST['place']) && !empty($_POST['description']) && !empty($_POST['customer_name']) && !empty($_POST['customer_address']) && !empty($_POST['customer_email'])) {
         $accidentId = insertInto('accident', 'user_id', $me->id, $pdo);
         updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId['id'], $pdo);
-        (!is_numeric($_POST['total_euro']) ?: updateTableItemWhere('accident', 'total_euro', $_POST['total_euro'], 'id', $accidentId['id'], $pdo)); 
-        (!is_numeric($_POST['total_paid']) ?: updateTableItemWhere('accident', 'total_paid', $_POST['total_paid'], 'id', $accidentId['id'], $pdo)); 
-        $required = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email');
-        foreach ($required as $r) {
-            updateTableItemWhere('accident', $r, $_POST[$r], 'id', $accidentId['id'], $pdo);
-        }
-        $non_required = array('customer_erp_link', 'sm_reg_n', 'sm_model', 'injury');
-        foreach ($non_required as $nc) {
-            (!isset($_POST[$nc]) ?: updateTableItemWhere('accident', $nc, $_POST[$nc], 'id', $accidentId['id'], $pdo));
+        $inputs = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email', 'customer_erp_link', 'sm_reg_n', 'total_euro', 'total_paid', 'sm_model', 'injury');
+        foreach ($inputs as $in) {
+            (!isset($_POST[$in]) && empty($_POST[$in]) ?: updateTableItemWhere('accident', $in, $_POST[$in], 'id', $accidentId['id'], $pdo));
         }
         $checks = array('waiver', 'first_aid', 'hospital_offer', 'hospital_visit');
         foreach($checks as $c) {
@@ -119,8 +114,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 <input type="text" id="sm_reg_n" name="sm_reg_n" maxlength="27" placeholder="snowmobile register number">
                 <input type="text" id="sm_model" name="sm_model" maxlength="30" placeholder="snowmobile model"><br>
                 <input type="checkbox" id="waiver" name="waiver"> waiver<br>
-                <input type="number" id="total_euro" name="total_euro" min="0.00" max="10000.00" step="0.01" placeholder="total euro">
-                <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" placeholder="total paid">
+                <input type="number" id="total_euro" name="total_euro" min="0.00" max="10000.00" step="0.01" value="0.00" placeholder="total euro">
+                <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" value="0.00" placeholder="total paid">
                 <textarea id="injury" name="injury" maxlength="270" placeholder="injury"></textarea><br>
                 <input type="checkbox" id="first_aid" name="first_aid"> first aid<br>
                 <input type="checkbox" id="hospital_offer" name="hospital offer"> hospital offer<br>
