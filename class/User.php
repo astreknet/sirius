@@ -40,6 +40,20 @@ class User{
     }
 }
 
+class Guide extends User{
+    public $trip, $nearmiss, $accident;
+
+    public function __construct($pMail, $pdo){
+        parent::__construct($pMail, $pdo);
+        $this->trip = selectAllFromWhere('trip', 'user_id', $this->id, $pdo);
+        $this->nearmiss = selectAllFromWhere('nearmiss', 'user_id', $this->id, $pdo);
+        $this->accident = selectAllFromWhere('accident', 'user_id', $this->id, $pdo);
+
+    }
+}
+
+
+
 class Safari{
     public $id, $name, $length, $weekday, $description, $time, $active;
 

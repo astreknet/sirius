@@ -1,6 +1,7 @@
 <section id="my_trips">
     <h3>My Trips</h3>
 <?php
+$me = new Guide($_SESSION['usermail'], $pdo);
 if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $trip = selectAllFromWhere('trip', 'id', $_GET['tid'], $pdo);
     $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
@@ -80,16 +81,17 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $mytime = new DateTime($trip[0]['date']);
     if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email'])) {
         $accidentId = insertInto('accident', 'user_id', $me->id, $pdo);
-        $non_required = array('customer_erp_link', 'sm_reg_n', 'sm_model', 'total_euro', 'total_paid', 'injury');
-        foreach ($non_required as $nc) {
-            $data = (isset($_POST[$nc]) ? $_POST[$nc] : NULL);
-            updateTableItemWhere('accident', $nc, $data, 'id', $accidentId['id'], $pdo);
-        }
+        updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId['id'], $pdo);
+        (!is_numeric($_POST['total_euro']) ?: updateTableItemWhere('accident', 'total_euro', $_POST['total_euro'], 'id', $accidentId['id'], $pdo)); 
+        (!is_numeric($_POST['total_paid']) ?: updateTableItemWhere('accident', 'total_paid', $_POST['total_paid'], 'id', $accidentId['id'], $pdo)); 
         $required = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email');
         foreach ($required as $r) {
             updateTableItemWhere('accident', $r, $_POST[$r], 'id', $accidentId['id'], $pdo);
         }
-        updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId['id'], $pdo);
+        $non_required = array('customer_erp_link', 'sm_reg_n', 'sm_model', 'injury');
+        foreach ($non_required as $nc) {
+            (!isset($_POST[$nc]) ?: updateTableItemWhere('accident', $nc, $_POST[$nc], 'id', $accidentId['id'], $pdo));
+        }
         $checks = array('waiver', 'first_aid', 'hospital_offer', 'hospital_visit');
         foreach($checks as $c) {
             (!isset($_POST[$c]) ?: updateTableItemWhere('accident', $c, 1, 'id', $accidentId['id'], $pdo));
@@ -187,14 +189,14 @@ else {
             <input type="submit" class="button" value="add trip">
         </form>
     ';
-    if ($trips = selectAllFromWhere('trip', 'user_id', $me->id, $pdo)) {
+    if ($me->trip) {
         echo '<ol>';
         #array_multisort(array_column( $trips, 'date' ), SORT_DESC, $trips); // reverse order
-        foreach ($trips as $trip){
-            $nm = selectAllFromWhere('nearmiss', 'trip_id', $trip['id'], $pdo);
-            $ac = selectAllFromWhere('accident', 'trip_id', $trip['id'], $pdo);
+        foreach ($me->trip as $trip){
+            $ac = in_array($trip['id'], array_column($me->accident, 'trip_id'));
+            $nm = in_array($trip['id'], array_column($me->nearmiss, 'trip_id'));
             $saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            $tripclass = (count($ac) > 0 ? 'class_red' : (count($nm) > 0 ? 'class_orange' : (is_null($trip['remarks']) ? 'class_pale' : 'class_green')));
+            $tripclass = (($ac) ? 'class_red' : (($nm) ? 'class_orange' : (is_null($trip['remarks']) ? 'class_pale' : 'class_green')));
             echo '  <li class="'.$tripclass.'"><a href="?tid='.$trip['id'].'">'.date("d M Y H:i", strtotime($trip['date'])).' - '.$saf[0]['name'].'</a></li>';
         }
         echo '</ol>';
