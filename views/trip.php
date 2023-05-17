@@ -126,7 +126,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         echo '  <ul>';
         foreach ($accident as $n){
             #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            echo '  <li>'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</li>';
+            echo '  <li><a href="?tid='.$_GET['tid'].'&acc='.$n['id'].'">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</a></li>';
             }
         echo '</ul>';
     }
