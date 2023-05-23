@@ -18,13 +18,6 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
     }
     
-    if (isset($_GET['tid'],$_GET['acc'])) {
-        echo '<h4>accident report</h4>';
-
-
-    }
-    
-    else {}    
 ### UPDATE TRIP #####################################
     if (isset($_POST['erp_link'], $_POST['route'], $_POST['remarks']) && $me->userlevel > 0) {
         updateTableItemWhere('trip', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
@@ -84,6 +77,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         echo "<p>You don't have any near miss in this trip. Yay!</p>";
     }
     echo '</div>';        
+    
 ### ACCIDENT ########################################
     $mytime = new DateTime($trip[0]['date']);
     if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email']) && 
@@ -100,48 +94,56 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         }
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
-    echo '  
-        <div id="accident">
-        <h5>Accident</h5>
-            <form action="" method="POST">
-                <select name="datetime" required>
-                    <option value="" selected disabled hidden>Time</option>';
-        for ($i = 0; $i < ($safari[0]['length']/15)+6; $i++){
-            $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
-            echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
-            $mytime->add($diff15Min);
-        }
-    echo '      </select>
-                <input type="text" id="place" name="place" required maxlength="150" placeholder="place">
-                <textarea id="description" name="description" required maxlength="270" placeholder="description"></textarea>
-                <input type="text" id="customer_erp_link" name="customer_erp_link" maxlength="150" placeholder="customer erp link">
-                <input type="text" id="customer_name" name="customer_name" required maxlength="150" placeholder="customer name">
-                <input type="text" id="customer_address" name="customer_address" required maxlength="150" placeholder="customer address">
-                <input type="email" id="customer_email" name="customer_email" required maxlength="45" placeholder="customer email">
-                <input type="text" id="sm_reg_n" name="sm_reg_n" maxlength="27" placeholder="snowmobile register number">
-                <input type="text" id="sm_model" name="sm_model" maxlength="30" placeholder="snowmobile model"><br>
-                <input type="checkbox" id="waiver" name="waiver"> waiver<br>
-                <input type="number" id="total_euro" name="total_euro" min="0.00" max="10000.00" step="0.01" value="0.00" placeholder="total euro">
-                <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" value="0.00" placeholder="total paid">
-                <textarea id="injury" name="injury" maxlength="270" placeholder="injury"></textarea><br>
-                <input type="checkbox" id="first_aid" name="first_aid"> first aid<br>
-                <input type="checkbox" id="hospital_offer" name="hospital offer"> hospital offer<br>
-                <input type="checkbox" id="hospital_visit" name="hospital visit"> hospital visit<br>
-                <input type="submit" class="button" value="add accident"><br>
-            </form>';
-    if (count($accident) > 0) {
-        echo '  <ul>';
-        foreach ($accident as $n){
-            #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            echo '  <li><a href="?tid='.$_GET['tid'].'&acc='.$n['id'].'">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</a></li>';
-            }
-        echo '</ul>';
+    echo '<div id="accident">';
+
+    if (isset($_GET['tid'],$_GET['acc'])) {
+        echo '<h4>accident report</h4>';
+        
+        
+        echo ' <div class="button_svg"><a href="./?tid='.$_GET['tid'].'">'.file_get_contents('img/back.svg').'</a></div>';
     }
     else {
-        echo "<p>You don't have any accident in this trip. Yay!</p>";
+        echo '<h5>Accident</h5>
+                <form action="" method="POST">
+                    <select name="datetime" required>
+                        <option value="" selected disabled hidden>Time</option>';
+            for ($i = 0; $i < ($safari[0]['length']/15)+6; $i++){
+                $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
+                echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
+                $mytime->add($diff15Min);
+            }
+        echo '      </select>
+                    <input type="text" id="place" name="place" required maxlength="150" placeholder="place">
+                    <textarea id="description" name="description" required maxlength="270" placeholder="description"></textarea>
+                    <input type="text" id="customer_erp_link" name="customer_erp_link" maxlength="150" placeholder="customer erp link">
+                    <input type="text" id="customer_name" name="customer_name" required maxlength="150" placeholder="customer name">
+                    <input type="text" id="customer_address" name="customer_address" required maxlength="150" placeholder="customer address">
+                    <input type="email" id="customer_email" name="customer_email" required maxlength="45" placeholder="customer email">
+                    <input type="text" id="sm_reg_n" name="sm_reg_n" maxlength="27" placeholder="snowmobile register number">
+                    <input type="text" id="sm_model" name="sm_model" maxlength="30" placeholder="snowmobile model"><br>
+                    <input type="checkbox" id="waiver" name="waiver"> waiver<br>
+                    <input type="number" id="total_euro" name="total_euro" min="0.00" max="10000.00" step="0.01" value="0.00" placeholder="total euro">
+                    <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" value="0.00" placeholder="total paid">
+                    <textarea id="injury" name="injury" maxlength="270" placeholder="injury"></textarea><br>
+                    <input type="checkbox" id="first_aid" name="first_aid"> first aid<br>
+                    <input type="checkbox" id="hospital_offer" name="hospital offer"> hospital offer<br>
+                    <input type="checkbox" id="hospital_visit" name="hospital visit"> hospital visit<br>
+                    <input type="submit" class="button" value="add accident"><br>
+                </form>';
+        if (count($accident) > 0) {
+            echo '  <ul>';
+            foreach ($accident as $n){
+                #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
+                echo '  <li><a href="?tid='.$_GET['tid'].'&acc='.$n['id'].'">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</a></li>';
+            }
+            echo '</ul>';
+        }
+        else {
+            echo "<p>You don't have any accident in this trip. Yay!</p>";
+        }
+        echo '</div>';
+        echo ' <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
     }
-    echo '</div>';
-    echo ' <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
 }
 
 else {
