@@ -18,7 +18,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
     }
     
-### UPDATE TRIP #####################################
+### UPDATE TRIP ######################################
     if (isset($_POST['erp_link'], $_POST['route'], $_POST['remarks']) && $me->userlevel > 0) {
         updateTableItemWhere('trip', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
         updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $_GET['tid'], $pdo);
@@ -78,7 +78,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     }
     echo '</div>';        
     
-### ACCIDENT ########################################
+### ACCIDENT #########################################
     $mytime = new DateTime($trip[0]['date']);
     if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email']) && 
         !empty($_POST['place']) && !empty($_POST['description']) && !empty($_POST['customer_name']) && !empty($_POST['customer_address']) && !empty($_POST['customer_email'])) {
@@ -98,7 +98,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
 
     if (isset($_GET['tid'],$_GET['acc'])) {
         echo '<h4>accident report</h4>';
-        
+        echo '';
         
         echo ' <div class="button_svg"><a href="./?tid='.$_GET['tid'].'">'.file_get_contents('img/back.svg').'</a></div>';
     }
@@ -145,6 +145,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         echo ' <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
     }
 }
+######################################################
 
 else {
     $mytime = new DateTime('NOW');
