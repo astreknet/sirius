@@ -95,13 +95,17 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '<div id="accident">';
-
+    
+    ### UPDATE ACCIDENT #############################
     if (isset($_GET['tid'],$_GET['acc'])) {
+        $acc = selectAllFromWhere('accident', 'id', $_GET['acc'], $pdo);
+        echo var_dump($acc);
         echo '<h4>accident report</h4>';
         echo '';
         
         echo ' <div class="button_svg"><a href="./?tid='.$_GET['tid'].'">'.file_get_contents('img/back.svg').'</a></div>';
     }
+
     else {
         echo '<h5>Accident</h5>
                 <form action="" method="POST">
