@@ -99,8 +99,10 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     ### UPDATE ACCIDENT #############################
     if (isset($_GET['tid'],$_GET['acc'])) {
         $acc = selectAllFromWhere('accident', 'id', $_GET['acc'], $pdo);
-        echo var_dump($acc);
         echo '<h4>accident report</h4>';
+        $myunixdate = strtotime($acc[0]['datetime']);
+        echo 'Date: '.date("D M j, Y - G:i", $myunixdate).'<br>';
+        echo var_dump($acc);
         echo '';
         
         echo ' <div class="button_svg"><a href="./?tid='.$_GET['tid'].'">'.file_get_contents('img/back.svg').'</a></div>';
