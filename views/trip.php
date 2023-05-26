@@ -110,7 +110,9 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
                 $mytime->add($diff15Min);
             }
-        echo '      </select>';
+        echo '      </select>
+                    <input type="text" id="place" name="place" required maxlength="150" placeholder="place" value="'.$acc[0]['place'].'">
+                    <textarea id="description" name="description" required maxlength="270" placeholder="description">'.$acc[0]['description'].'</textarea>';
         echo var_dump($acc);
         echo '';
         
