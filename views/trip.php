@@ -99,9 +99,18 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     ### UPDATE ACCIDENT #############################
     if (isset($_GET['tid'],$_GET['acc'])) {
         $acc = selectAllFromWhere('accident', 'id', $_GET['acc'], $pdo);
-        echo '<h4>accident report</h4>';
         $myunixdate = strtotime($acc[0]['datetime']);
-        echo 'Date: '.date("D M j, Y - G:i", $myunixdate).'<br>';
+        echo '  <h4>accident report</h4>
+                Date: '.date("D M j, Y", $myunixdate).'<br>
+                <form action="" method="POST">
+                    <select name="datetime" required>
+                        <option value="" selected disabled hidden>Time</option>';
+            for ($i = 0; $i < ($safari[0]['length']/15)+6; $i++){
+                $sel = ((($acc[0]['datetime'] == $mytime->format("Y-m-d H:i:s"))) ? 'selected' : '');
+                echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
+                $mytime->add($diff15Min);
+            }
+        echo '      </select>';
         echo var_dump($acc);
         echo '';
         
