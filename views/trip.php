@@ -99,6 +99,9 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     ### UPDATE ACCIDENT #############################
     if (isset($_GET['tid'],$_GET['acc'])) {
         $acc = selectAllFromWhere('accident', 'id', $_GET['acc'], $pdo);
+        foreach ($acc[0] as $k => $v) {
+            $_SESSION[$k] = $v;
+        }
         $myunixdate = strtotime($acc[0]['datetime']);
         echo '  <h4>accident report</h4>
                 Date: '.date("D M j, Y", $myunixdate).'<br>
@@ -111,8 +114,23 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 $mytime->add($diff15Min);
             }
         echo '      </select>
-                    <input type="text" id="place" name="place" required maxlength="150" placeholder="place" value="'.$acc[0]['place'].'">
-                    <textarea id="description" name="description" required maxlength="270" placeholder="description">'.$acc[0]['description'].'</textarea>';
+                    <input type="text" id="place" name="place" required maxlength="150" placeholder="place" value="'.value('place').'">
+                    <textarea id="description" name="description" required maxlength="270" placeholder="description">'.value('description').'</textarea>
+                    <input type="text" id="customer_erp_link" name="customer_erp_link" maxlength="150" placeholder="customer erp link" value="'.value('customer_erp_link').'">
+                    <input type="text" id="customer_name" name="customer_name" required maxlength="150" placeholder="customer name" value="'.value('customer_name').'">
+                    <input type="text" id="customer_address" name="customer_address" required maxlength="150" placeholder="customer address" value="'.value('customer_address').'">
+                    <input type="email" id="customer_email" name="customer_email" required maxlength="45" placeholder="customer email" value="'.value('customer_email').'">
+                    <input type="text" id="sm_reg_n" name="sm_reg_n" maxlength="27" placeholder="snowmobile register number" value="'.value('sm_reg_n').'">
+                    <input type="text" id="sm_model" name="sm_model" maxlength="30" placeholder="snowmobile model" value="'.value('sm_model').'"><br>
+                    <input type="checkbox" id="waiver" name="waiver"> waiver<br>
+                    <input type="number" id="total_euro" name="total_euro" min="0.00" max="10000.00" step="0.01" placeholder="total euro" value="'.value('total_euro').'">
+                    <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" placeholder="total paid" value="'.value('total_paid').'">
+                    <textarea id="injury" name="injury" maxlength="270" placeholder="injury">'.value('injury').'</textarea><br>
+                    <input type="checkbox" id="first_aid" name="first_aid"> first aid<br>
+                    <input type="checkbox" id="hospital_offer" name="hospital offer"> hospital offer<br>
+                    <input type="checkbox" id="hospital_visit" name="hospital visit"> hospital visit<br>
+                    <input type="submit" class="button" value="add accident"><br>
+                </form>';
         echo var_dump($acc);
         echo '';
         
