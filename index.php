@@ -197,14 +197,6 @@ function value($post){
             return $_SESSION[$post];
 }
 
-function valueacc($acc){
-    if (isset($_POST[$acc]))
-        return $_POST[$acc];
-    else
-        if (isset($acc[0][$acc]))
-            return $acc[0][$acc];
-}
-
 function getout(){
     header( "refresh:0;url=index.php" ); 
     session_unset();
