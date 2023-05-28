@@ -82,15 +82,16 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $mytime = new DateTime($trip[0]['date']);
     if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email']) && 
         !empty($_POST['place']) && !empty($_POST['description']) && !empty($_POST['customer_name']) && !empty($_POST['customer_address']) && !empty($_POST['customer_email'])) {
-        $accidentId = insertInto('accident', 'user_id', $me->id, $pdo);
-        updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId['id'], $pdo);
+        $accidentId = (isset($_GET['acc']) ? $_GET['acc'] : insertInto('accident', 'user_id', $me->id, $pdo));
+        $accidentId = (is_array($accidentId) ? $accidentId['id'] : $accidentId);
+        updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId, $pdo);
         $inputs = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email', 'customer_erp_link', 'sm_reg_n', 'total_euro', 'total_paid', 'sm_model', 'injury');
         foreach ($inputs as $in) {
-            (!isset($_POST[$in]) && empty($_POST[$in]) ?: updateTableItemWhere('accident', $in, $_POST[$in], 'id', $accidentId['id'], $pdo));
+            (!isset($_POST[$in]) && empty($_POST[$in]) ?: updateTableItemWhere('accident', $in, $_POST[$in], 'id', $accidentId, $pdo));
         }
         $checks = array('waiver', 'first_aid', 'hospital_offer', 'hospital_visit');
         foreach($checks as $c) {
-            (!isset($_POST[$c]) ?: updateTableItemWhere('accident', $c, 1, 'id', $accidentId['id'], $pdo));
+            (!isset($_POST[$c]) ?: updateTableItemWhere('accident', $c, 1, 'id', $accidentId, $pdo));
         }
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
@@ -109,7 +110,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $myunixdate = strtotime($acc[0]['datetime']);
         echo '  <h4>accident report</h4>
                 Date: '.date("D M j, Y", $myunixdate).'<br>
-                <form action="" method="POST">
+                <form action="?tid='.$_GET['tid'].'&acc='.$_GET['acc'].'" method="POST">
                     <select name="datetime" required>
                         <option value="" selected disabled hidden>Time</option>';
             for ($i = 0; $i < ($safari[0]['length']/15)+6; $i++){
@@ -133,7 +134,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                     <input type="checkbox" id="first_aid" name="first_aid" '.$first_aid.'> first aid<br>
                     <input type="checkbox" id="hospital_offer" name="hospital offer" '.$hospital_offer.'> hospital offer<br>
                     <input type="checkbox" id="hospital_visit" name="hospital visit" '.$hospital_visit.'> hospital visit<br>
-                    <input type="submit" class="button" value="add accident"><br>
+                    <input type="submit" class="button" value="update accident"><br>
                 </form>';
         foreach ($acc[0] as $k => $v) {
             unset($_SESSION[$k]);
