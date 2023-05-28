@@ -102,6 +102,10 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         foreach ($acc[0] as $k => $v) {
             $_SESSION[$k] = $v;
         }
+        $waiver = ($_SESSION['waiver'] ? 'checked' : '');
+        $first_aid = ($_SESSION['first_aid'] ? 'checked' : '');
+        $hospital_offer = ($_SESSION['hospital_offer'] ? 'checked' : '');
+        $hospital_visit = ($_SESSION['hospital_visit'] ? 'checked' : '');
         $myunixdate = strtotime($acc[0]['datetime']);
         echo '  <h4>accident report</h4>
                 Date: '.date("D M j, Y", $myunixdate).'<br>
@@ -122,16 +126,19 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                     <input type="email" id="customer_email" name="customer_email" required maxlength="45" placeholder="customer email" value="'.value('customer_email').'">
                     <input type="text" id="sm_reg_n" name="sm_reg_n" maxlength="27" placeholder="snowmobile register number" value="'.value('sm_reg_n').'">
                     <input type="text" id="sm_model" name="sm_model" maxlength="30" placeholder="snowmobile model" value="'.value('sm_model').'"><br>
-                    <input type="checkbox" id="waiver" name="waiver"> waiver<br>
+                    <input type="checkbox" id="waiver" name="waiver" '.$waiver.'> waiver<br>
                     <input type="number" id="total_euro" name="total_euro" min="0.00" max="10000.00" step="0.01" placeholder="total euro" value="'.value('total_euro').'">
                     <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" placeholder="total paid" value="'.value('total_paid').'">
                     <textarea id="injury" name="injury" maxlength="270" placeholder="injury">'.value('injury').'</textarea><br>
-                    <input type="checkbox" id="first_aid" name="first_aid"> first aid<br>
-                    <input type="checkbox" id="hospital_offer" name="hospital offer"> hospital offer<br>
-                    <input type="checkbox" id="hospital_visit" name="hospital visit"> hospital visit<br>
+                    <input type="checkbox" id="first_aid" name="first_aid" '.$first_aid.'> first aid<br>
+                    <input type="checkbox" id="hospital_offer" name="hospital offer" '.$hospital_offer.'> hospital offer<br>
+                    <input type="checkbox" id="hospital_visit" name="hospital visit" '.$hospital_visit.'> hospital visit<br>
                     <input type="submit" class="button" value="add accident"><br>
                 </form>';
-        echo var_dump($acc);
+        foreach ($acc[0] as $k => $v) {
+            unset($_SESSION[$k]);
+        }
+        echo var_dump($_SESSION);
         echo '';
         
         echo ' <div class="button_svg"><a href="./?tid='.$_GET['tid'].'">'.file_get_contents('img/back.svg').'</a></div>';
