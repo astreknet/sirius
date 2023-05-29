@@ -139,8 +139,6 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         foreach ($acc[0] as $k => $v) {
             unset($_SESSION[$k]);
         }
-        echo var_dump($_SESSION);
-        echo '';
         
         echo ' <div class="button_svg"><a href="./?tid='.$_GET['tid'].'">'.file_get_contents('img/back.svg').'</a></div>';
     }
