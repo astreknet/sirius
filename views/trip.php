@@ -69,7 +69,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         foreach ($nearmiss as $n){
             #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
             $involved = ($n['guide'] && $n['customer'] ? 'guide and customer' : ($n['guide'] ? 'guide' : 'customer'));
-            echo '  <li>'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$involved.'</li>';
+            echo '  <li><a href="?tid='.$_GET['tid'].'&miss='.$n['id'].'">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$involved.'</a></li>';
         }
         echo '</ul>';
     }
