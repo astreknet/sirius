@@ -95,7 +95,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         }
         #header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
-    echo '<div id="accident">';
+    echo '<div id="accident">
+            <h5 id="accident_report">Accident</h5>';
     
     ### UPDATE ACCIDENT #############################
     if (isset($_GET['tid'],$_GET['acc'])) {
@@ -108,8 +109,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $hospital_offer = ($_SESSION['hospital_offer'] ? 'checked' : '');
         $hospital_visit = ($_SESSION['hospital_visit'] ? 'checked' : '');
         $myunixdate = strtotime($acc[0]['datetime']);
-        echo '  <h4>accident report</h4>
-                Date: '.date("D M j, Y", $myunixdate).'<br>
+        echo '  Date: '.date("D M j, Y", $myunixdate).'<br>
                 <form action="?tid='.$_GET['tid'].'&acc='.$_GET['acc'].'" method="POST">
                     <select name="datetime" required>
                         <option value="" selected disabled hidden>Time</option>';
@@ -142,8 +142,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     }
 
     else {
-        echo '<h5>Accident</h5>
-                <form action="" method="POST">
+        echo '  <form action="" method="POST">
                     <select name="datetime" required>
                         <option value="" selected disabled hidden>Time</option>';
             for ($i = 0; $i < ($safari[0]['length']/15)+6; $i++){
@@ -174,7 +173,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         echo '  <ul>';
         foreach ($accident as $n){
             #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            echo '  <li><a href="?tid='.$_GET['tid'].'&acc='.$n['id'].'">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</a></li>';
+            echo '  <li><a href="?tid='.$_GET['tid'].'&acc='.$n['id'].'#accident_report">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</a></li>';
         }
         echo '</ul>';
     }
