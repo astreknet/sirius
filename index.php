@@ -77,6 +77,7 @@ $sql = '
             first_aid bool DEFAULT FALSE,
             hospital_offer bool DEFAULT FALSE,
             hospital_visit bool DEFAULT FALSE,
+            updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
             PRIMARY KEY (id),
             KEY fk_accident_user (user_id),
             KEY fk_accident_trip (trip_id),
