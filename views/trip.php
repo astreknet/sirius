@@ -95,7 +95,6 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         }
         #header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
-    echo var_dump($_POST);
     echo '<div id="accident">';
     
     ### UPDATE ACCIDENT #############################
@@ -170,20 +169,20 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                     <input type="checkbox" id="hospital_visit" name="hospital visit"> hospital visit<br>
                     <input type="submit" class="button" value="add accident"><br>
                 </form>';
-        if (count($accident) > 0) {
-            echo '  <ul>';
-            foreach ($accident as $n){
-                #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-                echo '  <li><a href="?tid='.$_GET['tid'].'&acc='.$n['id'].'">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</a></li>';
-            }
-            echo '</ul>';
-        }
-        else {
-            echo "<p>You don't have any accident in this trip. Yay!</p>";
-        }
-        echo '</div>';
-        echo ' <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
     }
+    if (count($accident) > 0) {
+        echo '  <ul>';
+        foreach ($accident as $n){
+            #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
+            echo '  <li><a href="?tid='.$_GET['tid'].'&acc='.$n['id'].'">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</a></li>';
+        }
+        echo '</ul>';
+    }
+    else {
+        echo "<p>You don't have any accident in this trip. Yay!</p>";
+    }
+        echo '</div>
+                <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
 }
 ######################################################
 
