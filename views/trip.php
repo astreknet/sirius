@@ -80,6 +80,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     
 ### ACCIDENT #########################################
     $mytime = new DateTime($trip[0]['date']);
+    $form_action = "";
     if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email']) && 
         !empty($_POST['place']) && !empty($_POST['description']) && !empty($_POST['customer_name']) && !empty($_POST['customer_address']) && !empty($_POST['customer_email'])) {
         $accidentId = (isset($_GET['acc']) ? $_GET['acc'] : insertInto('accident', 'user_id', $me->id, $pdo));
@@ -151,7 +152,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 $mytime->add($diff15Min);
             }
         echo '      </select>
-                    <input type="text" id="place" name="place" required maxlength="150" placeholder="place">
+                    <input type="text" id="place" name="place" required maxlength="150" placeholder="place" value="'.value('place').'">
                     <textarea id="description" name="description" required maxlength="270" placeholder="description"></textarea>
                     <input type="text" id="customer_erp_link" name="customer_erp_link" maxlength="150" placeholder="customer erp link">
                     <input type="text" id="customer_name" name="customer_name" required maxlength="150" placeholder="customer name">
@@ -180,8 +181,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     else {
         echo "<p>You don't have any accident in this trip. Yay!</p>";
     }
-        echo '</div>
-                <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
+    echo '</div>
+            <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
 }
 ######################################################
 
