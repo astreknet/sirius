@@ -93,7 +93,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         foreach($checks as $c) {
             (isset($_POST[$c]) ? updateTableItemWhere('accident', $c, 1, 'id', $accidentId, $pdo) : updateTableItemWhere('accident', $c, 0, 'id', $accidentId, $pdo));
         }
-        #header( "refresh:0;url=./?tid=".$_GET['tid'] );
+        header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '<div id="accident">
             <h5 id="accident_report">Accident</h5>';
