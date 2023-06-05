@@ -48,7 +48,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     }
     echo '  
         <div id="near_miss">
-        <h5>Near Miss</h5>
+        <h5 id="nearmiss_report">Near Miss</h5>
             <form action="" method="POST">
                 <select name="nm_datetime" required>
                     <option value="" selected disabled hidden>Time</option>';
@@ -69,7 +69,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         foreach ($nearmiss as $n){
             #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
             $involved = ($n['guide'] && $n['customer'] ? 'guide and customer' : ($n['guide'] ? 'guide' : 'customer'));
-            echo '  <li><a href="?tid='.$_GET['tid'].'&miss='.$n['id'].'">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$involved.'</a></li>';
+            echo '  <li><a href="?tid='.$_GET['tid'].'&miss='.$n['id'].'#nearmiss_report">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$involved.'</a></li>';
         }
         echo '</ul>';
     }
