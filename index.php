@@ -95,6 +95,7 @@ $sql = '
             description varchar(300),
             guide bool DEFAULT FALSE,
             customer bool DEFAULT FALSE,
+            updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
             PRIMARY KEY (id),
             KEY fk_nearmiss_user (user_id),
             KEY fk_nearmiss_trip (trip_id),
