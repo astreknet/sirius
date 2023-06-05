@@ -224,7 +224,7 @@ else {
         echo '</ol>';
     }
     else {
-        echo "<p>You don't have any trip yet!</p>";
+        echo "<p>You don't have any trips... yet</p>";
     }
 }
 ?>

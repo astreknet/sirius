@@ -39,7 +39,7 @@ if (count($issues) > 0) {
     echo '</ol>';
 }
 else {
-    echo "<p>You don't have any issue. Yay!</p>";
+    echo "<p>You don't have any issues. Yay!</p>";
     }
 
 ?>
