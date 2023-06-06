@@ -36,40 +36,66 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         </div>';
     
 ### NEAR MISS ########################################        
+    $form_miss = '';
+    $submit = "add near miss";
     if (isset($_POST['nm_datetime'], $_POST['nm_place'], $_POST['nm_description'])) {
-        $nearmissId = insertInto('nearmiss', 'user_id', $me->id, $pdo);
-        updateTableItemWhere('nearmiss', 'trip_id', $_GET['tid'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('nearmiss', 'datetime', $_POST['nm_datetime'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('nearmiss', 'place', $_POST['nm_place'], 'id', $nearmissId['id'], $pdo);
-        updateTableItemWhere('nearmiss', 'description', $_POST['nm_description'], 'id', $nearmissId['id'], $pdo);
-        (!isset($_POST['guide']) ?: updateTableItemWhere('nearmiss', 'guide', 1, 'id', $nearmissId['id'], $pdo));
-        (!isset($_POST['customer']) ?: updateTableItemWhere('nearmiss', 'customer', 1, 'id', $nearmissId['id'], $pdo));
+        $nearmissId = (isset($_GET['miss']) ? $_GET['miss'] : insertInto('nearmiss', 'user_id', $me->id, $pdo));
+        $nearmissId = (is_array($nearmissId) ? $nearmissId['id'] : $nearmissId);
+        updateTableItemWhere('nearmiss', 'trip_id', $_GET['tid'], 'id', $nearmissId, $pdo);
+        updateTableItemWhere('nearmiss', 'nm_datetime', $_POST['nm_datetime'], 'id', $nearmissId, $pdo);
+        updateTableItemWhere('nearmiss', 'nm_place', $_POST['nm_place'], 'id', $nearmissId, $pdo);
+        updateTableItemWhere('nearmiss', 'nm_description', $_POST['nm_description'], 'id', $nearmissId, $pdo);
+        (!isset($_POST['guide']) ?: updateTableItemWhere('nearmiss', 'guide', 1, 'id', $nearmissId, $pdo));
+        (!isset($_POST['customer']) ?: updateTableItemWhere('nearmiss', 'customer', 1, 'id', $nearmissId, $pdo));
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '  
         <div id="near_miss">
-        <h5 id="nearmiss_report">Near Miss</h5>
-            <form action="" method="POST">
+            <h5 id="nearmiss_report">Near Miss</h5>';
+            
+    ### UPDATE NEAR MISS ############################
+    if (isset($_GET['tid'],$_GET['miss'])) {
+        $miss = selectAllFromWhere('nearmiss', 'id', $_GET['miss'], $pdo);
+        foreach ($miss[0] as $k => $v) {
+            $_SESSION[$k] = $v;
+        }
+        $form_miss = '?tid='.$_GET['tid'].'&miss='.$_GET['miss'];
+        $submit = "update near miss";
+        $customer = ($_SESSION['customer'] ? 'checked' : '');
+        $guide = ($_SESSION['guide'] ? 'checked' : '');
+        $myunixdate = strtotime($miss[0]['nm_datetime']);
+        echo '  Date: '.date("D M j, Y", $myunixdate).'<br>';
+    }
+    
+    echo '  <form action="'.$form_miss.'" method="POST">
                 <select name="nm_datetime" required>
                     <option value="" selected disabled hidden>Time</option>';
         for ($i = 0; $i < ($safari[0]['length']/15)+6; $i++){
-            $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
+            $sel = (((value('nm_datetime') == $mytime->format("Y-m-d H:i:s"))) ? 'selected' : '');
             echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
             $mytime->add($diff15Min);
         }
     echo '      </select>
-                <input type="text" id="nm_place" name="nm_place" required maxlength="150" placeholder="place">
-                <textarea id="nm_description" name="nm_description" required maxlength="270" placeholder="description"></textarea><br>
-                <input type="checkbox" id="guide" name="guide"> guide<br>
-                <input type="checkbox" id="customer" name="customer" checked> customer<br>
-                <input type="submit" class="button" value="add near miss"><br>
+                <input type="text" id="nm_place" name="nm_place" required maxlength="150" placeholder="place" value="'.value('nm_place').'">
+                <textarea id="nm_description" name="nm_description" required maxlength="270" placeholder="description">'.value('nm_description').'</textarea><br>
+                <input type="checkbox" id="guide" name="guide" '.$guide.'> guide<br>
+                <input type="checkbox" id="customer" name="customer" '.$customer.'> customer<br>
+                <input type="submit" class="button" value="'.$submit.'"><br>
             </form> ';
+    if (isset($miss)){
+        foreach ($miss[0] as $k => $v) {
+            unset($_SESSION[$k]);
+        }
+    }
+
+    echo var_dump($_SESSION);
+
     if (count($nearmiss) > 0) {
         echo '<ul>';
         foreach ($nearmiss as $n){
             #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
             $involved = ($n['guide'] && $n['customer'] ? 'guide and customer' : ($n['guide'] ? 'guide' : 'customer'));
-            echo '  <li><a href="?tid='.$_GET['tid'].'&miss='.$n['id'].'#nearmiss_report">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$involved.'</a></li>';
+            echo '  <li><a href="?tid='.$_GET['tid'].'&miss='.$n['id'].'#nearmiss_report">'.date("G:i", strtotime($n['nm_datetime'])).' - '.$n['nm_place'].' - '.$n['nm_description'].' - '.$involved.'</a></li>';
         }
         echo '</ul>';
     }
