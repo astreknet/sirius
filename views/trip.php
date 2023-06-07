@@ -45,8 +45,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         updateTableItemWhere('nearmiss', 'nm_datetime', $_POST['nm_datetime'], 'id', $nearmissId, $pdo);
         updateTableItemWhere('nearmiss', 'nm_place', $_POST['nm_place'], 'id', $nearmissId, $pdo);
         updateTableItemWhere('nearmiss', 'nm_description', $_POST['nm_description'], 'id', $nearmissId, $pdo);
-        (!isset($_POST['guide']) ?: updateTableItemWhere('nearmiss', 'guide', 1, 'id', $nearmissId, $pdo));
-        (!isset($_POST['customer']) ?: updateTableItemWhere('nearmiss', 'customer', 1, 'id', $nearmissId, $pdo));
+        (isset($_POST['guide']) ? updateTableItemWhere('nearmiss', 'guide', 1, 'id', $nearmissId, $pdo) : updateTableItemWhere('nearmiss', 'guide', 0, 'id', $nearmissId, $pdo));
+        (isset($_POST['customer']) ? updateTableItemWhere('nearmiss', 'customer', 1, 'id', $nearmissId, $pdo) : updateTableItemWhere('nearmiss', 'customer', 0, 'id', $nearmissId, $pdo));
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '  
