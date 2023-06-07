@@ -88,8 +88,6 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         }
     }
 
-    echo var_dump($_SESSION);
-
     if (count($nearmiss) > 0) {
         echo '<ul>';
         foreach ($nearmiss as $n){
