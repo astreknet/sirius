@@ -42,9 +42,10 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $nearmissId = (isset($_GET['miss']) ? $_GET['miss'] : insertInto('nearmiss', 'user_id', $me->id, $pdo));
         $nearmissId = (is_array($nearmissId) ? $nearmissId['id'] : $nearmissId);
         updateTableItemWhere('nearmiss', 'trip_id', $_GET['tid'], 'id', $nearmissId, $pdo);
-        updateTableItemWhere('nearmiss', 'nm_datetime', $_POST['nm_datetime'], 'id', $nearmissId, $pdo);
-        updateTableItemWhere('nearmiss', 'nm_place', $_POST['nm_place'], 'id', $nearmissId, $pdo);
-        updateTableItemWhere('nearmiss', 'nm_description', $_POST['nm_description'], 'id', $nearmissId, $pdo);
+        $inputs = array('nm_datetime', 'nm_place', 'nm_description');
+        foreach ($inputs as $in) {
+            (!isset($_POST[$in]) && empty($_POST[$in]) ?: updateTableItemWhere('nearmiss', $in, $_POST[$in], 'id', $nearmissId, $pdo));
+        }
         (isset($_POST['guide']) ? updateTableItemWhere('nearmiss', 'guide', 1, 'id', $nearmissId, $pdo) : updateTableItemWhere('nearmiss', 'guide', 0, 'id', $nearmissId, $pdo));
         (isset($_POST['customer']) ? updateTableItemWhere('nearmiss', 'customer', 1, 'id', $nearmissId, $pdo) : updateTableItemWhere('nearmiss', 'customer', 0, 'id', $nearmissId, $pdo));
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
