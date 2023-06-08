@@ -63,8 +63,6 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $submit = "update near miss";
         $customer = ($_SESSION['customer'] ? 'checked' : '');
         $guide = ($_SESSION['guide'] ? 'checked' : '');
-        $myunixdate = strtotime($miss[0]['nm_datetime']);
-        echo '  Date: '.date("D M j, Y", $myunixdate).'<br>';
     }
     
     echo '  <form action="'.$form_miss.'" method="POST">
@@ -136,8 +134,6 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $first_aid = ($_SESSION['first_aid'] ? 'checked' : '');
         $hospital_offer = ($_SESSION['hospital_offer'] ? 'checked' : '');
         $hospital_visit = ($_SESSION['hospital_visit'] ? 'checked' : '');
-        $myunixdate = strtotime($acc[0]['datetime']);
-        echo '  Date: '.date("D M j, Y", $myunixdate).'<br>';
     }
 
     echo '  <form action="'.$form_action.'" method="POST">
