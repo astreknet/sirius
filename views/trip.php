@@ -43,11 +43,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $nearmissId = (is_array($nearmissId) ? $nearmissId['id'] : $nearmissId);
         updateTableItemWhere('nearmiss', 'trip_id', $_GET['tid'], 'id', $nearmissId, $pdo);
         $inputs = array('nm_datetime', 'nm_place', 'nm_description');
-        foreach ($inputs as $in) {
-            (!isset($_POST[$in]) && empty($_POST[$in]) ?: updateTableItemWhere('nearmiss', $in, $_POST[$in], 'id', $nearmissId, $pdo));
-        }
-        (isset($_POST['guide']) ? updateTableItemWhere('nearmiss', 'guide', 1, 'id', $nearmissId, $pdo) : updateTableItemWhere('nearmiss', 'guide', 0, 'id', $nearmissId, $pdo));
-        (isset($_POST['customer']) ? updateTableItemWhere('nearmiss', 'customer', 1, 'id', $nearmissId, $pdo) : updateTableItemWhere('nearmiss', 'customer', 0, 'id', $nearmissId, $pdo));
+        $checks = array('guide', 'customer');
+        $me->updateTrip('nearmiss', $nearmissId, $inputs, $checks, $pdo);
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '  
@@ -111,13 +108,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $accidentId = (is_array($accidentId) ? $accidentId['id'] : $accidentId);
         updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId, $pdo);
         $inputs = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email', 'customer_erp_link', 'sm_reg_n', 'total_euro', 'total_paid', 'sm_model', 'injury');
-        foreach ($inputs as $in) {
-            (!isset($_POST[$in]) && empty($_POST[$in]) ?: updateTableItemWhere('accident', $in, $_POST[$in], 'id', $accidentId, $pdo));
-        }
         $checks = array('waiver', 'first_aid', 'hospital_offer', 'hospital_visit');
-        foreach($checks as $c) {
-            (isset($_POST[$c]) ? updateTableItemWhere('accident', $c, 1, 'id', $accidentId, $pdo) : updateTableItemWhere('accident', $c, 0, 'id', $accidentId, $pdo));
-        }
+        $me->updateTrip('accident', $accidentId, $inputs, $checks, $pdo);
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '<div id="accident">
