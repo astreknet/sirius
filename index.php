@@ -113,7 +113,8 @@ $sql = '
            injury varchar(300),
            first_aid bool DEFAULT FALSE,
            hospital_visit bool DEFAULT FALSE,
-           PRIMARY KEY (id),
+           updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+            PRIMARY KEY (id),
            KEY fk_issue_user (user_id),
            CONSTRAINT fk_issue_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
         );
