@@ -104,19 +104,19 @@ $sql = '
         );
         
         CREATE TABLE IF NOT EXISTS issue (
-           id INT2 unsigned NOT NULL AUTO_INCREMENT,
-           user_id INT2 unsigned NOT NULL,
-           datetime datetime DEFAULT current_timestamp(),
-           place varchar(150),
-           point point,
-           description varchar(300),
-           injury varchar(300),
-           first_aid bool DEFAULT FALSE,
-           hospital_visit bool DEFAULT FALSE,
-           updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+            id INT2 unsigned NOT NULL AUTO_INCREMENT,
+            user_id INT2 unsigned NOT NULL,
+            datetime datetime DEFAULT current_timestamp(),
+            place varchar(150),
+            point point,
+            description varchar(300),
+            injury varchar(300),
+            first_aid bool DEFAULT FALSE,
+            hospital_visit bool DEFAULT FALSE,
+            updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
             PRIMARY KEY (id),
-           KEY fk_issue_user (user_id),
-           CONSTRAINT fk_issue_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
+            KEY fk_issue_user (user_id),
+            CONSTRAINT fk_issue_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
         );
     ';
     
