@@ -27,7 +27,7 @@ if (count($issues) > 0) {
     echo '<ol>';
     foreach ($issues as $i){
         $issueclass = (empty($i['injury']) ? 'class_orange' : 'class_red'); 
-        echo '  <li class="'.$issueclass.'">'.date("d-m-Y G:i", strtotime($i['datetime'])).' - '.$i['place'].' - '.$i['description'];
+        echo '  <li class="'.$issueclass.'"><a href="?issues&id='.$i['id'].'">'.date("d-m-Y G:i", strtotime($i['datetime'])).' - '.$i['place'].' - '.$i['description'].'</a>';
         if (!empty($i['injury']))
             echo ' - '.$i['injury'];
         if ($i['first_aid'])
