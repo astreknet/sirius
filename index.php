@@ -292,7 +292,7 @@ class Guide extends User{
 
     public function updateTrip($table, $tableId, $inputs, $checks, $pdo){
         foreach ($inputs as $in) {
-            (!isset($post[$in]) && empty($_POST[$in]) ?: updateTableItemWhere($table, $in, $_POST[$in], 'id', $tableId, $pdo));
+            (!isset($_POST[$in]) && empty($_POST[$in]) ?: updateTableItemWhere($table, $in, $_POST[$in], 'id', $tableId, $pdo));
         }
         foreach($checks as $c) {
             (isset($_POST[$c]) ? updateTableItemWhere($table, $c, 1, 'id', $tableId, $pdo) : updateTableItemWhere($table, $c, 0, 'id', $tableId, $pdo));
