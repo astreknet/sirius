@@ -3,6 +3,8 @@
 <?php
 $mytime = new DateTime('NOW');
 $issues = selectAllFromWhere('issue', 'user_id', $me->id, $pdo);
+$form_action = '?issues';
+$submit = "add issue";
 if (isset($_POST['datetime'], $_POST['place'], $_POST['description'])) {
     $issueId = insertInto('issue', 'user_id', $me->id, $pdo);
     updateTableItemWhere('issue', 'datetime', $_POST['datetime'], 'id', $issueId['id'], $pdo);
@@ -13,15 +15,27 @@ if (isset($_POST['datetime'], $_POST['place'], $_POST['description'])) {
     (!isset($_POST['hospital_visit']) ?: updateTableItemWhere('issue', 'hospital_visit', 1, 'id', $issueId['id'], $pdo));
     header( "refresh:0;url=./?issues" );
 }
+
+if (isset($_GET['id'])) {
+        $iss = selectAllFromWhere('issue', 'id', $_GET['id'], $pdo);
+        foreach ($iss[0] as $k => $v) {
+            $_SESSION[$k] = $v;
+        }
+        $form_action = '?issues&id='.$_GET['id'];
+        $submit = "update issue";
+        $first_aid = ($_SESSION['first_aid'] ? 'checked' : '');
+        $hospital_visit = ($_SESSION['hospital_visit'] ? 'checked' : '');
+    }
+
 echo '  
-        <form action="" method="POST">
+        <form action="'.$form_action.'" method="POST">
             <input type="datetime-local" id="datetime" name="datetime" required max="'.$mytime->format("Y-m-d H:i").'">
             <input type="text" id="place" name="place" required maxlength="150" placeholder="place">
             <textarea id="description" name="description" required maxlength="270" placeholder="description"></textarea><br>
             <textarea id="injury" name="injury" maxlength="270" placeholder="injury"></textarea><br>
             <input type="checkbox" id="first_aid" name="first_aid"> first aid<br>
             <input type="checkbox" id="hospital_visit" name="hospital visit"> hospital visit<br>
-            <input type="submit" class="button" value="add issue"><br>
+            <input type="submit" class="button" value="'.$submit.'"><br>
         </form> ';
 if (count($issues) > 0) {
     echo '<ol>';
