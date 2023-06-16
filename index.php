@@ -189,7 +189,6 @@ function deleteOneDayOldNonRegisteredUsers($pdo){
     $stmt->execute();
     $stmt->closeCursor();
 }
-#require_once 'includes/myconn.php';
 
 ### FUNCTIONS #############################################
 function value($post){
@@ -236,7 +235,6 @@ function downloadCsv($name){
     header( 'Content-Type: text/csv' );
     header( 'Content-Disposition: attachment;filename='.$name.'-'.date('YmdHis').'.csv' );
 }
-#include_once 'includes/function.php';
 
 ### CLASS #################################################
 class User{
@@ -328,9 +326,6 @@ class Trip{
         $this->done = $pDone;
     }
 }
-#include_once 'class/User.php';
-
-#echo var_dump($_SERVER);
 
 ### VALIDATION ############################################
 if (isset($_POST['username'], $_POST['lpassword']) && ($me = new User($_POST['username'], $pdo)) && ($me->userlevel) && ($me->validate(hash('sha256', $_POST['lpassword'])))) { 
