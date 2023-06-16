@@ -6,22 +6,22 @@ Minimalistic **safari class** and **accident report** web application. Ask for a
 </p>
 
 ## users
-Just an **email** is needed to create a user. Invitation to _register_ by _email_. Only the user can **edit his own data**. An _unregistered_ user will be deleted after **one day**. A **validated user** will be automatically logged out after **15 min** of **inactivity**. 
+Just an **email** is needed to create a user. Invitation to _register_ by _email_. Only the user can **edit his own data**. An _unregistered_ user will be deleted after **one day**. A **validated user** will be automatically logged out after **5 min** of **inactivity**. 
 
 ### userlevels
 * **inactive**: _limbo_ status, can not log in.
-* **guide**: can log in, create and update his own data, trips, close calls and accidents.
-* **admin**: same privileges as guide. Also can create and modify safaris, upgrade userslevel, reset passwords, download [_vcards_](https://en.wikipedia.org/wiki/VCard) and [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) reports.
-* **superadmin**: same privileges as admin. Also can create and modify admins.
+* **guide**: create and update his own data, issues, trips, close calls and accidents.
+* **admin**: same privileges as _guide_. Also can create and modify safaris, upgrade userlevels, download [_vcards_](https://en.wikipedia.org/wiki/VCard) and [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) reports.
+* **superadmin**: same privileges as _admin_. Also can create and modify admins.
 
 ## safaris
-This are the _templates_ of the _trips_. A safari has an **unique name**, a duration and it can be _active_, therefore _available_ for the _trips_.
+This are the _templates_ of the _trips_. A safari has a **unique name**, a duration and when _active_ is _available_ for the _trips_.
 
 ## trips
-An _active user_ can _add_ and _update_ trips. A trip has a _safari name_, _time_ and a _route_. _Remarks_ can be added later. A trip could have _near misses_ and _accidents_.
+An _active user_ can _add_ and _update_ trips. A trip has a _safari name_, _time_ and a _route_. _Remarks_ can be added later. A trip can have _near misses_ and _accidents_.
 
 ## issues
-Work issues are _near misses_ or _accidents_, when the _injury_ field is filled, related to the guide on a safari or any situation during the work time.
+Work issues are _near misses_ or _accidents_ (if there is an  _injury_), out of a _safari_, during the work time.
 
 ## reports
 The admins can download trip, near miss, accident, work near miss and work accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://en.wikipedia.org/wiki/LibreOffice_Calc), and [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel) among others.
