@@ -23,6 +23,7 @@ if (isset($_GET['id'])) {
         }
         $form_action = '?issues&id='.$_GET['id'];
         $submit = "update issue";
+        $first_aid = ($_SESSION['first_aid'] ? 'checked' : '');
         $hospital_visit = ($_SESSION['hospital_visit'] ? 'checked' : '');
     }
 
