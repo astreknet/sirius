@@ -222,7 +222,7 @@ function setSessionForm($val) {
 
 function unsetSessionForm($val) {
     foreach ($val as $k => $v) {
-        $_SESSION[$k] = $v; 
+        unset($_SESSION[$k]);
     }   
 }
 

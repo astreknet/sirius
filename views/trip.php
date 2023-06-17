@@ -54,9 +54,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     ### UPDATE NEAR MISS ############################
     if (isset($_GET['tid'],$_GET['miss'])) {
         $miss = selectAllFromWhere('nearmiss', 'id', $_GET['miss'], $pdo);
-        foreach ($miss[0] as $k => $v) {
-            $_SESSION[$k] = $v;
-        }
+        setSessionForm($miss[0]);
         $form_miss = '?tid='.$_GET['tid'].'&miss='.$_GET['miss'];
         $submit = "update near miss";
         $customer = ($_SESSION['customer'] ? 'checked' : '');
@@ -79,9 +77,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 <input type="submit" class="button" value="'.$submit.'"><br>
             </form> ';
     if (isset($miss)){
-        foreach ($miss[0] as $k => $v) {
-            unset($_SESSION[$k]);
-        }
+        unsetSessionForm($miss[0]);
     }
 
     if (count($nearmiss) > 0) {
@@ -118,9 +114,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     ### UPDATE ACCIDENT #############################
     if (isset($_GET['tid'],$_GET['acc'])) {
         $acc = selectAllFromWhere('accident', 'id', $_GET['acc'], $pdo);
-        foreach ($acc[0] as $k => $v) {
-            $_SESSION[$k] = $v;
-        }
+        setSessionForm($acc[0]);
         $form_action = '?tid='.$_GET['tid'].'&acc='.$_GET['acc'];
         $submit = "update accident";
         $waiver = ($_SESSION['waiver'] ? 'checked' : '');
@@ -156,9 +150,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 <input type="submit" class="button" value="'.$submit.'"><br>
             </form>';
     if (isset($acc)){        
-        foreach ($acc[0] as $k => $v) {
-            unset($_SESSION[$k]);
-        }
+        unsetSessionForm($acc[0]);
     }
     
     if (count($accident) > 0) {
