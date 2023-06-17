@@ -214,6 +214,18 @@ function formatdate($date) {
         return date("D M j G:i", $myunixdate);
 }
 
+function setSessionForm($val) {
+    foreach ($val as $k => $v) {
+        $_SESSION[$k] = $v;
+    }
+}
+
+function unsetSessionForm($val) {
+    foreach ($val as $k => $v) {
+        $_SESSION[$k] = $v; 
+    }   
+}
+
 function prepareReport($name, $sql, $csvheader, $pdo) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
