@@ -18,7 +18,7 @@ if (isset($_POST['datetime'], $_POST['place'], $_POST['description'])) {
 
 if (isset($_GET['id'])) {
     $iss = selectAllFromWhere('issue', 'id', $_GET['id'], $pdo);
-    setSessionForm($iss[0]);
+    sessionForm($iss[0], TRUE);
     $form_action = '?issues&id='.$_GET['id'];
     $submit = "update issue";
     $first_aid = ($_SESSION['first_aid'] ? 'checked' : '');
@@ -37,7 +37,7 @@ echo '
     </form> ';
 
 if (isset($iss)){
-    unsetSessionForm($iss[0]);
+    sessionForm($iss[0], FALSE);
 }
 
 if (count($issues) > 0) {

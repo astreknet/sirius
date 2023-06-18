@@ -226,6 +226,18 @@ function unsetSessionForm($val) {
     }   
 }
 
+function sessionForm($val, $bool) {
+    foreach ($val as $k => $v) {
+        if ($bool == TRUE) {
+            $_SESSION[$k] = $v;
+        } 
+        else {
+            unset($_SESSION[$k]);
+        }
+    }
+}
+
+
 function prepareReport($name, $sql, $csvheader, $pdo) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
