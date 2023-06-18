@@ -214,18 +214,6 @@ function formatdate($date) {
         return date("D M j G:i", $myunixdate);
 }
 
-function setSessionForm($val) {
-    foreach ($val as $k => $v) {
-        $_SESSION[$k] = $v;
-    }
-}
-
-function unsetSessionForm($val) {
-    foreach ($val as $k => $v) {
-        unset($_SESSION[$k]);
-    }   
-}
-
 function sessionForm($val, $bool) {
     foreach ($val as $k => $v) {
         if ($bool == TRUE) {
