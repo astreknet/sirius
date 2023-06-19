@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset = "UTF-8" >
+    <meta http-equiv="refresh" content="300" > 
     <meta name="description" content="a work manager for a small or medium safari company" >
     <meta name="Keywords" content="work manager, aurora, lapland, guide, finland, safari" >
     <meta name="Author" content="hugo@astrek.net" >
