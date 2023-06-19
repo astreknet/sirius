@@ -6,7 +6,7 @@ Minimalistic **safari class** and **accident report** web application. Ask for a
 </p>
 
 ## users
-Just an **email** is needed to create a user. Invitation to _register_ by _email_. Only the user can **edit his own data**. An _unregistered_ user will be deleted after **one day**. A **validated user** will be automatically logged out after **5 min** of **inactivity**. 
+Just an **email** is needed to create a user. Invitation to _register_ by _email_. Only the user can **edit his own data**. An _unregistered_ user will be deleted after **one day**. A **validated user** will be automatically logged out after **3 min** of **inactivity**. 
 
 ### userlevels
 * **inactive**: _limbo_ status, can not log in.
