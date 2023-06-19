@@ -1,5 +1,5 @@
 <?php
-ini_set('session.gc_maxlifetime', 300);  #  
+ini_set('session.gc_maxlifetime', 180);  #  
 ini_set('session.gc_probability', 1);    #
 ini_set('session.gc_divisor', 1);        # Kicks you out in 5 min if inactive
 session_start();
