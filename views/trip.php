@@ -17,7 +17,12 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     else {
         echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
     }
-    
+
+    #echo var_dump($accident).'<br>';
+    #echo var_dump($acc).'<br>';
+    #echo var_dump($me->accident).'<br>';
+
+
 ### UPDATE TRIP ######################################
     if (isset($_POST['erp_link'], $_POST['route'], $_POST['remarks']) && $me->userlevel > 0) {
         updateTableItemWhere('trip', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);

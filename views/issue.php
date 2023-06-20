@@ -3,7 +3,6 @@
 <?php
 $me = new Guide($_SESSION['usermail'], $pdo);
 $mytime = new DateTime('NOW');
-$issues = selectAllFromWhere('issue', 'user_id', $me->id, $pdo);
 $form_action = '?issues';
 $submit = "add issue";
 $first_aid = $hospital_visit = '';
@@ -40,9 +39,9 @@ if (isset($iss)){
     sessionForm($iss[0], FALSE);
 }
 
-if (count($issues) > 0) {
+if (count($me->issue) > 0) {
     echo '<ol>';
-    foreach ($issues as $i){
+    foreach ($me->issue as $i){
         $issueclass = (empty($i['injury']) ? 'class_orange' : 'class_red'); 
         echo '  <li class="'.$issueclass.'"><a href="?issues&id='.$i['id'].'">'.date("d-m-Y G:i", strtotime($i['datetime'])).' - '.$i['place'].' - '.$i['description'].'</a>';
         if (!empty($i['injury']))
