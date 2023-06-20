@@ -12,7 +12,7 @@ if (isset($_POST['datetime'], $_POST['place'], $_POST['description'])) {
     $issueId = (is_array($issueId) ? $issueId['id'] : $issueId);
     $inputs = array('datetime', 'place', 'description', 'injury');
     $checks = array('first_aid', 'hospital_visit');
-    $me->updateTrip('issue', $issueId, $inputs, $checks, $pdo);
+    $me->updateTable('issue', $issueId, $inputs, $checks, $pdo);
     header( "refresh:0;url=./?issues" );
 }
 

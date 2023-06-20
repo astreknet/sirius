@@ -44,7 +44,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         updateTableItemWhere('nearmiss', 'trip_id', $_GET['tid'], 'id', $nearmissId, $pdo);
         $inputs = array('nm_datetime', 'nm_place', 'nm_description');
         $checks = array('guide', 'customer');
-        $me->updateTrip('nearmiss', $nearmissId, $inputs, $checks, $pdo);
+        $me->updateTable('nearmiss', $nearmissId, $inputs, $checks, $pdo);
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '  
@@ -105,7 +105,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId, $pdo);
         $inputs = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email', 'customer_erp_link', 'sm_reg_n', 'total_euro', 'total_paid', 'sm_model', 'injury');
         $checks = array('waiver', 'first_aid', 'hospital_offer', 'hospital_visit');
-        $me->updateTrip('accident', $accidentId, $inputs, $checks, $pdo);
+        $me->updateTable('accident', $accidentId, $inputs, $checks, $pdo);
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
     echo '<div id="accident">

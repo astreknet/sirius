@@ -300,7 +300,7 @@ class Guide extends User{
         $this->accident = selectAllFromWhere('accident', 'user_id', $this->id, $pdo);
     }
 
-    public function updateTrip($table, $tableId, $inputs, $checks, $pdo){
+    public function updateTable($table, $tableId, $inputs, $checks, $pdo){
         foreach ($inputs as $in) {
             (!isset($_POST[$in]) && empty($_POST[$in]) ?: updateTableItemWhere($table, $in, $_POST[$in], 'id', $tableId, $pdo));
         }
