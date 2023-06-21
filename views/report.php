@@ -14,15 +14,15 @@ if (isset($_GET['trip'])) {
 }
 
 if (isset($_GET['nearmiss'])) {
-    $sql = "SELECT  nearmiss.datetime,
+    $sql = "SELECT  nearmiss.nm_datetime,
                     trip.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
                     trip.erp_link,
                     trip.route,
                     trip.remarks,
-                    nearmiss.place,
-                    nearmiss.description,
+                    nearmiss.nm_place,
+                    nearmiss.nm_description,
                     nearmiss.guide,
                     nearmiss.customer 
             FROM nearmiss LEFT JOIN trip ON nearmiss.trip_id = trip.id LEFT JOIN user ON nearmiss.user_id = user.id LEFT JOIN safari ON trip.safari_id = safari.id";

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../includes/function.php';
+include_once '../includes/functions.php';
 
 if(isset($_SESSION['vcards'], $_SESSION['validated']) && $_SESSION['validated']) {
     $out = fopen('php://output', 'w');
