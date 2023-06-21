@@ -45,7 +45,7 @@ $sql = '
             user_id INT2 unsigned NOT NULL,
             safari_id INT2 unsigned DEFAULT 1,
             erp_link varchar(150),
-            date datetime DEFAULT current_timestamp(),
+            datetime datetime DEFAULT current_timestamp(),
             route varchar(150),
             remarks varchar(300),
             updated datetime ON UPDATE current_timestamp(),

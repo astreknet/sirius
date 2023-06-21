@@ -5,17 +5,17 @@ $me = new Guide($_SESSION['usermail'], $pdo);
 if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $trip = selectAllFromWhere('trip', 'id', $_GET['tid'], $pdo);
     $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
-    $mytime = new DateTime($trip[0]['date']);
+    $mytime = new DateTime($trip[0]['datetime']);
     $diff15Min = new DateInterval('PT15M');
     $nearmiss = selectAllFromWhere('nearmiss', 'trip_id', $_GET['tid'], $pdo);
     $accident = selectAllFromWhere('accident', 'trip_id', $_GET['tid'], $pdo);
     $h4class = (count($accident) > 0 ? 'class_red' : (count($nearmiss) > 0 ? 'class_orange' : (is_null($trip[0]['remarks']) ? 'class_pale' : 'class_green')));
     
     if (!empty($trip[0]['erp_link'])) { 
-        echo '<h4 class="'.$h4class.'"><a href="'.$trip[0]['erp_link'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</a></h4>';
+        echo '<h4 class="'.$h4class.'"><a href="'.$trip[0]['erp_link'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['datetime'])).'</a></h4>';
     }
     else {
-        echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['date'])).'</h4>';
+        echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['datetime'])).'</h4>';
     }
 
     #echo var_dump($accident).'<br>';
@@ -100,7 +100,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     echo '</div>';        
     
 ### ACCIDENT #########################################
-    $mytime = new DateTime($trip[0]['date']);
+    $mytime = new DateTime($trip[0]['datetime']);
     $form_action = '';
     $submit = "add accident";
     if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email']) && 
@@ -182,12 +182,13 @@ else {
     $diff30Min = new DateInterval('PT30M');
     $mytime->add($diffMin);
 
-    if (isset($_POST['safari'], $_POST['time'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'date', $_POST['time'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
+    if (isset($_POST['safari'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
         $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
-        $tripId = insertInto('trip', 'user_id', $me->id, $pdo); 
+        $tripId = insertInto('trip', 'user_id', $me->id, $pdo);
+        $inputs = array('safari_id', 'erp_link', 'datetime', 'route');  
         updateTableItemWhere('trip', 'safari_id', $_POST['safari'], 'id', $tripId['id'], $pdo);
         updateTableItemWhere('trip', 'erp_link', $erp_link, 'id', $tripId['id'], $pdo);
-        updateTableItemWhere('trip', 'date', $_POST['time'], 'id', $tripId['id'], $pdo);
+        updateTableItemWhere('trip', 'datetime', $_POST['datetime'], 'id', $tripId['id'], $pdo);
         updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $tripId['id'], $pdo);
         header( "refresh:0;url=./" );
     }
@@ -206,11 +207,11 @@ else {
     }
     echo '
             </select>
-            <select name="time" required>
+            <select name="datetime" required>
                 <option value="" selected disabled hidden>Time</option>
     ';
     for ($i = 0; $i < 9; $i++){
-        $sel = ((isset($_POST['time']) && ($_POST['time'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
+        $sel = ((isset($_POST['datetime']) && ($_POST['datetime'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
         echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
         $mytime->add($diff30Min);
     }
@@ -223,13 +224,13 @@ else {
     ';
     if ($me->trip) {
         echo '<ol>';
-        #array_multisort(array_column( $trips, 'date' ), SORT_DESC, $trips); // reverse order
+        #array_multisort(array_column( $trips, 'datetime' ), SORT_DESC, $trips); // reverse order
         foreach ($me->trip as $trip){
             $ac = in_array($trip['id'], array_column($me->accident, 'trip_id'));
             $nm = in_array($trip['id'], array_column($me->nearmiss, 'trip_id'));
             $saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
             $tripclass = (($ac) ? 'class_red' : (($nm) ? 'class_orange' : (is_null($trip['remarks']) ? 'class_pale' : 'class_green')));
-            echo '  <li class="'.$tripclass.'"><a href="?tid='.$trip['id'].'">'.date("d M Y H:i", strtotime($trip['date'])).' - '.$saf[0]['name'].'</a></li>';
+            echo '  <li class="'.$tripclass.'"><a href="?tid='.$trip['id'].'">'.date("d M Y H:i", strtotime($trip['datetime'])).' - '.$saf[0]['name'].'</a></li>';
         }
         echo '</ol>';
     }
