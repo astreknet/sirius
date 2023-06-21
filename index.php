@@ -326,14 +326,14 @@ class Safari{
 }
 
 class Trip{
-    public $id, $user_id, $safari_id, $erp_link, $date, $route, $remarks, $done;
+    public $id, $user_id, $safari_id, $erp_link, $datetime, $route, $remarks, $done;
 
-    public function __construct($pId, $pUser_id, $pSafari_id, $pErp_link, $pDate, $pRoute, $pRemarks, $pDone){
+    public function __construct($pId, $pUser_id, $pSafari_id, $pErp_link, $pDatetime, $pRoute, $pRemarks, $pDone){
         $this->id = $pId;
         $this->user_id = $pUser_id;
         $this->safari_id = $pSafari_id;
         $this->erp_link = $pErp_link;
-        $this->date = $pDate;
+        $this->datetime = $pDatetime;
         $this->route = $pRoute;
         $this->remarks = $pRemarks;
         $this->done = $pDone;

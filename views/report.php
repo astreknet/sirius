@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_GET['trip'])) {
-    $sql = "SELECT  trip.date,
+    $sql = "SELECT  trip.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
                     trip.erp_link,
@@ -15,7 +15,7 @@ if (isset($_GET['trip'])) {
 
 if (isset($_GET['nearmiss'])) {
     $sql = "SELECT  nearmiss.datetime,
-                    trip.date,
+                    trip.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
                     trip.erp_link,
@@ -32,7 +32,7 @@ if (isset($_GET['nearmiss'])) {
 
 if (isset($_GET['accident'])) {
     $sql = "SELECT  accident.datetime,
-                    trip.date,
+                    trip.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
                     trip.erp_link,
