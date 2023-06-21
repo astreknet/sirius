@@ -35,7 +35,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         <form action="" method="POST">
             <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.$trip[0]['erp_link'].'">
             <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$trip[0]['route'].'">
-            <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable?"></textarea>
+            <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable?">'.$trip[0]['remarks'].'</textarea>
             <input type="submit" class="button" value="update trip">
         </form>
         </div>';
@@ -185,11 +185,9 @@ else {
     if (isset($_POST['safari'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
         $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
         $tripId = insertInto('trip', 'user_id', $me->id, $pdo);
-        $inputs = array('safari_id', 'erp_link', 'datetime', 'route');  
-        updateTableItemWhere('trip', 'safari_id', $_POST['safari'], 'id', $tripId['id'], $pdo);
-        updateTableItemWhere('trip', 'erp_link', $erp_link, 'id', $tripId['id'], $pdo);
-        updateTableItemWhere('trip', 'datetime', $_POST['datetime'], 'id', $tripId['id'], $pdo);
-        updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $tripId['id'], $pdo);
+        $inputs = array('safari_id', 'erp_link', 'datetime', 'route', 'remarks');
+        $checks = array();  
+        $me->updateTable('trip', $tripId['id'], $inputs, $checks, $pdo);
         header( "refresh:0;url=./" );
     }
 
