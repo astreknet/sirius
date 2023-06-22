@@ -84,7 +84,7 @@ if (isset($_GET['issue_nearmiss'])) {
                     concat(user.fname, ' ', user.lname),
                     issue.place,
                     issue.description 
-            FROM issue LEFT JOIN user ON issue.user_id = user.id WHERE injury IS NULL";
+            FROM issue LEFT JOIN user ON issue.user_id = user.id WHERE injury IS NULL or injury = ''";
     $csvheader = array('date', 'guide', 'place', 'description');
     prepareReport('work_nearmiss_report', $sql, $csvheader, $pdo);
 }
@@ -97,7 +97,7 @@ if (isset($_GET['issue_accident'])) {
                     issue.injury,
                     issue.first_aid,
                     issue.hospital_visit 
-            FROM issue LEFT JOIN user ON issue.user_id = user.id WHERE injury IS NOT NULL";
+            FROM issue LEFT JOIN user ON issue.user_id = user.id WHERE injury IS NOT NULL and injury != ''";
     $csvheader = array('date', 'guide', 'place', 'description', 'injury', 'first aid', 'hospital visit');
     prepareReport('work_accident_report', $sql, $csvheader, $pdo);
 }
