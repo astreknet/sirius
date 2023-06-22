@@ -225,7 +225,6 @@ function sessionForm($val, $bool) {
     }
 }
 
-
 function prepareReport($name, $sql, $csvheader, $pdo) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
@@ -235,17 +234,6 @@ function prepareReport($name, $sql, $csvheader, $pdo) {
     }
     array_unshift($_SESSION[$name], $csvheader);
     header( "refresh:0;url=views/downloads.php" );
-}
-
-function downloadCsv($name){
-    $out = fopen('php://output', 'w');
-    foreach ($_SESSION[$name] as $t){
-        fputcsv($out, $t);
-    }
-    fclose($out);
-    unset($_SESSION[$name]);
-    header( 'Content-Type: text/csv' );
-    header( 'Content-Disposition: attachment;filename='.$name.'-'.date('YmdHis').'.csv' );
 }
 
 ### CLASS #################################################

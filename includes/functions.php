@@ -33,7 +33,6 @@ function sessionForm($val, $bool) {
     }
 }
 
-
 function prepareReport($name, $sql, $csvheader, $pdo) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute();

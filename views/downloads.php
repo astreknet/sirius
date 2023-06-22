@@ -1,6 +1,18 @@
 <?php
 session_start();
-include_once '../includes/functions.php';
+
+############include_once '../includes/functions.php';
+function downloadCsv($name){
+    $out = fopen('php://output', 'w');
+    foreach ($_SESSION[$name] as $t){
+        fputcsv($out, $t);
+    }
+    fclose($out);
+    unset($_SESSION[$name]);
+    header( 'Content-Type: text/csv' );
+    header( 'Content-Disposition: attachment;filename='.$name.'-'.date('YmdHis').'.csv' );
+}
+
 
 if(isset($_SESSION['vcards'], $_SESSION['validated']) && $_SESSION['validated']) {
     $out = fopen('php://output', 'w');
