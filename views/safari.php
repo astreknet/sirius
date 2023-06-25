@@ -35,13 +35,13 @@ else {
     }
     echo '<h3>Safaris</h3>
             <form method="POST">
-                <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name">
+                <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name"><br>
                 <select id="length" name="length" required>
                     <option value="" selected disabled hidden>length:</option>';
     for ($i=60; $i<=360; $i=$i+30) {
         echo '      <option value="'.$i.'">'.($i/60).' h</option>';
         }  
-        echo '  </select>
+        echo '  </select><br>
                 <input type="submit" class="button" value="add safari">
             </form>
     

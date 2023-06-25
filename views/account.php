@@ -29,7 +29,7 @@ if (
 <section id="register">
     <h3>Account</h3>
     <form action method="POST">
-        <input type="text" name="fname" required maxlength="18" placeholder="first name" value="<?php echo value('fname'); ?>" autocomplete="first-name">
+        <input type="text" name="fname" required maxlength="18" placeholder="first name" value="<?php echo value('fname'); ?>" autocomplete="first-name"><br>
         <input type="text" name="lname" required maxlength="18" placeholder="last name" value="<?php echo value('lname'); ?>" autocomplete="last-name"><br>
         <input type="tel" name="tel" required maxlength="18" placeholder="tel" value="<?php echo value('tel'); ?>" pattern="[+][0-9].{5,}" title="phone with country code ex: +1234567890" oninvalid="setCustomValidity('phone with country code ex: +1234567890')" onchange="try{setCustomValidity('')}catch(e){}" autocomplete="tel"><br>
 

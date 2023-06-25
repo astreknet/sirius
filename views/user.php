@@ -50,7 +50,7 @@ else {
     echo '
         <h3>Users</h3>
         <form action="" method="POST">
-            <input type="text" id="email" name="email" required maxlength="45" placeholder="email" autocomplete="email">
+            <input type="text" id="email" name="email" required maxlength="45" placeholder="email" autocomplete="email"><br>
             <input type="submit" class="button" value="add user" >
         </form>
                     
