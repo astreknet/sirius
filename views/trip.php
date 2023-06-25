@@ -205,6 +205,7 @@ else {
     }
     echo '
             </select>
+                <input type="datetime-local" id="datetime" name="datetime" required value="'.$mytime->format("Y-m-d H:i").'">
             <select name="datetime" required>
                 <option value="" selected disabled hidden>Time</option>
     ';
