@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-############include_once '../includes/functions.php';
 function downloadCsv($name){
     $out = fopen('php://output', 'w');
     foreach ($_SESSION[$name] as $t){
