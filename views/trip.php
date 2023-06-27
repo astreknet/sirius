@@ -211,18 +211,8 @@ else {
     }
     echo '
             </select><br>
-            <select name="datetime" required>
-                <option value="" selected disabled hidden>Time</option>
-    ';
-    for ($i = 0; $i < 9; $i++){
-        $sel = ((isset($_POST['datetime']) && ($_POST['datetime'] == $mytime->format("Y-m-d H:i"))) ? 'selected' : '');
-        echo '  <option value="'.$mytime->format("Y-m-d H:i").'" '.$sel.'>'.$mytime->format('H:i').'</option>';
-        $mytime->add($diff30Min);
-    }
-    echo '
-            </select>
-            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'" >
-            <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.value('route').'" >
+            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'" ><br>
+            <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.value('route').'" ><br>
             <input type="submit" class="button" value="add trip">
         </form>
     ';
