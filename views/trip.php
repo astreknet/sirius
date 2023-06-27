@@ -152,6 +152,9 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 <input type="checkbox" id="first_aid" name="first_aid" '.$first_aid.'> first aid<br>
                 <input type="checkbox" id="hospital_offer" name="hospital offer" '.$hospital_offer.'> hospital offer<br>
                 <input type="checkbox" id="hospital_visit" name="hospital visit" '.$hospital_visit.'> hospital visit<br>
+                <input type="file" id="image0" name="image0" accept="image/png, image/jpeg">
+                <input type="file" id="image1" name="image1" accept="image/png, image/jpeg">
+                <input type="file" id="image2" name="image2" accept="image/png, image/jpeg">
                 <input type="submit" class="button" value="'.$submit.'"><br>
             </form>';
     if (isset($acc)){        
@@ -180,7 +183,9 @@ else {
     $diffMin = new DateInterval('PT'.($min - $mytime->format('i')).'M');
     $diff15Min = new DateInterval('PT15M');
     $diff30Min = new DateInterval('PT30M');
+    $diff6H = new DateInterval('PT6H');
     $mytime->add($diffMin);
+    $maxtime = $mytime->add($diff6H);
 
     if (isset($_POST['safari'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
         $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
@@ -193,6 +198,7 @@ else {
 
     echo '
         <form method="POST">
+            <input type="datetime-local" id="datetime" name="datetime" min="'.$mytime->format("Y-m-d H:i").'" max="'.$maxtime->format("Y-m-d H:i").'" required value="'.$mytime->format("Y-m-d H:i").'"><br>
             <select id="safari" name="safari" required>
                 <option value="" selected disabled hidden>Choose a safari</option>
     ';
@@ -204,8 +210,7 @@ else {
         }
     }
     echo '
-            </select>
-                <input type="datetime-local" id="datetime" name="datetime" required value="'.$mytime->format("Y-m-d H:i").'">
+            </select><br>
             <select name="datetime" required>
                 <option value="" selected disabled hidden>Time</option>
     ';
