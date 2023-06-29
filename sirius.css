@@ -1,4 +1,7 @@
 :root {
+    color-scheme: light dark;
+    --next-img-width: 99%;
+    --textarea-width: 91.8%;
     --color-green: rgba(124, 252, 0, 1);
     --color-green-pale: rgba(124, 252, 0, 0.15);
     --color-orange: rgba(255, 117, 24, 1);
@@ -21,12 +24,6 @@
         --color: rgba(204, 204, 204, 1);
         --color-transparent: rgba(204, 204, 204, 0.75);
     }
-}
-:root { color-scheme: light dark;}
-
-:root {
-  --next-img-width: 99%;
-  --textarea-width: 91.8%;
 }
 
 @media (max-width: 999px) {
