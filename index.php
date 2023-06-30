@@ -337,9 +337,30 @@ if (isset($_GET['username'], $_GET['activation'], $_GET['account']) && ($me = ne
     $_SESSION = array('usermail' => $me->email, 'validated' => TRUE, 'register' => TRUE);
 } 
 
-### ROUTING ###############################################
 (!isset($_GET['exit']) ?: getout());
-require_once 'views/header.php';
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8" >
+    <meta http-equiv="refresh" content="183" >
+    <meta name="description" content="a work manager for a small or medium safari company" >
+    <meta name="Keywords" content="work manager, aurora, lapland, guide, finland, safari" >
+    <meta name="Author" content="hugo@astrek.net" >
+    <link rel="icon" href="favicon.ico" >
+    <link rel="stylesheet" href="./sirius.css">
+    <title id="title">sirius</title>
+</head>
+<body>
+<header>
+    <h1>sirius</h1>
+    <h2>safari class</h2>
+</header>
+
+<?php
+### ROUTING ###############################################
+#require_once 'views/header.php';
 if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SESSION['usermail'], $pdo)) && ($me->userlevel) && ($_SESSION['validated'])) {
     require_once 'views/navbar.php';
     if (isset($_GET['reports']) && $me->userlevel > 1) {
