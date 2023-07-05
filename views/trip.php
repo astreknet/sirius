@@ -189,7 +189,7 @@ else {
     $diff6H = new DateInterval('PT6H');
     $maxtime = $maxtime->add($diff6H);
 
-    if (isset($_POST['safari'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
+    if (isset($_POST['safari_id'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
         $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
         $tripId = insertInto('trip', 'user_id', $me->id, $pdo);
         $inputs = array('safari_id', 'erp_link', 'datetime', 'route', 'remarks');
@@ -201,12 +201,12 @@ else {
     echo '
         <form method="POST">
             <input type="datetime-local" id="datetime" name="datetime" min="'.$nowtime->format("Y-m-d H:i").'" max="'.$maxtime->format("Y-m-d H:i").'" required value="'.$nowtime->format("Y-m-d H:i").'"><br>
-            <select id="safari" name="safari" required>
+            <select id="safari" name="safari_id" required>
                 <option value="" selected disabled hidden>Choose a safari</option>
     ';
     $safari = selectAllFromWhere('safari', 'active', 1, $pdo);
     foreach($safari as $s){
-        $sel = ((isset($_POST['safari']) && ($_POST['safari'] == $s['id'])) ? 'selected' : '');
+        $sel = ((isset($_POST['safari_id']) && ($_POST['safari_id'] == $s['id'])) ? 'selected' : '');
         if ($s['active']) {
             echo '<option value="'.$s['id'].'" '.$sel.'>'.$s['name'].'</option>';
         }
