@@ -178,14 +178,16 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
 ######################################################
 
 else {
-    $mytime = new DateTime('NOW');
-    $min = (($mytime->format("i") > 29) ? 60 : 30);
-    $diffMin = new DateInterval('PT'.($min - $mytime->format('i')).'M');
+    $nowtime = new DateTime('NOW');
+    $maxtime = new DateTime('NOW');
+    $min = (($nowtime->format("i") > 29) ? 60 : 30);
+    $diffMin = new DateInterval('PT'.($min - $nowtime->format('i')).'M');
+    $nowtime = $nowtime->add($diffMin);
+    $maxtime = $maxtime->add($diffMin);
     $diff15Min = new DateInterval('PT15M');
     $diff30Min = new DateInterval('PT30M');
     $diff6H = new DateInterval('PT6H');
-    $mytime->add($diffMin);
-    $maxtime = $mytime->add($diff6H);
+    $maxtime = $maxtime->add($diff6H);
 
     if (isset($_POST['safari'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
         $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
@@ -198,7 +200,7 @@ else {
 
     echo '
         <form method="POST">
-            <input type="datetime-local" id="datetime" name="datetime" min="'.$mytime->format("Y-m-d H:i").'" max="'.$maxtime->format("Y-m-d H:i").'" required value="'.$mytime->format("Y-m-d H:i").'"><br>
+            <input type="datetime-local" id="datetime" name="datetime" min="'.$nowtime->format("Y-m-d H:i").'" max="'.$maxtime->format("Y-m-d H:i").'" required value="'.$nowtime->format("Y-m-d H:i").'"><br>
             <select id="safari" name="safari" required>
                 <option value="" selected disabled hidden>Choose a safari</option>
     ';
