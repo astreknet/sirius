@@ -1,43 +1,43 @@
 <?php
 
-if (isset($_GET['trip'])) {
-    $sql = "SELECT  trip.datetime,
+if (isset($_GET['gig'])) {
+    $sql = "SELECT  gig.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
-                    trip.erp_link,
-                    trip.route,
-                    trip.remarks,
-                    trip.updated 
-            FROM trip LEFT JOIN safari ON trip.safari_id = safari.id LEFT JOIN user ON trip.user_id = user.id";
+                    gig.erp_link,
+                    gig.route,
+                    gig.remarks,
+                    gig.updated 
+            FROM gig LEFT JOIN safari ON gig.safari_id = safari.id LEFT JOIN user ON gig.user_id = user.id";
     $csvheader = array('date', 'safari', 'guide', 'erp link', 'route', 'remarks', 'updated');
-    prepareReport('trip_report', $sql, $csvheader, $pdo);
+    prepareReport('gig_report', $sql, $csvheader, $pdo);
 }
 
 if (isset($_GET['nearmiss'])) {
     $sql = "SELECT  nearmiss.nm_datetime,
-                    trip.datetime,
+                    gig.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
-                    trip.erp_link,
-                    trip.route,
-                    trip.remarks,
+                    gig.erp_link,
+                    gig.route,
+                    gig.remarks,
                     nearmiss.nm_place,
                     nearmiss.nm_description,
                     nearmiss.guide,
                     nearmiss.customer 
-            FROM nearmiss LEFT JOIN trip ON nearmiss.trip_id = trip.id LEFT JOIN user ON nearmiss.user_id = user.id LEFT JOIN safari ON trip.safari_id = safari.id";
-    $csvheader = array('date', 'safari started', 'safari', 'guide', 'erp link', 'route', 'trip remarks', 'place', 'description', 'guide involved', 'customer involved');
+            FROM nearmiss LEFT JOIN gig ON nearmiss.gig_id = gig.id LEFT JOIN user ON nearmiss.user_id = user.id LEFT JOIN safari ON gig.safari_id = safari.id";
+    $csvheader = array('date', 'safari started', 'safari', 'guide', 'erp link', 'route', 'gig remarks', 'place', 'description', 'guide involved', 'customer involved');
     prepareReport('nearmiss_report', $sql, $csvheader, $pdo);
 }
 
 if (isset($_GET['accident'])) {
     $sql = "SELECT  accident.datetime,
-                    trip.datetime,
+                    gig.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
-                    trip.erp_link,
-                    trip.route,
-                    trip.remarks,
+                    gig.erp_link,
+                    gig.route,
+                    gig.remarks,
                     accident.place,
                     accident.description,
                     accident.customer_erp_link,
@@ -53,14 +53,14 @@ if (isset($_GET['accident'])) {
                     accident.first_aid,
                     accident.hospital_offer,
                     accident.hospital_visit 
-            FROM accident LEFT JOIN trip ON accident.trip_id = trip.id LEFT JOIN user ON accident.user_id = user.id LEFT JOIN safari ON trip.safari_id = safari.id";
+            FROM accident LEFT JOIN gig ON accident.gig_id = gig.id LEFT JOIN user ON accident.user_id = user.id LEFT JOIN safari ON gig.safari_id = safari.id";
     $csvheader = array( 'date', 
                         'safari started', 
                         'safari', 
                         'guide', 
                         'erp link', 
                         'route', 
-                        'trip remarks', 
+                        'gig remarks', 
                         'place', 
                         'description', 
                         'customer erp link', 
@@ -106,7 +106,7 @@ if (isset($_GET['issue_accident'])) {
 
 <section id="reports">
     <h3>Reports</h3>
-        <a href="./?reports&trip" ><div>trip</div></a>
+        <a href="./?reports&gig" ><div>gig</div></a>
         <a href="./?reports&nearmiss" ><div>near miss</div></a>
         <a href="./?reports&accident" ><div>accident</div></a>
         <a href="./?reports&issue_nearmiss" ><div>work near miss</div></a>

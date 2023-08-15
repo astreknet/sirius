@@ -31,7 +31,7 @@ header( 'Content-Type: text/vcf' );
 header( 'Content-Disposition: attachment;filename=sirius_contacts-'.date('YmdHis').'.vcf');
 }
 
-if(isset($_SESSION['trip_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('trip_report'); }
+if(isset($_SESSION['gig_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('gig_report'); }
 if(isset($_SESSION['nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('nearmiss_report'); }
 if(isset($_SESSION['accident_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('accident_report'); }
 if(isset($_SESSION['work_nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('work_nearmiss_report'); }

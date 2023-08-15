@@ -1,21 +1,21 @@
-<section id="my_trips">
+<section id="my_gigs">
     <h3>My Trips</h3>
 <?php
 $me = new Guide($_SESSION['usermail'], $pdo);
 if (isset($_GET['tid']) && $me->userlevel > 0 ) {
-    $trip = selectAllFromWhere('trip', 'id', $_GET['tid'], $pdo);
-    $safari = selectAllFromWhere('safari', 'id', $trip[0]['safari_id'], $pdo);
-    $mytime = new DateTime($trip[0]['datetime']);
+    $gig = selectAllFromWhere('gig', 'id', $_GET['tid'], $pdo);
+    $safari = selectAllFromWhere('safari', 'id', $gig[0]['safari_id'], $pdo);
+    $mytime = new DateTime($gig[0]['datetime']);
     $diff15Min = new DateInterval('PT15M');
-    $nearmiss = selectAllFromWhere('nearmiss', 'trip_id', $_GET['tid'], $pdo);
-    $accident = selectAllFromWhere('accident', 'trip_id', $_GET['tid'], $pdo);
-    $h4class = (count($accident) > 0 ? 'class_red' : (count($nearmiss) > 0 ? 'class_orange' : (is_null($trip[0]['remarks']) ? 'class_pale' : 'class_green')));
+    $nearmiss = selectAllFromWhere('nearmiss', 'gig_id', $_GET['tid'], $pdo);
+    $accident = selectAllFromWhere('accident', 'gig_id', $_GET['tid'], $pdo);
+    $h4class = (count($accident) > 0 ? 'class_red' : (count($nearmiss) > 0 ? 'class_orange' : (is_null($gig[0]['remarks']) ? 'class_pale' : 'class_green')));
     
-    if (!empty($trip[0]['erp_link'])) { 
-        echo '<h4 class="'.$h4class.'"><a href="'.$trip[0]['erp_link'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['datetime'])).'</a></h4>';
+    if (!empty($gig[0]['erp_link'])) { 
+        echo '<h4 class="'.$h4class.'"><a href="'.$gig[0]['erp_link'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($gig[0]['datetime'])).'</a></h4>';
     }
     else {
-        echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($trip[0]['datetime'])).'</h4>';
+        echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($gig[0]['datetime'])).'</h4>';
     }
 
     #echo var_dump($accident).'<br>';
@@ -25,18 +25,18 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
 
 ### UPDATE TRIP ######################################
     if (isset($_POST['erp_link'], $_POST['route'], $_POST['remarks']) && $me->userlevel > 0) {
-        updateTableItemWhere('trip', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
-        updateTableItemWhere('trip', 'route', $_POST['route'], 'id', $_GET['tid'], $pdo);
-        updateTableItemWhere('trip', 'remarks', $_POST['remarks'], 'id', $_GET['tid'], $pdo);
+        updateTableItemWhere('gig', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
+        updateTableItemWhere('gig', 'route', $_POST['route'], 'id', $_GET['tid'], $pdo);
+        updateTableItemWhere('gig', 'remarks', $_POST['remarks'], 'id', $_GET['tid'], $pdo);
         header( "refresh:0;url=./" );
     }
     echo '
-        <div id="update_trip"> 
+        <div id="update_gig"> 
         <form action="" method="POST">
-            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.$trip[0]['erp_link'].'">
-            <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$trip[0]['route'].'">
-            <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable?">'.$trip[0]['remarks'].'</textarea>
-            <input type="submit" class="button" value="update trip">
+            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.$gig[0]['erp_link'].'">
+            <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$gig[0]['route'].'">
+            <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable?">'.$gig[0]['remarks'].'</textarea>
+            <input type="submit" class="button" value="update gig">
         </form>
         </div>';
     
@@ -46,7 +46,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     if (isset($_POST['nm_datetime'], $_POST['nm_place'], $_POST['nm_description'])) {
         $nearmissId = (isset($_GET['miss']) ? $_GET['miss'] : insertInto('nearmiss', 'user_id', $me->id, $pdo));
         $nearmissId = (is_array($nearmissId) ? $nearmissId['id'] : $nearmissId);
-        updateTableItemWhere('nearmiss', 'trip_id', $_GET['tid'], 'id', $nearmissId, $pdo);
+        updateTableItemWhere('nearmiss', 'gig_id', $_GET['tid'], 'id', $nearmissId, $pdo);
         $inputs = array('nm_datetime', 'nm_place', 'nm_description');
         $checks = array('guide', 'customer');
         $me->updateTable('nearmiss', $nearmissId, $inputs, $checks, $pdo);
@@ -88,26 +88,26 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     if (count($nearmiss) > 0) {
         echo '<ul>';
         foreach ($nearmiss as $n){
-            #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
+            #$saf = selectAllFromWhere('safari', 'id', $gig['safari_id'], $pdo);
             $involved = ($n['guide'] && $n['customer'] ? 'guide and customer' : ($n['guide'] ? 'guide' : 'customer'));
             echo '  <li><a href="?tid='.$_GET['tid'].'&miss='.$n['id'].'#nearmiss_report">'.date("G:i", strtotime($n['nm_datetime'])).' - '.$n['nm_place'].' - '.$n['nm_description'].' - '.$involved.'</a></li>';
         }
         echo '</ul>';
     }
     else {
-        echo "<p>You don't have any near miss in this trip. Yay!</p>";
+        echo "<p>You don't have any near miss in this gig. Yay!</p>";
     }
     echo '</div>';        
     
 ### ACCIDENT #########################################
-    $mytime = new DateTime($trip[0]['datetime']);
+    $mytime = new DateTime($gig[0]['datetime']);
     $form_action = '';
     $submit = "add accident";
     if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email']) && 
         !empty($_POST['place']) && !empty($_POST['description']) && !empty($_POST['customer_name']) && !empty($_POST['customer_address']) && !empty($_POST['customer_email'])) {
         $accidentId = (isset($_GET['acc']) ? $_GET['acc'] : insertInto('accident', 'user_id', $me->id, $pdo));
         $accidentId = (is_array($accidentId) ? $accidentId['id'] : $accidentId);
-        updateTableItemWhere('accident', 'trip_id', $_GET['tid'], 'id', $accidentId, $pdo);
+        updateTableItemWhere('accident', 'gig_id', $_GET['tid'], 'id', $accidentId, $pdo);
         $inputs = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email', 'customer_erp_link', 'sm_reg_n', 'total_euro', 'total_paid', 'sm_model', 'injury');
         $checks = array('waiver', 'first_aid', 'hospital_offer', 'hospital_visit');
         $me->updateTable('accident', $accidentId, $inputs, $checks, $pdo);
@@ -164,13 +164,13 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     if (count($accident) > 0) {
         echo '  <ul>';
         foreach ($accident as $n){
-            #$saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
+            #$saf = selectAllFromWhere('safari', 'id', $gig['safari_id'], $pdo);
             echo '  <li><a href="?tid='.$_GET['tid'].'&acc='.$n['id'].'#accident_report">'.date("G:i", strtotime($n['datetime'])).' - '.$n['place'].' - '.$n['description'].' - '.$n['customer_name'].'</a></li>';
         }
         echo '</ul>';
     }
     else {
-        echo "<p>You don't have any accident in this trip. Yay!</p>";
+        echo "<p>You don't have any accident in this gig. Yay!</p>";
     }
     echo '</div>
             <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
@@ -189,12 +189,12 @@ else {
     $diff6H = new DateInterval('PT6H');
     $maxtime = $maxtime->add($diff6H);
 
-    if (isset($_POST['safari_id'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('trip', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('trip', 'user_id', $me->id, $pdo))) {
+    if (isset($_POST['safari_id'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('gig', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('gig', 'user_id', $me->id, $pdo))) {
         $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
-        $tripId = insertInto('trip', 'user_id', $me->id, $pdo);
+        $gigId = insertInto('gig', 'user_id', $me->id, $pdo);
         $inputs = array('safari_id', 'erp_link', 'datetime', 'route', 'remarks');
         $checks = array();  
-        $me->updateTable('trip', $tripId['id'], $inputs, $checks, $pdo);
+        $me->updateTable('gig', $gigId['id'], $inputs, $checks, $pdo);
         header( "refresh:0;url=./" );
     }
 
@@ -215,23 +215,23 @@ else {
             </select><br>
             <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'" ><br>
             <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.value('route').'" ><br>
-            <input type="submit" class="button" value="add trip">
+            <input type="submit" class="button" value="add gig">
         </form>
     ';
-    if ($me->trip) {
+    if ($me->gig) {
         echo '<ol>';
-        #array_multisort(array_column( $trips, 'datetime' ), SORT_DESC, $trips); // reverse order
-        foreach ($me->trip as $trip){
-            $ac = in_array($trip['id'], array_column($me->accident, 'trip_id'));
-            $nm = in_array($trip['id'], array_column($me->nearmiss, 'trip_id'));
-            $saf = selectAllFromWhere('safari', 'id', $trip['safari_id'], $pdo);
-            $tripclass = (($ac) ? 'class_red' : (($nm) ? 'class_orange' : (is_null($trip['remarks']) ? 'class_pale' : 'class_green')));
-            echo '  <li class="'.$tripclass.'"><a href="?tid='.$trip['id'].'">'.date("d M Y H:i", strtotime($trip['datetime'])).' - '.$saf[0]['name'].'</a></li>';
+        #array_multisort(array_column( $gigs, 'datetime' ), SORT_DESC, $gigs); // reverse order
+        foreach ($me->gig as $gig){
+            $ac = in_array($gig['id'], array_column($me->accident, 'gig_id'));
+            $nm = in_array($gig['id'], array_column($me->nearmiss, 'gig_id'));
+            $saf = selectAllFromWhere('safari', 'id', $gig['safari_id'], $pdo);
+            $gigclass = (($ac) ? 'class_red' : (($nm) ? 'class_orange' : (is_null($gig['remarks']) ? 'class_pale' : 'class_green')));
+            echo '  <li class="'.$gigclass.'"><a href="?tid='.$gig['id'].'">'.date("d M Y H:i", strtotime($gig['datetime'])).' - '.$saf[0]['name'].'</a></li>';
         }
         echo '</ol>';
     }
     else {
-        echo "<p>You don't have any trips... yet</p>";
+        echo "<p>You don't have any gigs... yet</p>";
     }
 }
 ?>

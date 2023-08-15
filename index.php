@@ -40,7 +40,7 @@ $sql = '
 
         INSERT IGNORE INTO user (id, email, userlevel) VALUES (1, "hugo@astrek.net", 3);
 
-        CREATE TABLE IF NOT EXISTS trip (
+        CREATE TABLE IF NOT EXISTS gig (
             id INT2 unsigned NOT NULL AUTO_INCREMENT,
             user_id INT2 unsigned NOT NULL,
             safari_id INT2 unsigned DEFAULT 1,
@@ -48,18 +48,19 @@ $sql = '
             datetime datetime DEFAULT current_timestamp(),
             route varchar(150),
             remarks varchar(300),
+            issues INT1 unsigned DEFAULT 0,
             updated datetime ON UPDATE current_timestamp(),
             PRIMARY KEY (id),
-            KEY fk_trip_user (user_id),
-            KEY fk_trip_safari (safari_id),
-            CONSTRAINT fk_trip_safari FOREIGN KEY (safari_id) REFERENCES safari (id) ON DELETE CASCADE,
-            CONSTRAINT fk_trip_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
+            KEY fk_gig_user (user_id),
+            KEY fk_gig_safari (safari_id),
+            CONSTRAINT fk_gig_safari FOREIGN KEY (safari_id) REFERENCES safari (id) ON DELETE CASCADE,
+            CONSTRAINT fk_gig_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
         );
 
         CREATE TABLE IF NOT EXISTS accident (
             id INT2 unsigned NOT NULL AUTO_INCREMENT,
             user_id INT2 unsigned NOT NULL,
-            trip_id INT2 unsigned DEFAULT 1,
+            gig_id INT2 unsigned DEFAULT 1,
             datetime datetime DEFAULT current_timestamp(),
             place varchar(150),
             point point,
@@ -80,15 +81,15 @@ $sql = '
             updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
             PRIMARY KEY (id),
             KEY fk_accident_user (user_id),
-            KEY fk_accident_trip (trip_id),
+            KEY fk_accident_gig (gig_id),
             CONSTRAINT fk_accident_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
-            CONSTRAINT fk_accident_trip FOREIGN KEY (trip_id) REFERENCES trip (id) ON DELETE CASCADE
+            CONSTRAINT fk_accident_gig FOREIGN KEY (gig_id) REFERENCES gig (id) ON DELETE CASCADE
         );
 
         CREATE TABLE IF NOT EXISTS nearmiss (
             id INT2 unsigned NOT NULL AUTO_INCREMENT,
             user_id INT2 unsigned NOT NULL,
-            trip_id INT2 unsigned DEFAULT 1,
+            gig_id INT2 unsigned DEFAULT 1,
             nm_datetime datetime DEFAULT current_timestamp(),
             nm_place varchar(150),
             point point,
@@ -98,9 +99,9 @@ $sql = '
             updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
             PRIMARY KEY (id),
             KEY fk_nearmiss_user (user_id),
-            KEY fk_nearmiss_trip (trip_id),
+            KEY fk_nearmiss_gig (gig_id),
             CONSTRAINT fk_nearmiss_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
-            CONSTRAINT fk_nearmiss_trip FOREIGN KEY (trip_id) REFERENCES trip (id) ON DELETE CASCADE
+            CONSTRAINT fk_nearmiss_gig FOREIGN KEY (gig_id) REFERENCES gig (id) ON DELETE CASCADE
         );
         
         CREATE TABLE IF NOT EXISTS issue (
@@ -279,11 +280,11 @@ class User{
 }
 
 class Guide extends User{
-    public $trip, $nearmiss, $accident, $issue;
+    public $gig, $nearmiss, $accident, $issue;
 
     public function __construct($pMail, $pdo){
         parent::__construct($pMail, $pdo);
-        $this->trip = selectAllFromWhere('trip', 'user_id', $this->id, $pdo);
+        $this->gig = selectAllFromWhere('gig', 'user_id', $this->id, $pdo);
         $this->nearmiss = selectAllFromWhere('nearmiss', 'user_id', $this->id, $pdo);
         $this->accident = selectAllFromWhere('accident', 'user_id', $this->id, $pdo);
         $this->issue = selectAllFromWhere('issue', 'user_id', $this->id, $pdo);
@@ -359,7 +360,7 @@ if (isset($_SESSION['usermail'], $_SESSION['validated']) && ($me = new User($_SE
         include_once 'views/issue.php';
     }
     else {
-        include_once 'views/trip.php';
+        include_once 'views/gig.php';
     }
 }
 else {

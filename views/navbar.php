@@ -6,7 +6,7 @@ if (!isset($_SESSION['register']) || !$_SESSION['register']) {
         '?reports' => 'reports', 
         '?safaris' => 'safaris', 
         '?users' => 'users', 
-        './' => 'trips', 
+        './' => 'gigs', 
         '?issues' => 'issues', 
         '?account' => strtolower($me->fname)
     );
