@@ -40,6 +40,13 @@ $sql = '
 
         INSERT IGNORE INTO user (id, email, userlevel) VALUES (1, "hugo@astrek.net", 3);
 
+        CREATE TABLE IF NOT EXISTS spare (
+            id INT2 unsigned NOT NULL AUTO_INCREMENT,
+            name varchar(150),
+            price decimal(8,2) DEFAULT 0.00,
+            PRIMARY KEY (id)
+        );
+
         CREATE TABLE IF NOT EXISTS gig (
             id INT2 unsigned NOT NULL AUTO_INCREMENT,
             user_id INT2 unsigned NOT NULL,
@@ -103,7 +110,7 @@ $sql = '
             CONSTRAINT fk_nearmiss_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
             CONSTRAINT fk_nearmiss_gig FOREIGN KEY (gig_id) REFERENCES gig (id) ON DELETE CASCADE
         );
-        
+
         CREATE TABLE IF NOT EXISTS issue (
             id INT2 unsigned NOT NULL AUTO_INCREMENT,
             user_id INT2 unsigned NOT NULL,
