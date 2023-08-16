@@ -211,9 +211,13 @@ else {
             echo '<option value="'.$s['id'].'" '.$sel.'>'.$s['name'].'</option>';
         }
     }
-    echo '
-            </select><br>
-            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'" ><br>
+    echo '  </select>';
+
+    if ($me->userlevel > 1) {
+        echo '<a href="./?safaris">or... add a safari!</a><br>';
+    }
+
+    echo '  <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'" ><br>
             <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.value('route').'" ><br>
             <input type="submit" class="button" value="add gig">
         </form>

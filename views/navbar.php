@@ -4,7 +4,6 @@ $menu = array('?exit' => '⍈');
 if (!isset($_SESSION['register']) || !$_SESSION['register']) {
     $menu_admin =  array(
         '?reports' => 'reports', 
-        '?safaris' => 'safaris', 
         '?users' => 'users', 
         './' => 'gigs', 
         '?issues' => 'issues', 

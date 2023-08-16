@@ -49,7 +49,8 @@ else {
     foreach ($safari as $s){
         echo '  <li class="safari'.$s->active.'"><a href="?safaris&id='.$s->id.'">'.$s->name.'</a></li>';
     } 
-    echo '  </ul>';
+    echo '  </ul>
+            <div class="button_svg"><a href="./">'.file_get_contents('img/back.svg').'</a></div>';
 }
 ?>
 </section>
