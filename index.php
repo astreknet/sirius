@@ -64,6 +64,38 @@ $sql = '
             CONSTRAINT fk_gig_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
         );
 
+        CREATE TABLE IF NOT EXISTS incident (
+            id INT2 unsigned NOT NULL AUTO_INCREMENT,
+            user_id INT2 unsigned NOT NULL,
+            gig_id INT2 unsigned DEFAULT 1,
+            kind set("near miss", "accident"),
+            datetime datetime DEFAULT current_timestamp(),
+            place varchar(150),
+            point point,
+            description varchar(300),
+            customer bool DEFAULT TRUE,
+            guide bool DEFAULT FALSE,
+            customer_erp_link varchar(150),
+            customer_name varchar(150),
+            customer_address varchar(150),
+            customer_email varchar(45),
+            sm_reg_n varchar(27),
+            sm_model varchar(30),
+            waiver bool DEFAULT FALSE,
+            total_euro decimal(8,2) DEFAULT 0.00,
+            total_paid decimal(8,2) DEFAULT 0.00,
+            injury varchar(300),
+            first_aid bool DEFAULT FALSE,
+            hospital_offer bool DEFAULT FALSE,
+            hospital_visit bool DEFAULT FALSE,
+            updated timestamp DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+            PRIMARY KEY (id),
+            KEY fk_incident_user (user_id),
+            KEY fk_incident_gig (gig_id),
+            CONSTRAINT fk_incident_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+            CONSTRAINT fk_incident_gig FOREIGN KEY (gig_id) REFERENCES gig (id) ON DELETE CASCADE
+        );
+
         CREATE TABLE IF NOT EXISTS accident (
             id INT2 unsigned NOT NULL AUTO_INCREMENT,
             user_id INT2 unsigned NOT NULL,
