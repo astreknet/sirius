@@ -339,6 +339,20 @@ class Guide extends User{
     }
 }
 
+class Admin extends Guide{
+    public $allgig, $allincident, $allissue, $alluser;
+
+    public function __construct($pMail, $pdo){
+        parent::__construct($pMail, $pdo);
+        $this->allgig = selectAllFrom('gig', $pdo);
+        $this->allincident = selectAllFrom('nearmiss', $pdo);
+        $this->allissue = selectAllFrom('issue', $pdo);
+        $this->alluser = selectAllFrom('user', $pdo);
+    }
+
+}
+
+
 class Safari{
     public $id, $name, $length, $weekday, $description, $time, $active;
 
