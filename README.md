@@ -29,7 +29,8 @@ The admins can download trip, near miss, accident, work near miss and work accid
 ## built with
     
 * [OpenBSD 7.3](https://www.openbsd.org)
-* [PHP 8.2.9](https://www.php.net)
+* [PHP 8.2](https://www.php.net)
+* [MariaDB 10.9](https://mariadb.com)
 * [HTML5](https://html.spec.whatwg.org)
 * [CSS3](https://www.w3.org/TR/CSS/#css)
 
