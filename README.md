@@ -28,7 +28,7 @@ The admins can download trip, near miss, accident, work near miss and work accid
 
 ## built with
     
-* [OpenBSD 7.3](https://www.openbsd.org)
+* [OpenBSD 7.4](https://www.openbsd.org)
 * [PHP 8.2](https://www.php.net)
 * [MariaDB 10.9](https://mariadb.com)
 * [HTML5](https://html.spec.whatwg.org)
@@ -56,10 +56,6 @@ The admins can download trip, near miss, accident, work near miss and work accid
 * [ ] add pictures to the accident report
 * [ ] add gear parts and prices (snowmobiles, bikes, skis, etc...)
 * [ ] accident report pdf
-* [ ] multi-language:
-  - [x] english
-  - [ ] spanish
-  - [ ] finnish
 * [ ] svg icons
   - [x] buttons
   - [ ] menu
