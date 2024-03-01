@@ -24,6 +24,13 @@ if (
         getout();
 }
 
+if (
+    isset($_POST['description']) && !empty(trim($_POST['description']))
+    ){
+        $description = htmlspecialchars(trim($_POST['description']));
+        insertInto('feedback', 'description', $description, $pdo);
+    }
+
 
 ?>
 <section id="register">
@@ -36,6 +43,15 @@ if (
         <input type="password" id="new" name="new" required maxlength="45" minlength="8" placeholder="new password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password.pattern = this.value;" autocomplete="new-password"><br>
         <input type="password" id="password" name="password" required maxlength="45" minlength="8" placeholder="repeat new password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same password as above' : '');" autocomplete="new-password"><br>
         
+        <input type="submit" class="button" value="update">
+    </form>
+</section>
+
+<section id="feedback">
+    <h3>Anonymous Feedback</h3>
+    <form action method="POST">
+        <textarea id="description" name="description" maxlength="270" placeholder="feedback"></textarea><br>
+            
         <input type="submit" class="button" value="send">
     </form>
 </section>
