@@ -11,6 +11,10 @@ $stmt = $pdo->prepare(file_get_contents("sirius.sql"));
 $stmt->execute();
 $stmt->closeCursor();
 
+$stmt = $pdo->prepare(file_get_contents("sirius.local.sql"));   # insert constants 
+$stmt->execute();                                               #
+$stmt->closeCursor();                                           #
+
 function selectAllFrom($table, $pdo){
     try {
         $sql = 'SELECT * FROM '.$table;
