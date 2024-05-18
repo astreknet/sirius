@@ -8,10 +8,10 @@
     <meta name="Author" content="hugo@astrek.net" >
     <link rel="icon" href="favicon.ico" >
     <link rel="stylesheet" href="./sirius.css">
-    <title id="title">sirius</title>
+    <title id="title"><?php echo COMPANY_NAME; ?></title>
 </head>
 <body>
 <header>
-    <h1>sirius</h1>
+    <h1><?php echo COMPANY_NAME; ?></h1>
     <h2>safari class</h2>
 </header>
