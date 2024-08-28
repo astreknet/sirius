@@ -141,7 +141,7 @@ if (
     ($me->userlevel) && 
     ($me->validate_pass(hash('sha256', $_POST['password'])))
     ){ 
-    $_SESSION['usermail'] = $me->email;
+    $_SESSION = array('usermail' => $me->email, 'validated' => TRUE);
 }
 
 if (
@@ -150,7 +150,7 @@ if (
     ($me->userlevel) && 
     ($me->activation === $_GET['activation'])
     ){
-    $_SESSION = array('usermail' => $me->email, 'register' => TRUE);
+    $_SESSION = array('usermail' => $me->email, 'validated' => TRUE, 'register' => TRUE);
 } 
 
 (!isset($_GET['exit']) ?: getout());
