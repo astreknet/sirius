@@ -20,8 +20,8 @@ This are the _templates_ of the _trips_. A safari has a **unique name**, a durat
 ## trips
 An _active user_ can _add_ and _update_ trips. A trip has a _safari name_, _time_ and a _route_. _Remarks_ can be added later. A trip can have _near misses_ and _accidents_.
 
-## issues
-Work issues are _near misses_ or _accidents_ (if there is an  _injury_), out of a _safari_, during the work time.
+## incidents
+Work incidents are _near misses_ or _accidents_ (if there is an _injury_), out of a _safari_, during the work time.
 
 ## reports
 The admins can download trip, near miss, accident, work near miss and work accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://en.wikipedia.org/wiki/LibreOffice_Calc), and [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel) among others.

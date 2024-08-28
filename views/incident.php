@@ -1,25 +1,25 @@
-<section id="issues">
-    <h3>Work Issues</h3>
+<section id="incidents">
+    <h3>Work Incidents</h3>
 <?php
 $me = new Guide($_SESSION['usermail'], $pdo);
 $mytime = new DateTime('NOW');
-$form_action = '?issues';
-$submit = "add issue";
+$form_action = '?incidents';
+$submit = "add incident";
 $first_aid = $hospital_visit = '';
 if (isset($_POST['datetime'], $_POST['place'], $_POST['description'])) {
-    $issueId = (isset($_GET['id']) ? $_GET['id'] : insertInto('issue', 'user_id', $me->id, $pdo));
-    $issueId = (is_array($issueId) ? $issueId['id'] : $issueId);
+    $incidentId = (isset($_GET['id']) ? $_GET['id'] : insertInto('incident', 'user_id', $me->id, $pdo));
+    $incidentId = (is_array($incidentId) ? $incidentId['id'] : $incidentId);
     $inputs = array('datetime', 'place', 'description', 'injury');
     $checks = array('first_aid', 'hospital_visit');
-    $me->updateTable('issue', $issueId, $inputs, $checks, $pdo);
-    header( "refresh:0;url=./?issues" );
+    $me->updateTable('incident', $incidentId, $inputs, $checks, $pdo);
+    header( "refresh:0;url=./?incidents" );
 }
 
 if (isset($_GET['id'])) {
-    $iss = selectAllFromWhere('issue', 'id', $_GET['id'], $pdo);
+    $iss = selectAllFromWhere('incident', 'id', $_GET['id'], $pdo);
     sessionForm($iss[0], TRUE);
-    $form_action = '?issues&id='.$_GET['id'];
-    $submit = "update issue";
+    $form_action = '?incidents&id='.$_GET['id'];
+    $submit = "update incident";
     $first_aid = ($_SESSION['first_aid'] ? 'checked' : '');
     $hospital_visit = ($_SESSION['hospital_visit'] ? 'checked' : '');
 }
@@ -39,11 +39,11 @@ if (isset($iss)){
     sessionForm($iss[0], FALSE);
 }
 
-if (count($me->issue) > 0) {
+if (count($me->incident) > 0) {
     echo '<ol>';
-    foreach ($me->issue as $i){
-        $issueclass = (empty($i['injury']) ? 'class_orange' : 'class_red'); 
-        echo '  <li class="'.$issueclass.'"><a href="?issues&id='.$i['id'].'">'.date("d-m-Y G:i", strtotime($i['datetime'])).' - '.$i['place'].' - '.$i['description'].'</a>';
+    foreach ($me->incident as $i){
+        $incidentclass = (empty($i['injury']) ? 'class_orange' : 'class_red'); 
+        echo '  <li class="'.$incidentclass.'"><a href="?incidents&id='.$i['id'].'">'.date("d-m-Y G:i", strtotime($i['datetime'])).' - '.$i['place'].' - '.$i['description'].'</a>';
         if (!empty($i['injury']))
             echo ' - '.$i['injury'];
         if ($i['first_aid'])
@@ -55,7 +55,7 @@ if (count($me->issue) > 0) {
     echo '</ol>';
 }
 else {
-    echo "<p>You don't have any issues. Yay!</p>";
+    echo "<p>You don't have any incidents. Yay!</p>";
     }
 
 ?>

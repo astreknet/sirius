@@ -1,18 +1,11 @@
 <?php
 ### SESSION ###############################################
-ini_set('session.gc_maxlifetime', 180);  # out in 3 min 
+ini_set('session.gc_maxlifetime', 300);  # out in 5 min 
 ini_set('session.gc_probability', 1);    #
 ini_set('session.gc_divisor', 1);        #
 session_start();
 
-### CONFIG ################################################
-date_default_timezone_set('Europe/Helsinki');
-define("COMPANY_NAME",  "sirius");
-define("COMPANY_WEB",   "https://astrek.net");
-define("ADMIN_MAIL",    "hugo@astrek.net");
-define("DB_NAME",       "mysql:host=127.0.0.1;dbname=sirius;charset=utf8mb4");
-define("DB_USER",       "sirius");
-define("DB_PASS",       "S3r355");
+require_once("constants.php"); //CONFIG
 
 ### MYSQL #################################################
 $pdo = new PDO(DB_NAME, DB_USER, DB_PASS);
@@ -178,8 +171,8 @@ if (isset($_SESSION['usermail']) && ($me = new User($_SESSION['usermail'], $pdo)
     elseif (isset($_GET['account'])) {
         include_once 'views/account.php';
     }
-    elseif (isset($_GET['issues'])) {
-        include_once 'views/issue.php';
+    elseif (isset($_GET['incidents'])) {
+        include_once 'views/incident.php';
     }
     else {
         include_once 'views/gig.php';

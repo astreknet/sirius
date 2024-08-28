@@ -6,7 +6,7 @@ if (!isset($_SESSION['register']) || !$_SESSION['register']) {
         '?reports' => 'reports', 
         '?users' => 'users', 
         './' => 'gigs', 
-        '?issues' => 'issues', 
+        '?incidents' => 'incidents', 
         '?account' => strtolower($me->fname)
     );
     $menu = ($me->userlevel > 1 ? array_merge($menu_admin, $menu) : array_merge(array_slice($menu_admin, 3), $menu));

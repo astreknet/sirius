@@ -41,14 +41,14 @@ class User{
 }
 
 class Guide extends User{
-    public $gig, $nearmiss, $accident, $issue;
+    public $gig, $nearmiss, $accident, $incident;
 
     public function __construct($pMail, $pdo){
         parent::__construct($pMail, $pdo);
         $this->gig = selectAllFromWhere('gig', 'user_id', $this->id, $pdo);
         $this->nearmiss = selectAllFromWhere('nearmiss', 'user_id', $this->id, $pdo);
         $this->accident = selectAllFromWhere('accident', 'user_id', $this->id, $pdo);
-        $this->issue = selectAllFromWhere('issue', 'user_id', $this->id, $pdo);
+        $this->incident = selectAllFromWhere('incident', 'user_id', $this->id, $pdo);
     }
 
     public function updateTable($table, $tableId, $inputs, $checks, $pdo){
@@ -62,13 +62,13 @@ class Guide extends User{
 }
 
 class Admin extends Guide{
-    public $allgig, $allincident, $allissue, $alluser;
+    public $allgig, $allincident, $alluser;
 
     public function __construct($pMail, $pdo){
         parent::__construct($pMail, $pdo);
         $this->allgig = selectAllFrom('gig', $pdo);
         $this->allincident = selectAllFrom('nearmiss', $pdo);
-        $this->allissue = selectAllFrom('issue', $pdo);
+        $this->allincident = selectAllFrom('incident', $pdo);
         $this->alluser = selectAllFrom('user', $pdo);
     }
 

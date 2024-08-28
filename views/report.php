@@ -79,25 +79,25 @@ if (isset($_GET['accident'])) {
     prepareReport('accident_report', $sql, $csvheader, $pdo);
 }
 
-if (isset($_GET['issue_nearmiss'])) {
-    $sql = "SELECT  issue.datetime,
+if (isset($_GET['incident_nearmiss'])) {
+    $sql = "SELECT  incident.datetime,
                     concat(user.fname, ' ', user.lname),
-                    issue.place,
-                    issue.description 
-            FROM issue LEFT JOIN user ON issue.user_id = user.id WHERE injury IS NULL or injury = ''";
+                    incident.place,
+                    incident.description 
+            FROM incident LEFT JOIN user ON incident.user_id = user.id WHERE injury IS NULL or injury = ''";
     $csvheader = array('date', 'guide', 'place', 'description');
     prepareReport('work_nearmiss_report', $sql, $csvheader, $pdo);
 }
 
-if (isset($_GET['issue_accident'])) {
-    $sql = "SELECT  issue.datetime,
+if (isset($_GET['incident_accident'])) {
+    $sql = "SELECT  incident.datetime,
                     concat(user.fname, ' ', user.lname),
-                    issue.place,
-                    issue.description,
-                    issue.injury,
-                    issue.first_aid,
-                    issue.hospital_visit 
-            FROM issue LEFT JOIN user ON issue.user_id = user.id WHERE injury IS NOT NULL and injury != ''";
+                    incident.place,
+                    incident.description,
+                    incident.injury,
+                    incident.first_aid,
+                    incident.hospital_visit 
+            FROM incident LEFT JOIN user ON incident.user_id = user.id WHERE injury IS NOT NULL and injury != ''";
     $csvheader = array('date', 'guide', 'place', 'description', 'injury', 'first aid', 'hospital visit');
     prepareReport('work_accident_report', $sql, $csvheader, $pdo);
 }
@@ -109,6 +109,6 @@ if (isset($_GET['issue_accident'])) {
         <a href="./?reports&gig" ><div>gig</div></a>
         <a href="./?reports&nearmiss" ><div>near miss</div></a>
         <a href="./?reports&accident" ><div>accident</div></a>
-        <a href="./?reports&issue_nearmiss" ><div>work near miss</div></a>
-        <a href="./?reports&issue_accident" ><div>work accident</div></a>
+        <a href="./?reports&incident_nearmiss" ><div>work near miss</div></a>
+        <a href="./?reports&incident_accident" ><div>work accident</div></a>
 </section>
