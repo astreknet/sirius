@@ -49,7 +49,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $nearmissId = (is_array($nearmissId) ? $nearmissId['id'] : $nearmissId);
         updateTableItemWhere('nearmiss', 'gig_id', $_GET['tid'], 'id', $nearmissId, $pdo);
         $inputs = array('nm_datetime', 'nm_place', 'nm_description');
-        $checks = array('guide', 'customer');
+        $checks = array('guide', 'customer', 'third');
         $me->updateTable('nearmiss', $nearmissId, $inputs, $checks, $pdo);
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
     }
@@ -65,6 +65,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         $submit = "update near miss";
         $customer = ($_SESSION['customer'] ? 'checked' : '');
         $guide = ($_SESSION['guide'] ? 'checked' : '');
+        $third = ($_SESSION['third'] ? 'checked' : '');
     }
     
     echo '  <form action="'.$form_miss.'" method="POST">
@@ -80,6 +81,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 <textarea id="nm_description" name="nm_description" required maxlength="270" placeholder="description">'.value('nm_description').'</textarea><br>
                 <input type="checkbox" id="guide" name="guide" '.$guide.'> guide<br>
                 <input type="checkbox" id="customer" name="customer" '.$customer.'> customer<br>
+                <input type="checkbox" id="third" name="third" '.$third.'> other<br>
                 <input type="submit" class="button" value="'.$submit.'"><br>
             </form> ';
     if (isset($miss)){
