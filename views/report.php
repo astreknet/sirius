@@ -35,7 +35,6 @@ if (isset($_GET['nearmiss'])) {
 
 if (isset($_GET['accident'])) {
     $sql = "SELECT  accident.datetime,
-                    gig.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
                     gig.erp_link,
@@ -58,7 +57,6 @@ if (isset($_GET['accident'])) {
                     accident.hospital_visit 
             FROM accident LEFT JOIN gig ON accident.gig_id = gig.id LEFT JOIN user ON accident.user_id = user.id LEFT JOIN safari ON gig.safari_id = safari.id";
     $csvheader = array( 'date', 
-                        'safari started', 
                         'safari', 
                         'guide', 
                         'erp link', 
