@@ -102,6 +102,11 @@ if (isset($_GET['incident_accident'])) {
     prepareReport('work_accident_report', $sql, $csvheader, $pdo);
 }
 
+if (isset($_GET['feedback'])) {
+    $sql = "SELECT feedback.datetime, feedback.description FROM feedback";
+    $csvheader = array('date', 'description');
+    prepareReport('feedback_report', $sql, $csvheader, $pdo);
+}
 ?>
 
 <section id="reports">
@@ -111,4 +116,5 @@ if (isset($_GET['incident_accident'])) {
         <a href="./?reports&accident" ><div>accident</div></a>
         <a href="./?reports&incident_nearmiss" ><div>work near miss</div></a>
         <a href="./?reports&incident_accident" ><div>work accident</div></a>
+        <a href="./?reports&feedback" ><div>feedback</div></a>
 </section>

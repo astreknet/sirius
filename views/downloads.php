@@ -36,4 +36,5 @@ if(isset($_SESSION['nearmiss_report'], $_SESSION['validated']) && $_SESSION['val
 if(isset($_SESSION['accident_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('accident_report'); }
 if(isset($_SESSION['work_nearmiss_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('work_nearmiss_report'); }
 if(isset($_SESSION['work_accident_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('work_accident_report'); }
+if(isset($_SESSION['feedback_report'], $_SESSION['validated']) && $_SESSION['validated']) { downloadCsv('feedback_report'); }
 ?>
