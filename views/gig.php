@@ -155,9 +155,11 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
                 <input type="checkbox" id="first_aid" name="first_aid" '.$first_aid.'> first aid<br>
                 <input type="checkbox" id="hospital_offer" name="hospital offer" '.$hospital_offer.'> hospital offer<br>
                 <input type="checkbox" id="hospital_visit" name="hospital visit" '.$hospital_visit.'> hospital visit<br>
+                <!-- 
                 <input type="file" id="image0" name="image0" accept="image/png, image/jpeg">
                 <input type="file" id="image1" name="image1" accept="image/png, image/jpeg">
                 <input type="file" id="image2" name="image2" accept="image/png, image/jpeg">
+                -->
                 <input type="submit" class="button" value="'.$submit.'"><br>
             </form>';
     if (isset($acc)){        
