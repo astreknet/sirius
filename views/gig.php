@@ -24,10 +24,9 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
 
 
 ### UPDATE TRIP ######################################
-    if (isset($_POST['erp_link'], $_POST['route'], $_POST['remarks']) && $me->userlevel > 0) {
-        updateTableItemWhere('gig', 'erp_link', $_POST['erp_link'], 'id', $_GET['tid'], $pdo);
-        updateTableItemWhere('gig', 'route', $_POST['route'], 'id', $_GET['tid'], $pdo);
-        updateTableItemWhere('gig', 'remarks', $_POST['remarks'], 'id', $_GET['tid'], $pdo);
+    if (isset($_POST['erp_link'], $_POST['route'], $_POST['weather'], $_POST['temp'], $_POST['remarks']) && $me->userlevel > 0) {
+        $inputs = array('erp_link', 'route', 'weather', 'temp', 'remarks');
+        $me->updateTable('gig', $_GET['tid'], $inputs, $checks, $pdo);
         header( "refresh:0;url=./" );
     }
     echo '
@@ -35,7 +34,9 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
         <form action="" method="POST">
             <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.$gig[0]['erp_link'].'">
             <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$gig[0]['route'].'">
-            <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable?">'.$gig[0]['remarks'].'</textarea>
+            <input type="text" id="weather" name="weather" required maxlength="150" placeholder="weather condition?" value="'.$gig[0]['weather'].'">
+            <input type="number" id="temp" placeholder="-5°C" step="0.5" min="-45" max="30" name="temp" required value="'.$gig[0]['temp'].'"><br>
+            <textarea id="remarks" name="remarks" maxlength="270" placeholder="Anything remarkable? Maybe some delay?">'.$gig[0]['remarks'].'</textarea>
             <input type="submit" class="button" value="update gig">
         </form>
         </div>';
