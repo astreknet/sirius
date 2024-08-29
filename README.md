@@ -6,7 +6,7 @@ Minimalistic **safari class** and **accident report** web application. Ask for a
 </p>
 
 ## users
-Just an **email** is needed to create a user. Invitation to _register_ by _email_. Only the user can **edit his own data**. An _unregistered_ user will be deleted after **one day**. A **validated user** will be automatically logged out after **3 min** of **inactivity**. 
+Just an **email** is needed to create a user. Invitation to _register_ by _email_. Only the user can **edit his own data**. An _unregistered_ user will be deleted after **one day**. A **validated user** will be automatically logged out after **3 min** of **inactivity**. All the users can send _anonymous feedback_ in their _account page_. 
 
 ### userlevels
 * **inactive**: _limbo_ status, can not log in.
@@ -28,8 +28,8 @@ The admins can download trip, near miss, accident, work near miss and work accid
 
 ## built with
     
-* [OpenBSD 7.4](https://www.openbsd.org)
-* [PHP 8.2](https://www.php.net)
+* [OpenBSD 7.5](https://www.openbsd.org)
+* [PHP 8.3](https://www.php.net)
 * [MariaDB 10.9](https://mariadb.com)
 * [HTML5](https://html.spec.whatwg.org)
 * [CSS3](https://www.w3.org/TR/CSS/#css)
@@ -51,6 +51,7 @@ The admins can download trip, near miss, accident, work near miss and work accid
     - [x] trip accidents
     - [x] work near misses
     - [x] work accidents
+    - [x] anonymous feedback
 * [ ] add geolocation button to near misses and accidents 
 * [ ] add 'days of the week' to safaris
 * [ ] add pictures to the accident report

@@ -1,6 +1,6 @@
 <?php
 ### SESSION ###############################################
-ini_set('session.gc_maxlifetime', 300);  # out in 5 min 
+ini_set('session.gc_maxlifetime', 180);  # out in 5 min 
 ini_set('session.gc_probability', 1);    #
 ini_set('session.gc_divisor', 1);        #
 session_start();

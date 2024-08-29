@@ -6,16 +6,17 @@ if (isset($_GET['gig'])) {
                     concat(user.fname, ' ', user.lname),
                     gig.erp_link,
                     gig.route,
+                    gig.weather,
+                    gig.temp,
                     gig.remarks,
                     gig.updated 
             FROM gig LEFT JOIN safari ON gig.safari_id = safari.id LEFT JOIN user ON gig.user_id = user.id";
-    $csvheader = array('date', 'safari', 'guide', 'erp link', 'route', 'remarks', 'updated');
+    $csvheader = array('date', 'safari', 'guide', 'erp_link', 'route', 'weather', 'temp', 'remarks', 'updated');
     prepareReport('gig_report', $sql, $csvheader, $pdo);
 }
 
 if (isset($_GET['nearmiss'])) {
     $sql = "SELECT  nearmiss.nm_datetime,
-                    gig.datetime,
                     safari.name,
                     concat(user.fname, ' ', user.lname),
                     gig.erp_link,
@@ -24,9 +25,11 @@ if (isset($_GET['nearmiss'])) {
                     nearmiss.nm_place,
                     nearmiss.nm_description,
                     nearmiss.guide,
-                    nearmiss.customer 
+                    nearmiss.customer,
+                    nearmiss.third,
+                    nearmiss.updated 
             FROM nearmiss LEFT JOIN gig ON nearmiss.gig_id = gig.id LEFT JOIN user ON nearmiss.user_id = user.id LEFT JOIN safari ON gig.safari_id = safari.id";
-    $csvheader = array('date', 'safari started', 'safari', 'guide', 'erp link', 'route', 'gig remarks', 'place', 'description', 'guide involved', 'customer involved');
+    $csvheader = array('date', 'safari', 'guide', 'erp_link', 'route', 'gig remarks', 'place', 'description', 'guide involved', 'customer involved', 'third involved', 'updated');
     prepareReport('nearmiss_report', $sql, $csvheader, $pdo);
 }
 
