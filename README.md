@@ -7,8 +7,10 @@ Copyright (c) 2022-2024, astreknet
 * [Introduction](#introduction)
 * [Built with](#built-with)
 * [License](#license)
-* [About](#about)
+* [Implementation](#implementation)
+* [Features](#about)
 * [Roadmap](#roadmap)
+* [Supporting](#supporting)
 
 ## Introduction
 
@@ -27,10 +29,11 @@ Sirius is a minimalistic **safari class** and **accident report** web applicatio
 
 See [LICENSE](LICENSE).
 
-## About
+## Implementation
 
 Ask for a _testing account_ at the contact mail on the [site](https://sirius.astrek.net) 
 
+## Features
 
 ### users
 Just an **email** is needed to create a user. Invitation to _register_ by _email_. Only the user can **edit his own data**. An _unregistered_ user will be deleted after **one day**. A **validated user** will be automatically logged out after **3 min** of **inactivity**. All the users can send _anonymous feedback_ in their _account page_. 
@@ -51,9 +54,9 @@ An _active user_ can _add_ and _update_ trips. A trip has a _safari name_, _time
 Work incidents are _near misses_ or _accidents_ (if there is an _injury_), out of a _safari_, during the work time.
 
 ### reports
-The admins can download trip, near miss, accident, work near miss and work accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://en.wikipedia.org/wiki/LibreOffice_Calc), and [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel) among others.
+The admins can download trip, near miss, accident, work near miss and work accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://www.libreoffice.org) or [OpenOffice](https://www.openoffice.org)  among others.
 
-## roadmap
+## Roadmap
 
 * [x] automatic darkmode
 * [x] responsive
@@ -71,6 +74,7 @@ The admins can download trip, near miss, accident, work near miss and work accid
     - [x] work near misses
     - [x] work accidents
     - [x] anonymous feedback
+* [x] zones
 * [ ] add geolocation button to near misses and accidents 
 * [ ] add 'days of the week' to safaris
 * [ ] add pictures to the accident report
@@ -79,3 +83,15 @@ The admins can download trip, near miss, accident, work near miss and work accid
 * [ ] svg icons
   - [x] buttons
   - [ ] menu
+
+## Suporting
+
+Sirius is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Monero and Bitcoin donations can be made to **donate.astrek.net** if using a client that supports the [OpenAlias](https://openalias.org) standard.
+
+The Monero donation address is:
+`88os6icMF77adsRNucVPvabhinZATE86vHPngidenS1oTtUXQd4tiZk9ZxYKS7iW92cYDpYZs1RdkZrhBieX972MVR7iU9X`
+
+The Bitcoin donation address is:
+`bc1q0ph3e2ulwe64v3swjfjcgz3kzucnvduxltaem7`
+
+Also [mail](mailto:donate@astrek.net) for alternative means of donating or if you would like to become a sponsor.
