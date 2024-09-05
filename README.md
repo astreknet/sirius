@@ -5,10 +5,10 @@ Copyright (c) 2022-2024, astreknet
 ## Table of Contents
 
 * [Introduction](#introduction)
-* [Built with](built-with)
-* [License](license)
-* [About](about)
-* [Roadmap](roadmap)
+* [Built with](#built-with)
+* [License](#license)
+* [About](#about)
+* [Roadmap](#roadmap)
 
 ## Introduction
 
