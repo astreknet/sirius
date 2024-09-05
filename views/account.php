@@ -1,4 +1,5 @@
 <?php
+### ACOUNT ################################################
 (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
 (empty($me->fname) ?: $_SESSION['fname'] = $me->fname);
 (empty($me->lname) ?: $_SESSION['lname'] = $me->lname);
@@ -24,15 +25,15 @@ if (
         getout();
 }
 
+### FEEDBACK ##############################################
 if (
     isset($_POST['description']) && !empty(trim($_POST['description']))
     ){
         $description = htmlspecialchars(trim($_POST['description']));
         insertInto('feedback', 'description', $description, $pdo);
     }
-
-
 ?>
+
 <section id="register">
     <h3>Account</h3>
     <form action method="POST">

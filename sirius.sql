@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS destination (
+CREATE TABLE IF NOT EXISTS zone (
     id INT2 unsigned NOT NULL AUTO_INCREMENT,
     name varchar(60) NOT NULL unique,
     address varchar(90) NOT NULL,
@@ -19,17 +19,17 @@ CREATE TABLE IF NOT EXISTS safari (
 	PRIMARY KEY (id)
 ); 
 
-CREATE TABLE IF NOT EXISTS destination_safari (
-    destination_id INT2 unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS zone_safari (
+    zone_id INT2 unsigned NOT NULL,
     safari_id INT2 unsigned NOT NULL,
-    PRIMARY KEY (destination_id, safari_id),
-    CONSTRAINT fk_destination_safari_destination foreign key (destination_id) references destination (id),
-    CONSTRAINT fk_destination_safari_safari foreign key (safari_id) references safari (id)
+    PRIMARY KEY (zone_id, safari_id),
+    CONSTRAINT fk_zone_safari_zone foreign key (zone_id) references zone (id),
+    CONSTRAINT fk_zone_safari_safari foreign key (safari_id) references safari (id)
 );
 
 CREATE TABLE IF NOT EXISTS user (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
-    def_destination_id INT2 unsigned NOT NULL,
+    def_zone_id INT2 unsigned NOT NULL,
 	email varchar(45) NOT NULL unique,
 	password char(64),
 	fname varchar(18),
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS spare (
 
 CREATE TABLE IF NOT EXISTS gig (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
-	destination_id INT2 unsigned DEFAULT 1,
+	zone_id INT2 unsigned DEFAULT 1,
 	user_id INT2 unsigned NOT NULL,
 	safari_id INT2 unsigned DEFAULT 1,
 	erp_link varchar(150),
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS gig (
 	PRIMARY KEY (id),
 	KEY fk_gig_user (user_id),
 	KEY fk_gig_safari (safari_id),
-	CONSTRAINT fk_gig_destination FOREIGN KEY (destination_id) REFERENCES destination (id) ON DELETE CASCADE,
+	CONSTRAINT fk_gig_zone FOREIGN KEY (zone_id) REFERENCES zone (id) ON DELETE CASCADE,
 	CONSTRAINT fk_gig_safari FOREIGN KEY (safari_id) REFERENCES safari (id) ON DELETE CASCADE,
 	CONSTRAINT fk_gig_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
 );
