@@ -89,7 +89,7 @@ The admins can download gig, near miss, accident, work near miss and work accide
 
 ## Supporting
 
-Sirius is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Monero and Bitcoin donations can be made to **donate.astrek.net** if using a client that supports the [OpenAlias](https://openalias.org) standard.
+Sirius is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Monero and Bitcoin donations can be made to **sirius.astrek.net** if using a client that supports the [OpenAlias](https://openalias.org) standard.
 
 The Monero donation address is:
 `88os6icMF77adsRNucVPvabhinZATE86vHPngidenS1oTtUXQd4tiZk9ZxYKS7iW92cYDpYZs1RdkZrhBieX972MVR7iU9X`
@@ -97,4 +97,4 @@ The Monero donation address is:
 The Bitcoin donation address is:
 `bc1q0ph3e2ulwe64v3swjfjcgz3kzucnvduxltaem7`
 
-Also [mail](mailto:donate@astrek.net) for alternative means of donating or if you would like to become a sponsor.
+Also [mail](mailto:sirius@astrek.net) for alternative means of donating or if you would like to become a sponsor.
