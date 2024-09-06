@@ -74,16 +74,30 @@ class Admin extends Guide{
 
 }
 
-class Safari{
-    public $id, $name, $length, $weekday, $description, $time, $active;
+class Zone{
+    public $id, $name, $address, $active;
 
-    public function __construct($id, $name, $length, $weekday, $description, $time, $active){
+    public function __construct($id, $name, $address, $active){
+        $this->id = $id;
+        $this->name = $name;
+        $this->address = $address;
+        $this->active = $active;
+    }
+}
+
+class Safari{
+    public $id, $name, $length, $weekday, $description, $time, $price_adult, $price_solo, $price_child, $active;
+
+    public function __construct($id, $name, $length, $weekday, $description, $time, $price_adult, $price_solo, $price_child, $active){
         $this->id = $id;
         $this->name = $name;
         $this->length = $length;
         $this->weekday = $weekday;
         $this->description = $description;
         $this->time = $time;
+        $this->price_adult = $price_adult;
+        $this->price_solo = $price_solo;
+        $this->price_child = $price_child;
         $this->active = $active;
     }
 }

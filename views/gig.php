@@ -32,7 +32,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     echo '
         <div id="update_gig"> 
         <form action="" method="POST">
-            <input type="url" id="erp_number" name="erp_number" maxlength="150" placeholder="https://erp_number" pattern="https://.*" value="'.$gig[0]['erp_number'].'">
+            <input type="url" id="erp_number" name="erp_number" maxlength="150" placeholder="erp number" pattern="https://.*" value="'.$gig[0]['erp_number'].'">
             <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$gig[0]['route'].'">
             <input type="text" id="weather" name="weather" required maxlength="150" placeholder="weather condition?" value="'.$gig[0]['weather'].'">
             <input type="number" id="temp" placeholder="-5°C" step="0.5" min="-45" max="30" name="temp" required value="'.$gig[0]['temp'].'"><br>
@@ -142,7 +142,7 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     echo '      </select>
                 <input type="text" id="place" name="place" required maxlength="150" placeholder="place" value="'.value('place').'">
                 <textarea id="description" name="description" required maxlength="270" placeholder="description">'.value('description').'</textarea>
-                <input type="text" id="customer_erp_number" name="customer_erp_number" maxlength="150" placeholder="customer erp link" value="'.value('customer_erp_number').'">
+                <input type="text" id="customer_erp_number" name="customer_erp_number" maxlength="150" placeholder="customer erp number" value="'.value('customer_erp_number').'">
                 <input type="text" id="customer_name" name="customer_name" required maxlength="150" placeholder="customer name" value="'.value('customer_name').'">
                 <!-- <input type="text" id="customer_address" name="customer_address" required maxlength="150" placeholder="customer address" value="'.value('customer_address').'"> -->
                 <input type="email" id="customer_email" name="customer_email" required maxlength="45" placeholder="customer email" value="'.value('customer_email').'">
