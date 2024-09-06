@@ -11,8 +11,8 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $accident = selectAllFromWhere('accident', 'gig_id', $_GET['tid'], $pdo);
     $h4class = (count($accident) > 0 ? 'class_red' : (count($nearmiss) > 0 ? 'class_orange' : (is_null($gig[0]['remarks']) ? 'class_pale' : 'class_green')));
     
-    if (!empty($gig[0]['erp_link'])) { 
-        echo '<h4 class="'.$h4class.'"><a href="'.$gig[0]['erp_link'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($gig[0]['datetime'])).'</a></h4>';
+    if (!empty($gig[0]['erp_number'])) { 
+        echo '<h4 class="'.$h4class.'"><a href="'.$gig[0]['erp_number'].'" target="_blank">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($gig[0]['datetime'])).'</a></h4>';
     }
     else {
         echo '<h4 class="'.$h4class.'">'.$safari[0]['name'].', '.date("j M Y G:i", strtotime($gig[0]['datetime'])).'</h4>';
@@ -24,15 +24,15 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
 
 
 ### UPDATE TRIP ######################################
-    if (isset($_POST['erp_link'], $_POST['route'], $_POST['weather'], $_POST['temp'], $_POST['remarks']) && $me->userlevel > 0) {
-        $inputs = array('erp_link', 'route', 'weather', 'temp', 'remarks');
+    if (isset($_POST['erp_number'], $_POST['route'], $_POST['weather'], $_POST['temp'], $_POST['remarks']) && $me->userlevel > 0) {
+        $inputs = array('erp_number', 'route', 'weather', 'temp', 'remarks');
         $me->updateTable('gig', $_GET['tid'], $inputs, $checks, $pdo);
         header( "refresh:0;url=./" );
     }
     echo '
         <div id="update_gig"> 
         <form action="" method="POST">
-            <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.$gig[0]['erp_link'].'">
+            <input type="url" id="erp_number" name="erp_number" maxlength="150" placeholder="https://erp_number" pattern="https://.*" value="'.$gig[0]['erp_number'].'">
             <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.$gig[0]['route'].'">
             <input type="text" id="weather" name="weather" required maxlength="150" placeholder="weather condition?" value="'.$gig[0]['weather'].'">
             <input type="number" id="temp" placeholder="-5°C" step="0.5" min="-45" max="30" name="temp" required value="'.$gig[0]['temp'].'"><br>
@@ -106,12 +106,12 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     $mytime = new DateTime($gig[0]['datetime']);
     $form_action = '';
     $submit = "add accident";
-    if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_address'], $_POST['customer_email']) && 
-        !empty($_POST['place']) && !empty($_POST['description']) && !empty($_POST['customer_name']) && !empty($_POST['customer_address']) && !empty($_POST['customer_email'])) {
+    if (isset($_POST['datetime'], $_POST['place'], $_POST['description'], $_POST['customer_name'], $_POST['customer_email']) && 
+        !empty($_POST['place']) && !empty($_POST['description']) && !empty($_POST['customer_name']) && !empty($_POST['customer_email'])) {
         $accidentId = (isset($_GET['acc']) ? $_GET['acc'] : insertInto('accident', 'user_id', $me->id, $pdo));
         $accidentId = (is_array($accidentId) ? $accidentId['id'] : $accidentId);
         updateTableItemWhere('accident', 'gig_id', $_GET['tid'], 'id', $accidentId, $pdo);
-        $inputs = array('datetime', 'place', 'description', 'customer_name', 'customer_address', 'customer_email', 'customer_erp_link', 'sm_reg_n', 'total_euro', 'total_paid', 'sm_model', 'injury');
+        $inputs = array('datetime', 'place', 'description', 'customer_name', 'customer_email', 'customer_erp_number', 'sm_reg_n', 'total_euro', 'total_paid', 'sm_model', 'injury', 'damage');
         $checks = array('waiver', 'first_aid', 'hospital_offer', 'hospital_visit');
         $me->updateTable('accident', $accidentId, $inputs, $checks, $pdo);
         header( "refresh:0;url=./?tid=".$_GET['tid'] );
@@ -142,16 +142,17 @@ if (isset($_GET['tid']) && $me->userlevel > 0 ) {
     echo '      </select>
                 <input type="text" id="place" name="place" required maxlength="150" placeholder="place" value="'.value('place').'">
                 <textarea id="description" name="description" required maxlength="270" placeholder="description">'.value('description').'</textarea>
-                <input type="text" id="customer_erp_link" name="customer_erp_link" maxlength="150" placeholder="customer erp link" value="'.value('customer_erp_link').'">
+                <input type="text" id="customer_erp_number" name="customer_erp_number" maxlength="150" placeholder="customer erp link" value="'.value('customer_erp_number').'">
                 <input type="text" id="customer_name" name="customer_name" required maxlength="150" placeholder="customer name" value="'.value('customer_name').'">
-                <input type="text" id="customer_address" name="customer_address" required maxlength="150" placeholder="customer address" value="'.value('customer_address').'">
+                <!-- <input type="text" id="customer_address" name="customer_address" required maxlength="150" placeholder="customer address" value="'.value('customer_address').'"> -->
                 <input type="email" id="customer_email" name="customer_email" required maxlength="45" placeholder="customer email" value="'.value('customer_email').'">
+                <textarea id="injury" name="injury" maxlength="270" placeholder="injury">'.value('injury').'</textarea><br>
                 <input type="text" id="sm_reg_n" name="sm_reg_n" maxlength="27" placeholder="snowmobile register number" value="'.value('sm_reg_n').'">
                 <input type="text" id="sm_model" name="sm_model" maxlength="30" placeholder="snowmobile model" value="'.value('sm_model').'"><br>
-                <input type="checkbox" id="waiver" name="waiver" '.$waiver.'> waiver<br>
+                <!-- <input type="checkbox" id="waiver" name="waiver" '.$waiver.'> waiver<br> -->
+                <textarea id="damage" name="damage" maxlength="270" placeholder="snowmobile damage">'.value('damage').'</textarea><br>
                 <input type="number" id="total_euro" name="total_euro" min="0.00" max="10000.00" step="0.01" placeholder="total euro" value="'.value('total_euro').'">
-                <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" placeholder="total paid" value="'.value('total_paid').'">
-                <textarea id="injury" name="injury" maxlength="270" placeholder="injury">'.value('injury').'</textarea><br>
+                <input type="number" id="total_paid" name="total_paid" min="0.00" max="10000.00" step="0.01" placeholder="total paid" value="'.value('total_paid').'"><br>
                 <input type="checkbox" id="first_aid" name="first_aid" '.$first_aid.'> first aid<br>
                 <input type="checkbox" id="hospital_offer" name="hospital offer" '.$hospital_offer.'> hospital offer<br>
                 <input type="checkbox" id="hospital_visit" name="hospital visit" '.$hospital_visit.'> hospital visit<br>
@@ -195,9 +196,9 @@ else {
     $maxtime = $maxtime->add($diff6H);
 
     if (isset($_POST['safari_id'], $_POST['datetime'], $_POST['route']) && $me->userlevel > 0 && !(selectAllFromWhere('gig', 'datetime', $_POST['datetime'], $pdo) && selectAllFromWhere('gig', 'user_id', $me->id, $pdo))) {
-        $erp_link = (isset($_POST['erp_link']) ? $_POST['erp_link'] : NULL);
+        $erp_number = (isset($_POST['erp_number']) ? $_POST['erp_number'] : NULL);
         $gigId = insertInto('gig', 'user_id', $me->id, $pdo);
-        $inputs = array('safari_id', 'erp_link', 'datetime', 'route', 'remarks');
+        $inputs = array('safari_id', 'erp_number', 'datetime', 'route', 'remarks');
         $checks = array();  
         $me->updateTable('gig', $gigId['id'], $inputs, $checks, $pdo);
         header( "refresh:0;url=./" );
@@ -222,7 +223,7 @@ else {
         echo '<a href="./?safaris">or... add a safari!</a><br>';
     }
 
-    echo '  <input type="url" id="erp_link" name="erp_link" maxlength="150" placeholder="https://erp_link" pattern="https://.*" value="'.value('erp_link').'" ><br>
+    echo '  <input type="url" id="erp_number" name="erp_number" maxlength="150" placeholder="https://erp_number" pattern="https://.*" value="'.value('erp_number').'" ><br>
             <input type="text" id="route" name="route" required maxlength="150" placeholder="route" value="'.value('route').'" ><br>
             <input type="submit" class="button" value="add gig">
         </form>

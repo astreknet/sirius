@@ -7,9 +7,9 @@ Copyright (c) 2022-2024, astreknet
 * [Introduction](#introduction)
 * [Built with](#built-with)
 * [License](#license)
-* [Implementation](#implementation)
-* [Features](#about)
+* [Features](#features)
 * [Roadmap](#roadmap)
+* [Implementation](#implementation)
 * [Supporting](#supporting)
 
 ## Introduction
@@ -28,10 +28,6 @@ Sirius is a minimalistic **safari class** and **accident report** web applicatio
 ## License
 
 See [LICENSE](LICENSE).
-
-## Implementation
-
-Ask for a _testing account_ at the contact mail on the [site](https://sirius.astrek.net) 
 
 ## Features
 
@@ -84,7 +80,11 @@ The admins can download trip, near miss, accident, work near miss and work accid
   - [x] buttons
   - [ ] menu
 
-## Suporting
+## Implementation
+
+Ask for a _testing account_ at the contact mail on the [site](https://sirius.astrek.net) 
+
+## Supporting
 
 Sirius is a 100% community-sponsored endeavor. If you want to join our efforts, the easiest thing you can do is support the project financially. Both Monero and Bitcoin donations can be made to **donate.astrek.net** if using a client that supports the [OpenAlias](https://openalias.org) standard.
 

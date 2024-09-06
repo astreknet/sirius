@@ -1,5 +1,5 @@
-INSERT IGNORE INTO zone (id, name, address) VALUES
-    (1, "lahti", "uudenkatu 1, 15, 15140 lahti, Finland");
+INSERT IGNORE INTO zone (id, name) VALUES
+    (1, "main");
     
 INSERT IGNORE INTO safari (id, name, length) VALUES
     (1, "surf safari", 180),

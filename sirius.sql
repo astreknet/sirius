@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS zone (
     id INT2 unsigned NOT NULL AUTO_INCREMENT,
     name varchar(60) NOT NULL unique,
     address varchar(90) NOT NULL,
+	active bool DEFAULT TRUE,
     PRIMARY KEY (id)
 );
 
@@ -53,7 +54,7 @@ CREATE TABLE IF NOT EXISTS gig (
 	zone_id INT2 unsigned DEFAULT 1,
 	user_id INT2 unsigned NOT NULL,
 	safari_id INT2 unsigned DEFAULT 1,
-	erp_link varchar(150),
+	erp_number char(8),
 	datetime datetime DEFAULT current_timestamp(),
 	start time,
     end time,
@@ -79,13 +80,14 @@ CREATE TABLE IF NOT EXISTS accident (
 	place varchar(150),
 	point point,
 	description varchar(300),
-	customer_erp_link varchar(150),
+	customer_erp_number char(8),
 	customer_name varchar(150),
 	customer_address varchar(150),
 	customer_email varchar(45),
 	sm_reg_n varchar(27),
 	sm_model varchar(30),
 	waiver bool DEFAULT FALSE,
+	damage varchar(300),
 	total_euro decimal(8,2) DEFAULT 0.00,
 	total_paid decimal(8,2) DEFAULT 0.00,
 	injury varchar(300),
