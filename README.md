@@ -85,7 +85,7 @@ The admins can download gig, near miss, accident, work near miss and work accide
 
 * **Local**: built on a server inside your own network. [Installing a server on a spare computer or a Raspberry pi](https://gist.github.com/astreknet/8e177cfb2a0900efa385e6062ae8f7a7) could be a solution but you will have to take care of the links for the new users manually, also everytime a user forgets a password. Plus the access is limitated to the network of the host.   
 * **Web Server**: this solution neds a host that complies with the [built with](#built-with) characteristics.
-* **Account on [astrek](https://astrek.net)**: ask for a _testing account_ at the contact mail on the [site](https://sirius.astrek.net). 
+* **Account on [astrek](https://astrek.net)**: [mail](mailto:sirius@astrek.net) for a _testing account_.
 
 ## Supporting
 
