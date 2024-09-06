@@ -37,12 +37,12 @@ Just an **email** is needed to create a user. Invitation to _register_ by _email
 
 ### userlevels
 * **inactive**: _limbo_ status, can not log in.
-* **guide**: create and update his own data, issues, trips, close calls and accidents.
+* **guide**: create and update his own data, issues, gigs, close calls and accidents.
 * **admin**: same privileges as _guide_. Also can create and modify safaris, upgrade userlevels, download [_vcards_](https://en.wikipedia.org/wiki/VCard) and [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) reports.
 * **superadmin**: same privileges as _admin_. Also can create and modify admins.
 
 ### safaris
-This are the _templates_ of the _trips_. A safari has a **unique name**, a duration and when _active_ is _available_ for the _trips_.
+This are the _templates_ of the _gigs_. A safari has a **unique name**, a duration and when _active_ is _available_ for the _gigs_.
 
 ### gigs
 An _active user_ can _add_ and _update_ gigs. A gig has a _safari name_, _time_ and a _route_. _Remarks_ can be added later. A gig can have _near misses_ and _accidents_.
@@ -61,13 +61,13 @@ The admins can download gig, near miss, accident, work near miss and work accide
 * [x] registration and password recover by mail
 * [x] guide contact vcards
 * [x] create and activate safari templates
-* [x] create and update personal trips
+* [x] create and update personal gigs
 * [x] report accidents and close calls
 * [x] work issues: accidents and near misses for the staff
 * [x] download CSV reports
-    - [x] trips
-    - [x] trip near misses
-    - [x] trip accidents
+    - [x] gigs
+    - [x] gig near misses
+    - [x] gig accidents
     - [x] work near misses
     - [x] work accidents
     - [x] anonymous feedback
