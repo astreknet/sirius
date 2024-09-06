@@ -14,7 +14,8 @@ Copyright (c) 2022-2024, astreknet
 
 ## Introduction
 
-Sirius is a minimalistic **safari class** and **accident report** web application. 
+Sirius is a minimalistic **safari class** and **accident report** web application aimed to small and medium safari/adventure business.
+The idea is to help managers accessing and searching information about safaris, guides, gigs, accidents, near misses in order to get reports and build stadistics to get a better service. Also from the guide point of view helps tracking gigs and encouraging to improve and minimize accidents. 
 <p align="center"><img src="img/example.webp" width=81% /></p>
 
 ## Built with
@@ -44,13 +45,13 @@ Just an **email** is needed to create a user. Invitation to _register_ by _email
 This are the _templates_ of the _trips_. A safari has a **unique name**, a duration and when _active_ is _available_ for the _trips_.
 
 ### gigs
-An _active user_ can _add_ and _update_ trips. A trip has a _safari name_, _time_ and a _route_. _Remarks_ can be added later. A trip can have _near misses_ and _accidents_.
+An _active user_ can _add_ and _update_ gigs. A gig has a _safari name_, _time_ and a _route_. _Remarks_ can be added later. A gig can have _near misses_ and _accidents_.
 
 ### incidents
 Work incidents are _near misses_ or _accidents_ (if there is an _injury_), out of a _safari_, during the work time.
 
 ### reports
-The admins can download trip, near miss, accident, work near miss and work accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://www.libreoffice.org) or [OpenOffice](https://www.openoffice.org)  among others.
+The admins can download gig, near miss, accident, work near miss and work accident reports in CSV format, [spreadsheets](https://en.wikipedia.org/wiki/Spreadsheet) suported by [Apple Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet)), [LibreOffice Calc](https://www.libreoffice.org) or [OpenOffice](https://www.openoffice.org)  among others.
 
 ## Roadmap
 
@@ -70,7 +71,7 @@ The admins can download trip, near miss, accident, work near miss and work accid
     - [x] work near misses
     - [x] work accidents
     - [x] anonymous feedback
-* [x] zones
+* [ ] zones
 * [ ] add geolocation button to near misses and accidents 
 * [ ] add 'days of the week' to safaris
 * [ ] add pictures to the accident report
@@ -82,7 +83,9 @@ The admins can download trip, near miss, accident, work near miss and work accid
 
 ## Implementation
 
-Ask for a _testing account_ at the contact mail on the [site](https://sirius.astrek.net) 
+* **Local**: built on a server inside your own network. [Installing a server on a spare computer or a Raspberry pi](https://gist.github.com/astreknet/8e177cfb2a0900efa385e6062ae8f7a7) could be a solution but you will have to take care of the links for the new users manually, also everytime a user forgets a password. Plus the access is limitated to the network of the host.   
+* **Web Server**: this solution neds a host that complies with the [built with](#built-with) characteristics.
+* **Account on [astrek](https://astrek.net)**: ask for a _testing account_ at the contact mail on the [site](https://sirius.astrek.net). 
 
 ## Supporting
 
