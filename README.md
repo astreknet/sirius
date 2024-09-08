@@ -97,9 +97,8 @@ The Monero donation address is:
 The Bitcoin donation address is:
 `bc1qmd0ls0mw7n6qtqagqkseyqn9xvaksdzhgrqfgg`
 
-
+Anonymous Donation:
 [Anonpay](https://trocador.app/anonpay?ticker_to=xmr&network_to=Mainnet&address=41e2shYzBu9YJ6uvdTVDnHekykXHnfRW2LERxzw7ek2F4MbUwUmQ3xU3rX3RVPCWr4C7TT2JimN9vEk9Dmx9ziKfEHKG3QZ&ref=sqKNYGZbRl&direct=True&name=Sirius)
-[TOR:Anonpay](https://trocador.app/anonpay?ticker_to=xmr&network_to=Mainnet&address=41e2shYzBu9YJ6uvdTVDnHekykXHnfRW2LERxzw7ek2F4MbUwUmQ3xU3rX3RVPCWr4C7TT2JimN9vEk9Dmx9ziKfEHKG3QZ&ref=sqKNYGZbRl&direct=True&name=Sirius)
-
+[TOR:Anonpay](https://tqzngtf2hybjbexznel6dhgsvbynjzezoybvtv6iofomx7gchqfssgqd.onion/anonpay?ticker_to=xmr&network_to=Mainnet&address=41e2shYzBu9YJ6uvdTVDnHekykXHnfRW2LERxzw7ek2F4MbUwUmQ3xU3rX3RVPCWr4C7TT2JimN9vEk9Dmx9ziKfEHKG3QZ&ref=sqKNYGZbRl&direct=True&name=Sirius)
 
 Also [mail](mailto:sirius@astrek.net) for alternative means of donating or if you would like to become a sponsor.
