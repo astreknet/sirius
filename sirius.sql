@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS zone_safari (
 
 CREATE TABLE IF NOT EXISTS user (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
-    def_zone_id INT2 unsigned NOT NULL,
+    zone_id INT2 unsigned DEFAULT 1,
 	email varchar(45) NOT NULL unique,
 	password char(64),
 	fname varchar(18),

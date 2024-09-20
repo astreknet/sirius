@@ -41,8 +41,8 @@ else {
             $me->updateUserlevel($_POST['userId'], $_POST['userlevel'], $pdo);
     }
 
-    if(isset($_POST['email'])) { 
-        $me->createUser($_POST['email'], $pdo);
+    if(isset($_POST['email'], $_POST['zone_id'])) { 
+        $user_id = $me->createUser($_POST['email'], $_POST['zone_id'], $pdo);
     }
     foreach (selectAllFrom('user', $pdo) as $u){
         $user[] = new User($u['email'], $pdo);
@@ -51,6 +51,18 @@ else {
         <h3>Users</h3>
         <form action="" method="POST">
             <input type="text" id="email" name="email" required maxlength="45" placeholder="email" autocomplete="email"><br>
+            <select id="zone" name="zone_id" required>
+                <option value="" selected disabled hidden>Choose a zone</option>';
+    $zone = selectAllFromWhere('zone', 'active', 1, $pdo);
+    foreach($zone as $s){
+        $sel = ((isset($_POST['zone_id']) && ($_POST['zone_id'] == $s['id'])) ? 'selected' : '');
+        if ($s['active']) {
+            echo '<option value="'.$s['id'].'" '.$sel.'>'.$s['name'].'</option>';
+        }
+    }
+    echo '  </select>';
+
+    echo '
             <input type="submit" class="button" value="add user" >
         </form>
                     

@@ -1,6 +1,6 @@
 <?php
 class User{
-    public $id, $email, $password, $fname, $lname, $tel, $userlevel, $def_zone_id, $activation, $updated;
+    public $id, $email, $password, $fname, $lname, $tel, $userlevel, $zone_id, $activation, $updated;
 
     public function __construct($pMail, $pdo){
         if ($row = selectAllFromWhere('user', 'email', filter_var($pMail, FILTER_VALIDATE_EMAIL), $pdo)) {
@@ -23,14 +23,15 @@ class User{
         }
     }
 
-    public function createUser($userMail, $pdo){
+    public function createUser($userMail, $zone_id, $pdo){
         if (filter_var($userMail, FILTER_VALIDATE_EMAIL)  && !(selectAllFromWhere('user', 'email', $userMail, $pdo)) && ($this->userlevel > 1)) {
-            insertInto('user', 'email', $userMail, $pdo);
+            $user = insertInto('user', 'email', $userMail, $pdo);
             $activation = bin2hex(random_bytes(16));
             $url = 'https://'.$_SERVER['HTTP_HOST'].'?account&username='.$userMail.'&activation='.$activation;
             updateTableItemWhere('user', 'activation', $activation, 'email', $userMail, $pdo);
             #$headers = array('From' => 'hugo@astrek.net', 'Reply-To' => 'sirius@astrek.net');
             mail($userMail, 'sirius acivation', $url);
+            return $user['id'];
         }
     }
 
