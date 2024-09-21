@@ -38,7 +38,3 @@ if (
         <input type="submit" class="button" value="update">
     </form>
 </section>
-
-<?php
-include('./views/feedback.php');
-?>

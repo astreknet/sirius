@@ -170,6 +170,7 @@ if (isset($_SESSION['usermail']) && ($me = new User($_SESSION['usermail'], $pdo)
     }
     elseif (isset($_GET['account'])) {
         include_once 'views/account.php';
+        include_once 'views/feedback.php';
     }
     elseif (isset($_GET['incidents'])) {
         include_once 'views/incident.php';
