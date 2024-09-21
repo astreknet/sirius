@@ -1,5 +1,4 @@
 <?php
-### ACOUNT ################################################
 (isset($me) ?: $me = new User($_SESSION['usermail'], $pdo));
 (empty($me->fname) ?: $_SESSION['fname'] = $me->fname);
 (empty($me->lname) ?: $_SESSION['lname'] = $me->lname);
@@ -24,14 +23,6 @@ if (
         updateTableItemWhere('user', 'password', $password, 'id', $me->id, $pdo);
         getout();
 }
-
-### FEEDBACK ##############################################
-if (
-    isset($_POST['description']) && !empty(trim($_POST['description']))
-    ){
-        $description = htmlspecialchars(trim($_POST['description']));
-        insertInto('feedback', 'description', $description, $pdo);
-    }
 ?>
 
 <section id="register">
@@ -48,11 +39,6 @@ if (
     </form>
 </section>
 
-<section id="feedback">
-    <h3>Anonymous Feedback</h3>
-    <form action method="POST">
-        <textarea id="description" name="description" maxlength="270" placeholder="feedback"></textarea><br>
-            
-        <input type="submit" class="button" value="send">
-    </form>
-</section>
+<?php
+include('./views/feedback.php');
+?>
