@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS gig (
 
 CREATE TABLE IF NOT EXISTS accident (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
+	zone_id INT2 unsigned DEFAULT 1,
 	user_id INT2 unsigned NOT NULL,
 	gig_id INT2 unsigned DEFAULT 1,
 	datetime datetime DEFAULT current_timestamp(),
@@ -104,6 +105,7 @@ CREATE TABLE IF NOT EXISTS accident (
 
 CREATE TABLE IF NOT EXISTS nearmiss (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
+	zone_id INT2 unsigned DEFAULT 1,
 	user_id INT2 unsigned NOT NULL,
 	gig_id INT2 unsigned DEFAULT 1,
 	nm_datetime datetime DEFAULT current_timestamp(),
@@ -123,6 +125,7 @@ CREATE TABLE IF NOT EXISTS nearmiss (
 
 CREATE TABLE IF NOT EXISTS incident (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
+	zone_id INT2 unsigned DEFAULT 1,
 	user_id INT2 unsigned NOT NULL,
 	datetime datetime DEFAULT current_timestamp(),
 	place varchar(150),
