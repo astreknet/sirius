@@ -75,17 +75,6 @@ class Admin extends Guide{
 
 }
 
-class Zone{
-    public $id, $name, $address, $active;
-
-    public function __construct($id, $name, $address, $active){
-        $this->id = $id;
-        $this->name = $name;
-        $this->address = $address;
-        $this->active = $active;
-    }
-}
-
 class Safari{
     public $id, $name, $length, $weekday, $description, $time, $price_adult, $price_solo, $price_child, $active;
 

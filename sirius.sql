@@ -1,14 +1,15 @@
 CREATE TABLE IF NOT EXISTS zone (
     id INT2 unsigned NOT NULL AUTO_INCREMENT,
-    name varchar(60) NOT NULL unique,
-    address varchar(90) NOT NULL,
+    name varchar(18) NOT NULL unique,
+    address varchar(90),
 	active bool DEFAULT TRUE,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS safari (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
-	name varchar(60) NOT NULL unique,
+	zone_id INT2 unsigned DEFAULT 1,
+    name varchar(60) NOT NULL unique,
 	length INT2 unsigned DEFAULT 60,
 	weekday INT3 DEFAULT 1111111,
 	description LONG,
@@ -17,16 +18,9 @@ CREATE TABLE IF NOT EXISTS safari (
     price_solo decimal(8,2) DEFAULT 0.00,
     price_child decimal(8,2) DEFAULT 0.00,
 	active bool DEFAULT TRUE,
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+	CONSTRAINT fk_safari_zone FOREIGN KEY (zone_id) REFERENCES zone (id) ON DELETE CASCADE
 ); 
-
-CREATE TABLE IF NOT EXISTS zone_safari (
-    zone_id INT2 unsigned NOT NULL,
-    safari_id INT2 unsigned NOT NULL,
-    PRIMARY KEY (zone_id, safari_id),
-    CONSTRAINT fk_zone_safari_zone foreign key (zone_id) references zone (id),
-    CONSTRAINT fk_zone_safari_safari foreign key (safari_id) references safari (id)
-);
 
 CREATE TABLE IF NOT EXISTS user (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
@@ -51,7 +45,6 @@ CREATE TABLE IF NOT EXISTS spare (
 
 CREATE TABLE IF NOT EXISTS gig (
 	id INT2 unsigned NOT NULL AUTO_INCREMENT,
-	zone_id INT2 unsigned DEFAULT 1,
 	user_id INT2 unsigned NOT NULL,
 	safari_id INT2 unsigned DEFAULT 1,
 	erp_number char(8),
@@ -67,7 +60,6 @@ CREATE TABLE IF NOT EXISTS gig (
 	PRIMARY KEY (id),
 	KEY fk_gig_user (user_id),
 	KEY fk_gig_safari (safari_id),
-	CONSTRAINT fk_gig_zone FOREIGN KEY (zone_id) REFERENCES zone (id) ON DELETE CASCADE,
 	CONSTRAINT fk_gig_safari FOREIGN KEY (safari_id) REFERENCES safari (id) ON DELETE CASCADE,
 	CONSTRAINT fk_gig_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
 );
