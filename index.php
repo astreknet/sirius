@@ -131,6 +131,8 @@ function prepareReport($name, $sql, $csvheader, $pdo) {
 
 ### CLASS #################################################
 require_once "./class.user.php";
+require_once "./class.safari.php";
+require_once "./class.zone.php";
 
 
 ### VALIDATION ############################################
@@ -171,6 +173,8 @@ if (isset($_SESSION['usermail']) && ($me = new User($_SESSION['usermail'], $pdo)
     elseif (isset($_GET['account'])) {
         include_once 'views/account.php';
         include_once 'views/feedback.php';
+        if ($me->userlevel > 2)
+            include_once 'views/zone.php';
     }
     elseif (isset($_GET['incidents'])) {
         include_once 'views/incident.php';

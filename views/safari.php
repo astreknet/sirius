@@ -1,4 +1,4 @@
-<section id="safaris">
+<section id="zones">
 <?php
 if (isset($_GET['safaris'], $_GET['id'])) {
     if (isset($_POST['name'], $_POST['length']) && $me->userlevel > 1) { 
@@ -31,7 +31,7 @@ else {
         updateTableItemWhere('safari', 'length', $_POST['length'], 'name', $_POST['name'], $pdo);
     }
     foreach (selectAllFrom('safari', $pdo) as $s){
-        $safari[] = new Safari($s['id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['active']);
+        $safari[] = new Safari($s['id'], $s['zone_id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['price_adult'], $s['price_solo'], $s['price_child'], $s['active']);
     }
     echo '<h3>Safaris</h3>
             <form method="POST">
