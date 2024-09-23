@@ -33,7 +33,7 @@ else {
     foreach (selectAllFrom('safari', $pdo) as $s){
         $safari[] = new Safari($s['id'], $s['zone_id'], $s['name'], $s['length'], $s['weekday'], $s['description'], $s['time'], $s['price_adult'], $s['price_solo'], $s['price_child'], $s['active']);
     }
-    echo '<h3>Safaris</h3>
+    echo '<h3 id="zones">Zones</h3>
             <form method="POST">
                 <input type="text" id="name" name="name" required maxlength="60" placeholder="safari name"><br>
                 <select id="length" name="length" required>
