@@ -26,7 +26,7 @@ if (
 ?>
 
 <section id="register">
-    <h3 id="account">Account</h3>
+    <h3 id="my-account">My Account</h3>
     <form action method="POST">
         <input type="text" name="fname" required maxlength="18" placeholder="first name" value="<?php echo value('fname'); ?>" autocomplete="first-name"><br>
         <input type="text" name="lname" required maxlength="18" placeholder="last name" value="<?php echo value('lname'); ?>" autocomplete="last-name"><br>

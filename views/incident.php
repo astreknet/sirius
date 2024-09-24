@@ -1,5 +1,5 @@
 <section id="incidents">
-    <h3>Work Incidents</h3>
+    <h3 id="my-incidents">My Incidents</h3>
 <?php
 $me = new Guide($_SESSION['usermail'], $pdo);
 $mytime = new DateTime('NOW');

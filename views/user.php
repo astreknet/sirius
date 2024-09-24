@@ -48,7 +48,7 @@ else {
         $user[] = new User($u['email'], $pdo);
     }
     echo '
-        <h3>Users</h3>
+        <h3 id="users">Users</h3>
         <form action="" method="POST">
             <input type="text" id="email" name="email" required maxlength="45" placeholder="email" autocomplete="email"><br>
             <select id="zone" name="zone_id" required>

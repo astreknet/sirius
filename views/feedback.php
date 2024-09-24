@@ -8,7 +8,7 @@ if (
 ?>
 
 <section id="feedback">
-    <h3>Anonymous Feedback</h3>
+    <h3 id="my-feedback">Anonymous Feedback</h3>
     <form action method="POST">
         <textarea id="description" name="description" maxlength="270" placeholder="feedback"></textarea><br>
 

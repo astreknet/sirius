@@ -1,5 +1,5 @@
 <section id="my_gigs">
-    <h3>My Trips</h3>
+    <h3 id="MyGigs">My Gigs</h3>
 <?php
 $me = new Guide($_SESSION['usermail'], $pdo);
 if (isset($_GET['tid']) && $me->userlevel > 0 ) {
