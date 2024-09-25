@@ -167,10 +167,10 @@ if (isset($_SESSION['usermail']) && ($me = new User($_SESSION['usermail'], $pdo)
         include_once 'views/user.php';
         include_once 'views/report.php';
     }
-    include_once 'views/gig.php';
-    include_once 'views/incident.php';
-    include_once 'views/account.php';
-    include_once 'views/feedback.php';
+    include_once 'views/mygigs.php';
+    include_once 'views/myincidents.php';
+    include_once 'views/myaccount.php';
+    include_once 'views/myfeedback.php';
 }
 else {
     include_once 'views/login.php';
