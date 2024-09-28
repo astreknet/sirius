@@ -5,24 +5,13 @@
 (empty($me->tel) ?: $_SESSION['tel'] = $me->tel);
 
 if (
-//    isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) &&
     isset($_POST['fname'], $_POST['lname'], $_POST['tel'], $_POST['new'], $_POST['password']) && 
-    !empty(trim($_POST['fname'])) && !empty(trim($_POST['lname'])) &&
-    !empty(trim($_POST['tel'])) && !empty($_POST['new']) &&
-    ($_POST['new'] === $_POST['password'])
-    ){
-//        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL); 
-        $password = hash('sha256', $_POST['password']);
-        $fname = htmlspecialchars(trim($_POST['fname']));
-        $lname = htmlspecialchars(trim($_POST['lname']));
-        $tel = filter_var($_POST['tel'], FILTER_SANITIZE_NUMBER_INT);
-        updateTableItemWhere('user', 'fname', $fname, 'id', $me->id, $pdo);
-        updateTableItemWhere('user', 'lname', $lname, 'id', $me->id, $pdo);
-        updateTableItemWhere('user', 'tel', $tel, 'id', $me->id, $pdo);
-        updateTableItemWhere('user', 'activation', NULL, 'id', $me->id, $pdo);
-        updateTableItemWhere('user', 'password', $password, 'id', $me->id, $pdo);
-        getout();
-}
+    !empty($fname = trim($_POST['fname'])) && 
+    !empty($lname = trim($_POST['lname'])) &&
+    !empty($tel =  filter_var(trim($_POST['tel']), FILTER_SANITIZE_NUMBER_INT)) && 
+    !empty($password = hash('sha256', $_POST['new'])) && ($_POST['new'] === $_POST['password'])
+    )
+        $me->updateMyself($password, $fname, $lname, $tel, $pdo);
 ?>
 
 <section id="register">

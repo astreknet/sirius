@@ -160,17 +160,23 @@ if (
 ### ROUTING ###############################################
 require_once 'views/header.php';
 if (isset($_SESSION['usermail']) && ($me = new User($_SESSION['usermail'], $pdo)) && ($me->userlevel)) {
-    if ($me->userlevel > 2)
-        include_once 'views/zone.php';
-    if ($me->userlevel > 1) {
-        include_once 'views/safari.php';
-        include_once 'views/user.php';
-        include_once 'views/report.php';
+    require_once 'views/navbar.php';
+    if (isset($_GET['account'], $_GET['activation'])) {
+        include_once 'views/myaccount.php';
     }
-    include_once 'views/mygigs.php';
-    include_once 'views/myincidents.php';
-    include_once 'views/myaccount.php';
-    include_once 'views/myfeedback.php';
+    else {
+        if ($me->userlevel > 2)
+            include_once 'views/zone.php';
+        if ($me->userlevel > 1) {
+            include_once 'views/safari.php';
+            include_once 'views/user.php';
+            include_once 'views/report.php';
+        }
+        include_once 'views/mygigs.php';
+        include_once 'views/myincidents.php';
+        include_once 'views/myaccount.php';
+        include_once 'views/myfeedback.php';
+    }
 }
 else {
     include_once 'views/login.php';

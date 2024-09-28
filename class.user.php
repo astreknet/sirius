@@ -39,6 +39,19 @@ class User{
         if (($row = selectAllFromWhere('user', 'id', $userId, $pdo)) &&  $this->userlevel > 1 && $row[0]['userlevel'] < $this->userlevel && $userLevel < $this->userlevel)
             updateTableItemWhere('user', 'userlevel', $userLevel, 'id', $userId, $pdo);
     }
+
+    public function updateMyself($password, $fname, $lname, $tel, $pdo){
+        $sql = 'UPDATE user SET fname = :fname, lname = :lname, tel = :tel, password = :password WHERE id = :id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':fname', $fname);
+        $stmt->bindValue(':lname', $lname);
+        $stmt->bindValue(':tel', $tel);
+        $stmt->bindValue(':password', $password);
+        $stmt->bindValue(':id', $this->id);
+        $stmt->execute();
+        $stmt->closeCursor();
+        unset($me);
+    }
 }
 
 class Guide extends User{
